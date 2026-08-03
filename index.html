@@ -354,7 +354,10 @@
 .verswitch-btns button{font-size:12.5px;font-weight:700;color:var(--ink-soft);padding:5px 13px;border-radius:5px;transition:.15s;}
 .verswitch-btns button:hover{color:var(--petrol);}
 .verswitch-btns button.on{background:var(--turquoise);color:#fff;}
-@media (max-width:600px){ .verswitch{right:12px;bottom:12px;padding:6px 8px;} .verswitch-l{display:none;} }
+.verswitch-arbo{font-size:12.5px;font-weight:700;color:#123E46;background:#EAF6F3;border-radius:7px;
+  padding:8px 13px;display:flex;align-items:center;gap:6px;transition:.15s;}
+.verswitch-arbo:hover{background:#16B3AB;color:#fff;}
+@media (max-width:600px){ .verswitch{right:12px;bottom:12px;padding:6px 8px;gap:6px;} .verswitch-l{display:none;} }
 </style>
 
 <div class="nmk">
@@ -405,6 +408,7 @@
       <button type="button" data-v="v1">V1</button>
       <button type="button" data-v="v2">V2</button>
     </div>
+    <button type="button" class="verswitch-arbo" id="arboBtn">⌗ Arborescence</button>
   </div>
 
   <!-- ============ MENU MOBILE (drawer + drill-down) ============ -->
@@ -740,6 +744,395 @@
   if(mobScrim) mobScrim.addEventListener('click',closeMob);
   document.addEventListener('keydown',function(e){ if(e.key!=='Escape') return;
     if(mobSub.classList.contains('open')) closeSub(); else if(mob.classList.contains('open')) closeMob(); });
+})();
+</script>
+
+<style>
+/* ============================================================
+   VUE ARBORESCENCE — mindmap + recommandations d'URL SEO (FR/EN/DE)
+   ============================================================ */
+.arbo{position:fixed;inset:0;z-index:300;background:#FBF9F5;overflow:auto;display:none;
+  font-family:'Raleway',system-ui,-apple-system,sans-serif;color:#2F2722;-webkit-font-smoothing:antialiased;}
+.arbo.open{display:block;}
+.arbo *{box-sizing:border-box;}
+.arbo-in{max-width:1480px;margin:0 auto;padding:28px 32px 90px;}
+
+.arbo-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:22px;}
+.arbo-h{font-size:24px;font-weight:800;margin:0 0 6px;letter-spacing:-.01em;}
+.arbo-sub{font-size:14px;color:#5E767C;margin:0;max-width:70ch;line-height:1.55;}
+.arbo-close{flex:0 0 auto;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #DCEAE7;
+  border-radius:8px;padding:9px 14px;font-size:13px;font-weight:700;color:#123E46;cursor:pointer;font-family:inherit;}
+.arbo-close:hover{background:#EAF6F3;}
+
+.arbo-legend{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px;}
+.arbo-tag{font-size:11px;font-weight:700;padding:5px 11px;border-radius:999px;}
+.tag-ok{background:#EAF6F3;color:#0E8F89;}
+.tag-chg{background:#FDF0E4;color:#B5651D;}
+.tag-new{background:#FFF6DA;color:#6b4e00;}
+.tag-flt{background:#F0EDF7;color:#6E4FA8;}
+
+/* --- alertes SEO --- */
+.arbo-alerts{background:#fff;border:1px solid #DCEAE7;border-radius:12px;padding:18px 20px;margin-bottom:30px;}
+.arbo-alerts h3{margin:0 0 12px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#0E8F89;}
+.arbo-alerts ul{margin:0;padding-left:18px;}
+.arbo-alerts li{font-size:13.5px;line-height:1.6;color:#404040;margin-bottom:7px;}
+.arbo-alerts code{background:#F4F4F3;padding:1px 6px;border-radius:4px;font-size:12.5px;font-family:ui-monospace,Menlo,monospace;}
+
+/* --- mindmap --- */
+.mm{display:flex;flex-direction:column;gap:10px;}
+.mm-row{display:flex;align-items:flex-start;gap:0;}
+.mm-rootnode{flex:0 0 auto;align-self:flex-start;background:#123E46;color:#fff;border-radius:10px;
+  padding:14px 20px;font-weight:800;font-size:15px;position:sticky;top:20px;z-index:2;}
+.mm-rootnode small{display:block;font-weight:500;font-size:11px;opacity:.75;margin-top:3px;}
+.mm-rootnode::after{content:"";position:absolute;left:100%;top:27px;width:26px;height:2px;background:#CFE3DF;}
+/* connecteurs de la carte : un tronc vertical + une branche vers chaque rubrique */
+.mm-branches{flex:1;display:flex;flex-direction:column;gap:14px;min-width:0;position:relative;
+  padding-left:34px;margin-left:26px;}
+.mm-branches::before{content:"";position:absolute;left:0;top:28px;bottom:28px;width:2px;background:#CFE3DF;}
+.mm-branch::before{content:"";position:absolute;left:-34px;top:27px;width:34px;height:2px;background:#CFE3DF;}
+.mm-branch::after{content:"";position:absolute;left:-6px;top:23px;width:9px;height:9px;border-radius:50%;
+  background:#fff;border:2px solid #16B3AB;}
+
+.mm-branch{position:relative;background:#fff;border:1px solid #DCEAE7;border-radius:12px;overflow:hidden;}
+.mm-l1{width:100%;display:flex;align-items:center;gap:12px;padding:14px 18px;background:none;border:0;
+  cursor:pointer;font-family:inherit;font-size:16px;font-weight:700;color:#2F2722;text-align:left;}
+.mm-l1:hover{background:#F4FAF8;}
+.mm-l1 .mm-caret{width:8px;height:8px;border-right:2px solid #5E767C;border-bottom:2px solid #5E767C;
+  transform:rotate(-45deg);transition:transform .2s;flex:0 0 auto;}
+.mm-branch.open .mm-l1 .mm-caret{transform:rotate(45deg);}
+.mm-l1 .mm-count{margin-left:auto;font-size:11px;font-weight:700;color:#5E767C;background:#F4F4F3;
+  padding:3px 9px;border-radius:999px;}
+.mm-url{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#0E8F89;font-weight:600;}
+
+.mm-kids{display:none;padding:4px 18px 18px 40px;border-top:1px dashed #E4EDEB;}
+.mm-branch.open .mm-kids{display:block;}
+.mm-group{padding:14px 0 4px;}
+.mm-group + .mm-group{border-top:1px dashed #EFF3F2;}
+.mm-l2{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#52B9B9;margin-bottom:10px;}
+.mm-leaves{display:flex;flex-wrap:wrap;gap:7px;}
+.mm-node{display:inline-flex;align-items:center;gap:7px;background:#F7FAF9;border:1px solid #E4EDEB;
+  border-radius:7px;padding:7px 12px;font-size:13.5px;font-weight:500;color:#404040;cursor:default;transition:.14s;}
+.mm-node:hover{background:#EAF6F3;border-color:#16B3AB;color:#123E46;}
+.mm-node .dot{width:6px;height:6px;border-radius:50%;flex:0 0 auto;}
+.dot-ok{background:#16B3AB;} .dot-chg{background:#E09B4A;} .dot-new{background:#F7C24B;} .dot-flt{background:#9B78C9;}
+
+/* --- tooltip --- */
+.mm-tip{position:fixed;z-index:320;background:#123E46;color:#fff;border-radius:10px;padding:14px 16px;
+  width:400px;max-width:calc(100vw - 32px);box-shadow:0 18px 40px -14px rgba(18,62,70,.55);
+  opacity:0;visibility:hidden;transition:opacity .14s;pointer-events:none;}
+.mm-tip.show{opacity:1;visibility:visible;}
+.mm-tip-h{font-size:14px;font-weight:800;margin-bottom:10px;}
+.mm-tip-row{display:flex;gap:9px;align-items:baseline;margin-bottom:5px;}
+.mm-tip-lang{flex:0 0 26px;font-size:10px;font-weight:800;letter-spacing:.06em;color:#7FD4CE;}
+.mm-tip-url{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;word-break:break-all;line-height:1.45;}
+.mm-tip-note{margin-top:10px;padding-top:9px;border-top:1px solid rgba(255,255,255,.18);
+  font-size:12px;line-height:1.5;color:#CFE3E0;}
+.mm-tip-note b{color:#FFD98A;}
+
+@media (max-width:820px){
+  .arbo-in{padding:20px 16px 80px;}
+  .mm-rootnode{display:none;}
+  .mm-branches{margin-left:0;padding-left:18px;}
+  .mm-branch::before{left:-18px;width:18px;}
+  .mm-l1 .mm-url{display:none;}
+  .mm-tip{width:calc(100vw - 24px);}
+}
+</style>
+
+<div class="arbo" id="arbo">
+  <div class="arbo-in">
+    <div class="arbo-top">
+      <div>
+        <h2 class="arbo-h">Arborescence & structure d'URL</h2>
+        <p class="arbo-sub">Survolez une entrée pour voir l'URL recommandée dans les trois langues.
+          Les recommandations partent de l'existant namaki.fr et corrigent ce qui freine le référencement.
+          Cliquez sur une rubrique pour la déplier.</p>
+      </div>
+      <button class="arbo-close" id="arboClose" type="button">✕ Fermer</button>
+    </div>
+
+    <div class="arbo-legend">
+      <span class="arbo-tag tag-ok">URL existante conservée</span>
+      <span class="arbo-tag tag-chg">URL à faire évoluer (301)</span>
+      <span class="arbo-tag tag-new">Nouvelle page à créer</span>
+      <span class="arbo-tag tag-flt">Filtre — non indexable</span>
+    </div>
+
+    <div class="arbo-alerts">
+      <h3>Ce qui doit évoluer pour être SEO-friendly</h3>
+      <ul>
+        <li><b>Supprimer le préfixe <code>/c/</code></b> des catégories. Il n'a aucune valeur sémantique
+          et, contrairement au reste du site, il n'est pas traduit (<code>/en/c/</code>, <code>/de/c/</code>).
+          Les mots-clés doivent remonter à la racine : <code>/maquillage-enfant/crayons-maquillage-enfant</code>.
+          Redirections 301 depuis les anciennes URL.</li>
+        <li><b>Fusionner les deux silos concurrents</b> <code>/c/maquillage-enfant</code> et
+          <code>/c/maquillage-deguisement</code> : ils ciblent les mêmes requêtes et se cannibalisent.
+          Un seul silo <code>/maquillage-enfant/</code>.</li>
+        <li><b>Dédoublonner</b> <code>nouveautes</code> / <code>nouveautes-maquillage</code> et
+          <code>meilleures-ventes</code> / <code>meilleures-ventes-maquillage</code> : une seule URL par intention.</li>
+        <li><b>Désindexer</b> <code>/c/non-classe</code> (catégorie « non classé » actuellement dans le sitemap).</li>
+        <li><b>Filtres en paramètres, jamais en URL propres</b> : âge, prix et budget passent en
+          <code>?age=</code> / <code>?prix=</code> avec <code>noindex</code> et canonical vers la catégorie mère.
+          On évite ainsi des milliers d'URL à facettes.</li>
+        <li><b>hreflang FR / EN / DE</b> sur chaque page, réciproque, plus <code>x-default</code> vers le FR.</li>
+        <li><b>Occasions et Thématiques sont les vrais gisements SEO</b> (« maquillage halloween enfant »,
+          « maquillage licorne ») : ces pages méritent du contenu éditorial, pas seulement une grille produits.</li>
+      </ul>
+    </div>
+
+    <div class="mm">
+      <div class="mm-row">
+        <div class="mm-rootnode">namaki.fr<small>FR · EN · DE</small></div>
+        <div class="mm-branches" id="mmBranches"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mm-tip" id="mmTip"></div>
+
+<script>
+(function(){
+  var BASE={fr:'',en:'/en',de:'/de'};
+  // type : ok = URL existante · chg = à faire évoluer (301) · new = à créer · flt = filtre non indexable
+  var A=[
+    {label:'Maquillage', slug:{fr:'maquillage-enfant',en:'kids-makeup',de:'kinderschminke'}, t:'chg',
+     note:'Catégorie mère. Retirer <b>/c/</b> et fusionner avec <b>/c/maquillage-deguisement</b> (silos concurrents).',
+     groups:[
+      {label:'Accès rapide', items:[
+        {label:'Voir tout', self:true, t:'chg', note:'La catégorie mère elle-même — pas de page « voir tout » distincte (contenu dupliqué).'},
+        {label:'Nouveautés', slug:{fr:'nouveautes',en:'new-arrivals',de:'neuheiten'}, t:'chg',
+         note:'Existe en double aujourd’hui (<b>nouveautes</b> et <b>nouveautes-maquillage</b>) : n’en garder qu’une.'},
+        {label:'Best sellers', slug:{fr:'meilleures-ventes',en:'best-sellers',de:'bestseller'}, t:'chg',
+         note:'Également en double aujourd’hui : fusionner en une seule URL.'},
+        {label:'Collaborations exclusives', page:{fr:'/collaborations',en:'/en/collaborations',de:'/de/kooperationen'}, t:'ok',
+         note:'Page existante <b>/collaborations</b> : à conserver telle quelle.'},
+        {label:'Coffrets', page:{fr:'/coffrets-maquillage-enfant',en:'/en/kids-makeup-gift-sets',de:'/de/schminkset-kinder'}, t:'new',
+         note:'Renvoie vers la rubrique Coffrets : un seul emplacement canonique pour cette page.'},
+        {label:'Offre du moment', page:{fr:'/promotions/offre-du-moment',en:'/en/promotions/current-offer',de:'/de/promotionen/aktuelles-angebot'}, t:'new'},
+        {label:'Fin de série', page:{fr:'/promotions/fin-de-serie',en:'/en/promotions/last-chance',de:'/de/promotionen/restposten'}, t:'new'},
+        {label:'Concours', page:{fr:'/concours',en:'/en/contests',de:'/de/gewinnspiele'}, t:'new',
+         note:'Page dédiée (concours en cours + archives) plutôt qu’un lien sortant direct vers Instagram : le trafic reste sur le site.'}
+      ]},
+      {label:'Tous les produits', items:[
+        {label:'Crayons de maquillage', slug:{fr:'crayons-maquillage-enfant',en:'face-paint-crayons',de:'schminkstifte'}, t:'chg'},
+        {label:'Palettes de maquillage', slug:{fr:'palettes-maquillage-enfant',en:'makeup-palettes',de:'schmink-paletten'}, t:'chg'},
+        {label:'Fards à paupières', slug:{fr:'fards-paupieres',en:'eyeshadows',de:'lidschatten'}, t:'chg'},
+        {label:'Baumes & gloss', slug:{fr:'baumes-levres',en:'lip-balms',de:'lippenbalsam'}, t:'chg',
+         note:'Slug actuel au singulier (<b>baumes-levre</b>) : passer au pluriel.'},
+        {label:'Mascara cheveux', slug:{fr:'mascara-cheveux',en:'hair-mascara',de:'haar-mascara'}, t:'chg',
+         note:'Préférer <b>mascara-cheveux</b> à <b>mascara-cheveux-double-embout</b> : plus proche de la requête.'},
+        {label:'Gels pailletés', slug:{fr:'gels-pailletes',en:'glitter-gels',de:'glitzergel'}, t:'chg'},
+        {label:'Tatouages enfant', slug:{fr:'tatouages-enfant',en:'kids-tattoos',de:'kinder-tattoos'}, t:'chg'},
+        {label:'Vernis à ongles', slug:{fr:'vernis-ongles-enfant',en:'kids-nail-polish',de:'kinder-nagellack'}, t:'chg',
+         note:'Slug actuel <b>vernis-eau</b> : « vernis à ongles enfant » correspond mieux à la recherche.'},
+        {label:'Accessoires', slug:{fr:'accessoires-maquillage',en:'makeup-accessories',de:'schmink-zubehoer'}, t:'ok'}
+      ]},
+      {label:'Par âge (filtre)', items:[
+        {label:'3 à 6 ans', filter:'?age=3-6', t:'flt'},
+        {label:'6 à 9 ans', filter:'?age=6-9', t:'flt'},
+        {label:'9 ans et +', filter:'?age=9-plus', t:'flt'}
+      ]},
+      {label:'Par prix (filtre)', items:[
+        {label:'– de 15€', filter:'?prix=0-15', t:'flt'},
+        {label:'de 15 à 50€', filter:'?prix=15-50', t:'flt'},
+        {label:'+ de 50€', filter:'?prix=50-plus', t:'flt'}
+      ]}
+    ]},
+
+    {label:'Coffrets & idées cadeaux', slug:{fr:'coffrets-maquillage-enfant',en:'kids-makeup-gift-sets',de:'schminkset-kinder'}, t:'new',
+     note:'Nouvelle catégorie mère. « Coffret » est un fort volume de recherche : il mérite son silo plutôt qu’une sous-catégorie.',
+     groups:[
+      {label:'Nos coffrets', items:[
+        {label:'Tous les coffrets', self:true, t:'new'},
+        {label:'Coffrets cadeaux', slug:{fr:'coffrets-cadeaux',en:'gift-sets',de:'geschenksets'}, t:'new'},
+        {label:'Cadeaux de Noël', slug:{fr:'cadeaux-noel',en:'christmas-gifts',de:'weihnachtsgeschenke'}, t:'new',
+         note:'Page saisonnière : la garder en ligne toute l’année (l’historique se capitalise), pas de dépublication.'},
+        {label:'Cadeaux d’anniversaire', slug:{fr:'cadeaux-anniversaire',en:'birthday-gifts',de:'geburtstagsgeschenke'}, t:'new'},
+        {label:'Cartes cadeaux', page:{fr:'/carte-cadeau',en:'/en/gift-card',de:'/de/geschenkkarte'}, t:'new'},
+        {label:'Pochettes surprises', slug:{fr:'pochettes-surprises',en:'party-favours',de:'mitgebsel'}, t:'new'}
+      ]},
+      {label:'Par budget (filtre)', items:[
+        {label:'– de 15€', filter:'?prix=0-15', t:'flt'},
+        {label:'de 15 à 50€', filter:'?prix=15-50', t:'flt'},
+        {label:'+ de 50€', filter:'?prix=50-plus', t:'flt'}
+      ]}
+    ]},
+
+    {label:'Occasions', slug:{fr:'occasions',en:'occasions',de:'anlaesse'}, t:'chg',
+     note:'Remplace <b>/c/univers-occasions</b> : plus court et sans le préfixe /c/. Gisement SEO majeur.',
+     groups:[{label:'Les occasions', items:[
+        {label:'Anniversaire', slug:{fr:'maquillage-anniversaire',en:'birthday-face-paint',de:'kinderschminken-geburtstag'}, t:'new'},
+        {label:'Soirée pyjama', slug:{fr:'soiree-pyjama',en:'pyjama-party',de:'pyjamaparty'}, t:'new'},
+        {label:'Carnaval', slug:{fr:'maquillage-carnaval',en:'carnival-face-paint',de:'fasching-schminken'}, t:'chg',
+         note:'Existe déjà sous <b>/c/univers-occasions/maquillage-carnaval</b> : conserver le slug, retirer /c/.'},
+        {label:'Halloween', slug:{fr:'maquillage-halloween',en:'halloween-face-paint',de:'halloween-schminken'}, t:'chg',
+         note:'Page la plus stratégique de l’année : mériterait un contenu éditorial (idées, pas-à-pas) au-dessus de la grille produits.'},
+        {label:'Día de los Muertos', slug:{fr:'dia-de-los-muertos',en:'day-of-the-dead',de:'dia-de-los-muertos'}, t:'new'},
+        {label:'Noël', slug:{fr:'maquillage-noel',en:'christmas-face-paint',de:'weihnachts-schminken'}, t:'chg',
+         note:'Slug actuel <b>maquillage-noel-nouvel-an</b> : le raccourcir améliore la correspondance à la requête.'},
+        {label:'Match & compétition', slug:{fr:'maquillage-supporter',en:'sports-face-paint',de:'sport-schminken'}, t:'new'},
+        {label:'Kermesse école', slug:{fr:'kermesse-ecole',en:'school-fair',de:'schulfest'}, t:'new'},
+        {label:'Gala danse', slug:{fr:'gala-danse',en:'dance-show',de:'tanzauffuehrung'}, t:'new'},
+        {label:'Mariage & baptême', slug:{fr:'mariage-bapteme',en:'wedding-christening',de:'hochzeit-taufe'}, t:'new'}
+      ]}]},
+
+    {label:'Thématiques', slug:{fr:'themes-maquillage',en:'face-paint-themes',de:'schmink-themen'}, t:'new',
+     note:'Aujourd’hui mélangées aux occasions (<b>maquillage-feerique</b>, <b>maquillage-animaux</b>…). Les séparer clarifie le maillage : une occasion est un moment, une thématique est un personnage.',
+     groups:[
+      {label:'Féérie', items:[
+        {label:'Papillon', slug:{fr:'maquillage-papillon',en:'butterfly-face-paint',de:'schmetterling-schminken'}, t:'new'},
+        {label:'Fée des fleurs', slug:{fr:'maquillage-fee',en:'fairy-face-paint',de:'feen-schminken'}, t:'new'},
+        {label:'Licorne', slug:{fr:'maquillage-licorne',en:'unicorn-face-paint',de:'einhorn-schminken'}, t:'new',
+         note:'Fort volume de recherche : à traiter en priorité avec un tuto associé.'},
+        {label:'Sirène', slug:{fr:'maquillage-sirene',en:'mermaid-face-paint',de:'meerjungfrau-schminken'}, t:'new'},
+        {label:'Ballerine', slug:{fr:'maquillage-ballerine',en:'ballerina-face-paint',de:'ballerina-schminken'}, t:'new'},
+        {label:'Princesse de l’hiver', slug:{fr:'maquillage-princesse-hiver',en:'winter-princess-face-paint',de:'eisprinzessin-schminken'}, t:'new'}
+      ]},
+      {label:'Aventure', items:[
+        {label:'Pirate', slug:{fr:'maquillage-pirate',en:'pirate-face-paint',de:'pirat-schminken'}, t:'new'},
+        {label:'Jungle', slug:{fr:'maquillage-jungle',en:'jungle-face-paint',de:'dschungel-schminken'}, t:'new'},
+        {label:'Safari', slug:{fr:'maquillage-safari',en:'safari-face-paint',de:'safari-schminken'}, t:'new'},
+        {label:'Tutti frutti', slug:{fr:'maquillage-tutti-frutti',en:'tutti-frutti-face-paint',de:'tutti-frutti-schminken'}, t:'new'}
+      ]},
+      {label:'Halloween & magie', items:[
+        {label:'Squelette', slug:{fr:'maquillage-squelette',en:'skeleton-face-paint',de:'skelett-schminken'}, t:'new'},
+        {label:'Citrouille', slug:{fr:'maquillage-citrouille',en:'pumpkin-face-paint',de:'kuerbis-schminken'}, t:'new'},
+        {label:'Squelette mexicain', slug:{fr:'maquillage-squelette-mexicain',en:'catrina-face-paint',de:'catrina-schminken'}, t:'new'},
+        {label:'Sorcier & magie', slug:{fr:'maquillage-sorciere',en:'witch-face-paint',de:'hexe-schminken'}, t:'new'}
+      ]}
+    ]},
+
+    {label:'Bons plans', slug:{fr:'promotions',en:'promotions',de:'promotionen'}, t:'chg',
+     note:'Slugs déjà bons dans les trois langues : seul le préfixe <b>/c/</b> disparaît.',
+     groups:[
+      {label:'Offres du moment', items:[
+        {label:'Soldes d’été 2026', slug:{fr:'soldes-ete',en:'summer-sale',de:'sommerschlussverkauf'}, t:'new',
+         note:'URL sans millésime : réutilisable chaque année, l’historique SEO se capitalise.'},
+        {label:'Offre du moment', slug:{fr:'offre-du-moment',en:'current-offer',de:'aktuelles-angebot'}, t:'new'},
+        {label:'Packs produits', slug:{fr:'packs-produits',en:'bundles',de:'produkt-sets'}, t:'new'},
+        {label:'Fin de série', slug:{fr:'fin-de-serie',en:'last-chance',de:'restposten'}, t:'new'},
+        {label:'Concours', page:{fr:'/concours',en:'/en/contests',de:'/de/gewinnspiele'}, t:'new'}
+      ]},
+      {label:'Petits prix (filtre)', items:[
+        {label:'– de 10€', filter:'?prix=0-10', t:'flt'},
+        {label:'– de 15€', filter:'?prix=0-15', t:'flt'}
+      ]}
+    ]},
+
+    {label:'Namaki', page:{fr:'/la-marque',en:'/en/about-namaki',de:'/de/ueber-namaki'}, t:'new',
+     note:'Pages corporate : elles restent à la racine (déjà indexées), la rubrique sert de point d’entrée.',
+     groups:[{label:'La marque', items:[
+        {label:'Manifeste', page:{fr:'/manifeste',en:'/en/manifest',de:'/de/manifest'}, t:'chg',
+         note:'L’URL FR actuelle est <b>/manifest</b> (anglais) : passer à <b>/manifeste</b> avec un 301.'},
+        {label:'Nos valeurs', page:{fr:'/nos-valeurs',en:'/en/our-values',de:'/de/unsere-werte'}, t:'new'},
+        {label:'Fabrication & sécurité', page:{fr:'/fabrication-securite',en:'/en/manufacturing-safety',de:'/de/herstellung-sicherheit'}, t:'new'},
+        {label:'Ingrédients & certifications', page:{fr:'/ingredients-certifications',en:'/en/ingredients-certifications',de:'/de/inhaltsstoffe-zertifizierungen'}, t:'new',
+         note:'Page à fort potentiel de confiance (« maquillage bio enfant ») : y placer les labels COSMOS et la liste INCI.'},
+        {label:'Livraison & retours', page:{fr:'/livraison-retours',en:'/en/shipping-returns',de:'/de/versand-ruecksendungen'}, t:'ok'},
+        {label:'Nous contacter', page:{fr:'/contact',en:'/en/contact',de:'/de/kontakt'}, t:'ok'}
+      ]}]},
+
+    {label:'Tutoriels', page:{fr:'/tuto-maquillage',en:'/en/make-up-tutorial',de:'/de/schmink-tutorial'}, t:'ok',
+     note:'URLs existantes en FR et EN : à conserver. Chaque tuto doit pointer vers la thématique correspondante (maillage interne).',
+     groups:[
+      {label:'Par genre', items:[
+        {label:'Animaux', page:{fr:'/tuto-maquillage/animaux',en:'/en/make-up-tutorial/animals',de:'/de/schmink-tutorial/tiere'}, t:'new'},
+        {label:'Clowns & magie', page:{fr:'/tuto-maquillage/clown-magie',en:'/en/make-up-tutorial/clown-magic',de:'/de/schmink-tutorial/clown-magie'}, t:'new'},
+        {label:'Féérie', page:{fr:'/tuto-maquillage/feerie',en:'/en/make-up-tutorial/fairy-tale',de:'/de/schmink-tutorial/maerchen'}, t:'new'},
+        {label:'Halloween', page:{fr:'/tuto-maquillage/halloween',en:'/en/make-up-tutorial/halloween',de:'/de/schmink-tutorial/halloween'}, t:'new'},
+        {label:'Super-héros', page:{fr:'/tuto-maquillage/super-heros',en:'/en/make-up-tutorial/superheroes',de:'/de/schmink-tutorial/superhelden'}, t:'new'}
+      ]},
+      {label:'Nos incontournables', items:[
+        {label:'Licorne magique', page:{fr:'/tuto-maquillage/licorne',en:'/en/make-up-tutorial/unicorn',de:'/de/schmink-tutorial/einhorn'}, t:'new'},
+        {label:'Tigre facile', page:{fr:'/tuto-maquillage/tigre',en:'/en/make-up-tutorial/tiger',de:'/de/schmink-tutorial/tiger'}, t:'new'},
+        {label:'Papillon coloré', page:{fr:'/tuto-maquillage/papillon',en:'/en/make-up-tutorial/butterfly',de:'/de/schmink-tutorial/schmetterling'}, t:'new'},
+        {label:'Squelette rigolo', page:{fr:'/tuto-maquillage/squelette',en:'/en/make-up-tutorial/skeleton',de:'/de/schmink-tutorial/skelett'}, t:'new'},
+        {label:'Sirène & océan', page:{fr:'/tuto-maquillage/sirene',en:'/en/make-up-tutorial/mermaid',de:'/de/schmink-tutorial/meerjungfrau'}, t:'new'}
+      ]}
+    ]},
+
+    {label:'Menu secondaire', page:{fr:'/',en:'/en',de:'/de'}, t:'ok',
+     note:'Barre supérieure : pages de réassurance, hors silo produit.',
+     groups:[{label:'Barre supérieure', items:[
+        {label:'Points de vente', page:{fr:'/points-de-vente',en:'/en/points-of-sale',de:'/de/verkaufsstellen'}, t:'ok',
+         note:'Fort intérêt local : y publier la liste complète des revendeurs, ville par ville.'},
+        {label:'Namaki & les pros', page:{fr:'/namaki-et-les-pros',en:'/en/namaki-for-professionals',de:'/de/namaki-fuer-profis'}, t:'ok'},
+        {label:'FAQ', page:{fr:'/faq',en:'/en/faq',de:'/de/faq'}, t:'new',
+         note:'À baliser en <b>FAQPage</b> (données structurées) pour viser les résultats enrichis.'},
+        {label:'Blog', page:{fr:'/blog',en:'/en/blog',de:'/de/blog'}, t:'new'},
+        {label:'Produit (fiche)', page:{fr:'/produit/<slug>',en:'/en/product/<slug>',de:'/de/produkt/<slug>'}, t:'ok',
+         note:'Bases déjà traduites : rien à changer. Prévoir le balisage <b>Product</b> + avis.'}
+      ]}]}
+  ];
+
+  var LABEL={ok:'URL existante conservée',chg:'À faire évoluer — prévoir une 301',new:'Nouvelle page à créer',flt:'Filtre : noindex + canonical vers la catégorie mère'};
+
+  function urlFor(node,parent,lang){
+    if(node.filter) return (parent? url(parent,lang):'') + node.filter;
+    if(node.self)   return url(parent,lang);
+    if(node.page)   return node.page[lang];
+    if(node.slug && parent) return url(parent,lang) + '/' + node.slug[lang];
+    return BASE[lang] + '/' + (node.slug? node.slug[lang] : '');
+  }
+  function url(node,lang){
+    if(node.page) return node.page[lang];
+    return BASE[lang] + '/' + node.slug[lang];
+  }
+
+  var wrap=document.getElementById('mmBranches'), tip=document.getElementById('mmTip');
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+  A.forEach(function(rub,ri){
+    var count=rub.groups.reduce(function(n,g){return n+g.items.length;},0);
+    var b=document.createElement('div'); b.className='mm-branch'+(ri===0?' open':'');
+    var h='<button class="mm-l1" type="button"><span class="mm-caret"></span>'+esc(rub.label)
+      +'<span class="mm-url">'+esc(url(rub,'fr'))+'</span><span class="mm-count">'+count+'</span></button><div class="mm-kids">';
+    rub.groups.forEach(function(g){
+      h+='<div class="mm-group"><div class="mm-l2">'+esc(g.label)+'</div><div class="mm-leaves">';
+      g.items.forEach(function(it,ii){
+        h+='<span class="mm-node" data-r="'+ri+'" data-g="'+esc(g.label)+'" data-i="'+ii+'">'
+          +'<span class="dot dot-'+(it.t||'ok')+'"></span>'+esc(it.label)+'</span>';
+      });
+      h+='</div></div>';
+    });
+    b.innerHTML=h+'</div>';
+    b.querySelector('.mm-l1').addEventListener('click',function(){ b.classList.toggle('open'); });
+    // survol de la rubrique elle-même
+    b.querySelector('.mm-l1').addEventListener('mouseenter',function(e){ showTip(rub,null,e.currentTarget); });
+    b.querySelector('.mm-l1').addEventListener('mouseleave',hideTip);
+    wrap.appendChild(b);
+  });
+
+  function showTip(node,parent,el){
+    var t=node.t||'ok';
+    var h='<div class="mm-tip-h">'+esc(node.label)+'</div>';
+    ['fr','en','de'].forEach(function(l){
+      h+='<div class="mm-tip-row"><span class="mm-tip-lang">'+l.toUpperCase()+'</span>'
+        +'<span class="mm-tip-url">'+esc(urlFor(node,parent,l))+'</span></div>';
+    });
+    h+='<div class="mm-tip-note"><b>'+LABEL[t]+'</b>'+(node.note? ' — '+node.note : '')+'</div>';
+    tip.innerHTML=h; tip.classList.add('show');
+    var r=el.getBoundingClientRect(), tr=tip.getBoundingClientRect();
+    var left=Math.min(Math.max(12, r.left), window.innerWidth-tr.width-12);
+    var top=r.bottom+10;
+    if(top+tr.height>window.innerHeight-12) top=Math.max(12, r.top-tr.height-10);
+    tip.style.left=left+'px'; tip.style.top=top+'px';
+  }
+  function hideTip(){ tip.classList.remove('show'); }
+
+  wrap.addEventListener('mouseover',function(e){
+    var n=e.target.closest('.mm-node'); if(!n) return;
+    var rub=A[+n.dataset.r];
+    var g=rub.groups.filter(function(x){return x.label===n.dataset.g;})[0];
+    showTip(g.items[+n.dataset.i], rub, n);
+  });
+  wrap.addEventListener('mouseout',function(e){ if(e.target.closest('.mm-node')) hideTip(); });
+
+  var arbo=document.getElementById('arbo');
+  document.getElementById('arboClose').addEventListener('click',function(){ arbo.classList.remove('open'); document.body.style.overflow=''; });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&arbo.classList.contains('open')){ arbo.classList.remove('open'); document.body.style.overflow=''; } });
+  var btn=document.getElementById('arboBtn');
+  if(btn) btn.addEventListener('click',function(){ arbo.classList.add('open'); document.body.style.overflow='hidden'; hideTip(); });
 })();
 </script>
 
