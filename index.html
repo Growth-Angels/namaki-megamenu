@@ -327,10 +327,9 @@
 .v2 .nmk-brand img.shake,.v2 .nmk-brand:hover img{animation:nmkTrace .85s cubic-bezier(.22,.61,.36,1);}
 .v2 .mob.open .mob-logo{animation:nmkTrace .9s cubic-bezier(.22,.61,.36,1) .1s both;}
 
-/* Densité : on rend un peu de largeur aux colonnes (évite les retours à la ligne) */
+/* Densité : on rend un peu de largeur aux colonnes (évite les retours à la ligne).
+   Tous les panneaux ont désormais la même largeur (3 colonnes max). */
 .v2 .nmk-media{flex:0 0 380px;}
-.v2 .nmk-mega.wide{max-width:1500px;}
-.v2 .nmk-mega.wide .nmk-mega-cols{gap:40px;}
 
 /* Mobile — bouton Soldes : arrondi doux, sans ombre, texte blanc
    (couleur pilotable via --btn) */
@@ -556,13 +555,13 @@
     function get(id){ for(var i=0;i<m.length;i++){ if(m[i].id===id) return m[i]; } }
 
     // Maquillage — densité : gras limité aux 3 premiers + bloc crème (mobile).
-    // « Par zone du corps » → « Par usage » (les produits ne sont pas cloisonnés).
+    // « Par zone du corps » supprimée (les produits ne sont pas cloisonnés) ;
+    // le panneau repasse à la largeur standard, comme les autres rubriques.
     var mq = get('maquillage');
     mq.columns[0].strongMax = 3;
     mq.columns[0].cream = true;
-    mq.columns[3].title = 'Par usage';
-    mq.columns[3].links = [{label:'Visage & corps'},{label:'Yeux'},{label:'Lèvres'},
-                           {label:'Cheveux'},{label:'Ongles'},{label:'Paillettes & effets'}];
+    mq.columns.splice(3,1);
+    mq.wide = false;
 
     // Idées cadeaux → « Coffrets & idées cadeaux » ; sélection réellement orientée cadeau
     var cd = get('cadeaux');
