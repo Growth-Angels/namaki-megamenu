@@ -297,7 +297,65 @@
   .mob-drawer,.mob-sub,.mob-scrim{transition-duration:.001s!important;}
   /* on garde le petit shake de marque, volontairement ludique */
   .nmk-brand img.shake,.nmk-brand:hover img{animation:nmkShake .6s ease!important;}
+  .v2 .nmk-brand img.shake,.v2 .nmk-brand:hover img{animation:nmkTrace .85s ease!important;}
 }
+
+/* ============================================================
+   VERSION 2 — intégration des retours client
+   (la V1 reste strictement inchangée ; tout est sous .v2)
+   ============================================================ */
+
+/* Typo harmonisée : Raleway sur l'ensemble du menu, légendes comprises.
+   --line n'était jamais déclarée en V1 : les filets étaient donc invisibles. */
+.v2{--font-heading:'Raleway',system-ui,-apple-system,sans-serif;--line:#DCEAE7;}
+.v2 .nmk-media-cap,.v2 .mob-hero-cap{font-family:var(--font-body);font-weight:700;}
+
+/* Arrondis adoucis */
+.v2 .nmk-mega{border-radius:0 0 6px 6px;}
+.v2 .nmk-link{border-radius:3px;}
+.v2 .mob-hero{border-radius:8px;}
+
+/* Repère de navigation : plus de flèche, soulignement plus long, intitulés espacés */
+.v2 .nmk-navcaret{display:none;}
+.v2 .nmk-nav-in{gap:30px;}
+.v2 .nmk-navlink{padding:0 4px;}
+.v2 .nmk-navlink::after{left:-8px;right:-8px;height:2px;}
+.v2 .nmk-navlink.chip{padding:0 18px;border-radius:6px;}
+
+/* Logo : animation « trace » (le tracé se dessine) au lieu du shake */
+@keyframes nmkTrace{0%{clip-path:inset(0 100% 0 0);}100%{clip-path:inset(0 0 0 0);}}
+.v2 .nmk-brand img.shake,.v2 .nmk-brand:hover img{animation:nmkTrace .85s cubic-bezier(.22,.61,.36,1);}
+.v2 .mob.open .mob-logo{animation:nmkTrace .9s cubic-bezier(.22,.61,.36,1) .1s both;}
+
+/* Densité : on rend un peu de largeur aux colonnes (évite les retours à la ligne) */
+.v2 .nmk-media{flex:0 0 380px;}
+.v2 .nmk-mega.wide{max-width:1500px;}
+.v2 .nmk-mega.wide .nmk-mega-cols{gap:40px;}
+
+/* Mobile — bouton Soldes : arrondi doux, sans ombre, texte blanc
+   (couleur pilotable via --btn) */
+.v2 .mob .mob-soldes{border-radius:8px;box-shadow:none;color:#fff;background:var(--btn,var(--coral));}
+.v2 .mob .mob-soldes:active{background:var(--btn-a,var(--coral-d));}
+
+/* Mobile — hiérarchie de lecture : filet net sous « Retour / catégorie » */
+.v2 .mob-sub-head{border-bottom:2px solid #DCEAE7;}
+.v2 .mob-foot{border-top:1px solid #DCEAE7;}
+
+/* Mobile — bloc crème pour la colonne dense (Maquillage) */
+.v2 .mob-block{background:#FBF6EE;padding:8px 0;margin:12px 0 6px;}
+.v2 .mob-block .mob-link{font-weight:400;color:var(--text-util);}
+.v2 .mob-block .mob-link.strong{font-weight:700;color:var(--text);}
+
+/* ---------- Sélecteur de version (outil de présentation) ---------- */
+.verswitch{position:fixed;right:18px;bottom:18px;z-index:150;background:#fff;
+  border:1px solid #DCEAE7;border-radius:10px;box-shadow:0 10px 28px -12px rgba(18,62,70,.4);
+  padding:8px 10px;display:flex;align-items:center;gap:10px;font-family:var(--font-body);}
+.verswitch-l{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);}
+.verswitch-btns{display:flex;gap:3px;background:#F4F4F3;border-radius:7px;padding:3px;}
+.verswitch-btns button{font-size:12.5px;font-weight:700;color:var(--ink-soft);padding:5px 13px;border-radius:5px;transition:.15s;}
+.verswitch-btns button:hover{color:var(--petrol);}
+.verswitch-btns button.on{background:var(--turquoise);color:#fff;}
+@media (max-width:600px){ .verswitch{right:12px;bottom:12px;padding:6px 8px;} .verswitch-l{display:none;} }
 </style>
 
 <div class="nmk">
@@ -341,6 +399,14 @@
   </nav>
 
   <div class="nmk-scrim" id="nmkScrim"></div>
+
+  <div class="verswitch" id="verSwitch">
+    <span class="verswitch-l">Maquette</span>
+    <div class="verswitch-btns">
+      <button type="button" data-v="v1">V1</button>
+      <button type="button" data-v="v2">V2</button>
+    </div>
+  </div>
 
   <!-- ============ MENU MOBILE (drawer + drill-down) ============ -->
   <div class="mob" id="mob">
@@ -480,6 +546,57 @@
       media:{ title:'En vidéo, pas à pas', c:'lilac' } }
   ];
 
+  /* ---------- Version affichée (V1 figée / V2 retours client) ---------- */
+  var VERSION = (/[?&]v=v1/.test(location.search)) ? 'v1' : 'v2';
+  var root = document.querySelector('.nmk');
+  if(VERSION==='v2') root.classList.add('v2');
+
+  function menuV2(m){
+    m = JSON.parse(JSON.stringify(m));
+    function get(id){ for(var i=0;i<m.length;i++){ if(m[i].id===id) return m[i]; } }
+
+    // Maquillage — densité : gras limité aux 3 premiers + bloc crème (mobile).
+    // « Par zone du corps » → « Par usage » (les produits ne sont pas cloisonnés).
+    var mq = get('maquillage');
+    mq.columns[0].strongMax = 3;
+    mq.columns[0].cream = true;
+    mq.columns[3].title = 'Par usage';
+    mq.columns[3].links = [{label:'Visage & corps'},{label:'Yeux'},{label:'Lèvres'},
+                           {label:'Cheveux'},{label:'Ongles'},{label:'Paillettes & effets'}];
+
+    // Idées cadeaux → « Coffrets & idées cadeaux » ; sélection réellement orientée cadeau
+    var cd = get('cadeaux');
+    cd.label = 'Coffrets & idées cadeaux';
+    cd.columns[0].title = 'Nos coffrets';
+    cd.columns[0].links = [{label:'Tous les coffrets'},{label:'Coffrets cadeaux'},
+                           {label:'Cadeaux de Noël'},{label:'Cadeaux d’anniversaire'},
+                           {label:'Cartes cadeaux'},{label:'Pochettes surprises'}];
+
+    // Bons plans — « Fidélité » retirée (programme non lancé) ; petits prix ≤ 15€
+    var bp = get('bonsplans');
+    bp.columns = bp.columns.slice(0,2);
+    bp.columns[1].title = 'Petits prix';
+    bp.columns[1].links = [{label:'– de 10€'},{label:'– de 15€'}];
+
+    // Tutoriels — « Par marque » impossible (droits) → « Nos incontournables »
+    var tu = get('tutoriels');
+    tu.columns[1].title = 'Nos incontournables';
+    tu.columns[1].links = [{label:'Licorne magique'},{label:'Tigre facile'},{label:'Papillon coloré'},
+                           {label:'Squelette rigolo'},{label:'Sirène & océan'}];
+    return m;
+  }
+  if(VERSION==='v2') MENU = menuV2(MENU);
+
+  var vs = document.getElementById('verSwitch');
+  if(vs){
+    vs.querySelector('[data-v="'+VERSION+'"]').classList.add('on');
+    vs.addEventListener('click',function(e){
+      var b = e.target.closest('button[data-v]'); if(!b) return;
+      var v = b.dataset.v; if(v===VERSION) return;
+      location.search = (v==='v1') ? '?v=v1' : '?v=v2';
+    });
+  }
+
   var nav=document.getElementById('nmkNav'), mega=document.getElementById('nmkMega'),
       scrim=document.getElementById('nmkScrim'), wrap=mega.parentElement, panels={};
 
@@ -493,7 +610,7 @@
   function colBlock(c){
     var h='<div class="nmk-col">';
     if(c.title) h+='<div class="nmk-col-head">'+esc(c.title)+'</div>';
-    h+='<div class="nmk-links">'+c.links.map(function(l){return linkRow(l,c.hue,c.strong);}).join('')+'</div>';
+    h+='<div class="nmk-links">'+c.links.map(function(l,i){return linkRow(l,c.hue,c.strong&&(c.strongMax===undefined||i<c.strongMax));}).join('')+'</div>';
     if(c.title2) h+='<div class="nmk-col-head stacked">'+esc(c.title2)+'</div><div class="nmk-links">'
       +c.links2.map(function(l){return linkRow(l,c.hue2||c.hue,c.strong);}).join('')+'</div>';
     return h+'</div>';
@@ -595,8 +712,10 @@
       +it.intro.badges.map(function(b){return '<span class="mob-badge">'+esc(b)+'</span>';}).join('')+'</div></div>';
     it.columns.forEach(function(c){
       if(c.title) h+='<div class="mob-sec-head">'+esc(c.title)+'</div>';
-      h+=c.links.map(function(l){return mobLink(l,c.strong);}).join('');
-      if(c.title2){ h+='<div class="mob-sec-head">'+esc(c.title2)+'</div>'; h+=c.links2.map(function(l){return mobLink(l,c.strong);}).join(''); }
+      var rows=c.links.map(function(l,i){return mobLink(l,c.strong&&(c.strongMax===undefined||i<c.strongMax));}).join('');
+      h+= c.cream ? '<div class="mob-block">'+rows+'</div>' : rows;
+      if(c.title2){ h+='<div class="mob-sec-head">'+esc(c.title2)+'</div>';
+        h+=c.links2.map(function(l,i){return mobLink(l,c.strong&&(c.strongMax===undefined||i<c.strongMax));}).join(''); }
     });
     return h;
   }
