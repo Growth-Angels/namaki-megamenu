@@ -329,6 +329,13 @@
 .v2 .nmk-brandrow, .v2 .nmk-brandrow *,
 .v2 .nmk-nav,      .v2 .nmk-nav *,
 .v2 .mob,          .v2 .mob *{font-weight:400!important;}
+/* les pseudo-éléments échappent au sélecteur * : le placeholder de la recherche
+   restait en 600 (desktop et mobile). */
+.v2 .nmk-search input::placeholder,
+.v2 .mob-search input::placeholder,
+.v2 .nmk-topstrip *::before, .v2 .nmk-topstrip *::after,
+.v2 .nmk-nav *::before,      .v2 .nmk-nav *::after,
+.v2 .mob *::before,          .v2 .mob *::after{font-weight:400!important;}
 
 /* Arrondis adoucis */
 .v2 .nmk-mega{border-radius:0 0 6px 6px;}
