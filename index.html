@@ -1200,8 +1200,13 @@
   var arbo=document.getElementById('arbo');
   document.getElementById('arboClose').addEventListener('click',function(){ arbo.classList.remove('open'); document.body.style.overflow=''; });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&arbo.classList.contains('open')){ arbo.classList.remove('open'); document.body.style.overflow=''; } });
+  // ouverture directe par URL : ...?vue=arborescence  ou  ...#arborescence
+  // (permet de partager un lien qui tombe directement sur la carte)
+  function openArbo(){ arbo.classList.add('open'); document.body.style.overflow='hidden'; hideTip(); }
+  if(/[?&]vue=arbo/i.test(location.search) || /^#arbo/i.test(location.hash)) openArbo();
+
   var btn=document.getElementById('arboBtn');
-  if(btn) btn.addEventListener('click',function(){ arbo.classList.add('open'); document.body.style.overflow='hidden'; hideTip(); });
+  if(btn) btn.addEventListener('click',openArbo);
 })();
 </script>
 
