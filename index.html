@@ -445,6 +445,29 @@
 .v2 .mob-social a{display:inline-flex;color:#123E46;}
 .v2 .mob-social svg{width:23px;height:23px;}
 
+/* ---------- Mobile : pied allégé + sélecteur de langue dans l'en-tête ---------- */
+/* le libellé « Suivez-nous sur » disparaît : les icônes parlent d'elles-mêmes */
+.v2 .mob-social-l{display:none;}
+/* liens de bas de drawer : typo réduite */
+.v2 .mob-foot-links a{font-size:12.5px;}
+/* la langue quitte le pied pour l'en-tête */
+.v2 .mob-foot .mob-lang{display:none;}
+.v2 .mob-lang-wrap{position:relative;margin-left:auto;}
+.v2 .mob-searchbtn{margin-left:0;}
+.v2 .mob-langbtn{display:flex;align-items:center;gap:5px;height:42px;padding:0 9px;border-radius:8px;
+  font-size:14px;color:#123E46;background:none;border:0;cursor:pointer;font-family:inherit;}
+.v2 .mob-langbtn:active{background:#EAF6F3;}
+.v2 .mob-langbtn .chev{width:7px;height:7px;border-right:1.7px solid currentColor;
+  border-bottom:1.7px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .18s;}
+.v2 .mob-lang-wrap.open .mob-langbtn .chev{transform:translateY(1px) rotate(-135deg);}
+.v2 .mob-langmenu{position:absolute;top:calc(100% + 4px);right:0;background:#fff;border:1px solid #DCEAE7;
+  border-radius:10px;box-shadow:0 12px 28px -12px rgba(18,62,70,.35);padding:6px;min-width:112px;
+  display:none;z-index:6;}
+.v2 .mob-lang-wrap.open .mob-langmenu{display:block;}
+.v2 .mob-langmenu button{display:block;width:100%;text-align:left;padding:9px 12px;border-radius:6px;
+  font-size:14px;color:#404040;background:none;border:0;cursor:pointer;font-family:inherit;}
+.v2 .mob-langmenu button.on{color:#0E8F89;background:#EAF6F3;}
+
 /* ---------- Sélecteur de version (outil de présentation) ---------- */
 .verswitch{position:fixed;right:18px;bottom:18px;z-index:150;background:#fff;
   border:1px solid #DCEAE7;border-radius:10px;box-shadow:0 10px 28px -12px rgba(18,62,70,.4);
@@ -798,6 +821,34 @@
       });
       sp.querySelector('.mob-back').addEventListener('click',function(){ sp.classList.remove('open'); });
       document.addEventListener('keydown',function(e){ if(e.key==='Escape') sp.classList.remove('open'); });
+    }
+
+    /* ---------- Mobile : sélecteur de langue à côté de la loupe ---------- */
+    var mhead=document.querySelector('.mob-head'), sbtn=document.querySelector('.mob-searchbtn');
+    if(mhead && sbtn){
+      var lw=document.createElement('div'); lw.className='mob-lang-wrap';
+      lw.innerHTML='<button type="button" class="mob-langbtn" aria-haspopup="true" aria-expanded="false" aria-label="Choisir la langue">FR<span class="chev"></span></button>'
+        +'<div class="mob-langmenu">'
+        +['FR','EN','DE'].map(function(l,i){return '<button type="button"'+(i===0?' class="on"':'')+'>'+l+'</button>';}).join('')
+        +'</div>';
+      mhead.insertBefore(lw, sbtn);
+      var lbtn=lw.querySelector('.mob-langbtn');
+      lbtn.addEventListener('click',function(e){
+        e.stopPropagation();
+        var o=lw.classList.toggle('open'); lbtn.setAttribute('aria-expanded',o?'true':'false');
+      });
+      lw.querySelectorAll('.mob-langmenu button').forEach(function(b){
+        b.addEventListener('click',function(e){
+          e.stopPropagation();
+          lw.querySelectorAll('.mob-langmenu button').forEach(function(x){ x.classList.remove('on'); });
+          b.classList.add('on');
+          lbtn.firstChild.nodeValue=b.textContent;          // met à jour le libellé
+          lw.classList.remove('open'); lbtn.setAttribute('aria-expanded','false');
+        });
+      });
+      document.addEventListener('click',function(){
+        if(lw.classList.contains('open')){ lw.classList.remove('open'); lbtn.setAttribute('aria-expanded','false'); }
+      });
     }
 
     // bandeau annonce : dupliqué pour permettre un défilement continu en mobile
