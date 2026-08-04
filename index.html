@@ -370,6 +370,22 @@
 .v2 .mob-sub-head{border-bottom:2px solid #DCEAE7;}
 .v2 .mob-foot{border-top:1px solid #DCEAE7;}
 
+/* Mobile — HIÉRARCHIE DE LECTURE dans le panneau de rubrique.
+   La graisse est uniforme (Gotham 400) : les niveaux se distinguent donc par la
+   taille, la couleur et l'espacement. Réponse au « menu trop chargé » :
+   « Retour » redevient secondaire, le nom de rubrique domine, les lignes sont
+   plus compactes et le trio de tête est isolé par un filet. */
+.v2 .mob-back{font-size:13px;color:#5E767C;flex:0 0 auto;}
+/* le nom de rubrique domine ; ellipse de sécurité si le libellé est très long
+   (« Coffrets & idées cadeaux » sur un petit écran) */
+.v2 .mob-sub-title{font-size:19px;color:#2F2722;min-width:0;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;}
+.v2 .mob-link{padding:12px 20px;}
+.v2 .mob-sec-head{padding:26px 20px 8px;}
+.v2 .mob-block .mob-link.strong{font-size:17px;color:#2F2722;}
+.v2 .mob-block .mob-link.strong + .mob-link:not(.strong){
+  border-top:1px solid #EFE4D2;margin-top:6px;padding-top:16px;}
+
 /* Mobile — bloc crème pour la colonne dense (Maquillage) */
 .v2 .mob-block{background:#FBF6EE;padding:8px 0;margin:12px 0 6px;}
 .v2 .mob-block .mob-link{font-weight:400;color:var(--text-util);}
