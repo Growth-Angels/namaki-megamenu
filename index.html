@@ -389,11 +389,24 @@
 /* ---------- Survol des ENTREES de mega-panneau ----------
    Creme #FDF9F1 (et non le menthe), plus un micro-agrandissement : l'entree
    survolee se detache franchement. La nav du haut n'est pas concernee. */
-.v2 .nmk-link{transform-origin:left center;
-  transition:background .14s,color .14s,transform .22s cubic-bezier(.34,1.5,.5,1);}
-.v2 .nmk-link:hover{background:#FDF9F1;color:var(--turquoise-d);transform:scale(1.03);}
-.v2 .mob-link:active{background:#FDF9F1;}
-@media (prefers-reduced-motion:reduce){ .v2 .nmk-link:hover{transform:none;} }
+/* Le scale porte sur la PASTILLE, jamais sur le texte : un transform appliquant
+   un agrandissement a un noeud de texte le fait rasteriser une fois puis
+   reechantillonner, d'ou le flou. La pastille est un pseudo-element vide,
+   elle peut grandir sans rien degrader. Le libelle, lui, ne bouge pas d'un pixel. */
+.v2 .nmk-link{position:relative;z-index:0;background:none;transform:none;
+  transition:color .16s ease;}
+.v2 .nmk-link::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:3px;
+  background:#FDF9F1;opacity:0;transform:scale(.985);transform-origin:left center;
+  transition:opacity .16s ease,transform .24s cubic-bezier(.34,1.5,.5,1);}
+.v2 .nmk-link:hover::before{opacity:1;transform:scale(1.03);}
+/* terre cuite : le corail de la charte assombri. Meme famille chaude que le creme
+   (le turquoise, froid, jurait) et 6.4:1 de contraste, donc conforme AA. */
+.v2 .nmk-link:hover{background:none;color:#8A4A3C;}
+.v2 .nmk-link:hover .nmk-link-ico{color:#8A4A3C;}
+.v2 .mob-link:active{background:#FDF9F1;color:#8A4A3C;}
+@media (prefers-reduced-motion:reduce){
+  .v2 .nmk-link::before,.v2 .nmk-link:hover::before{transform:none;}
+}
 /* le nom de rubrique domine ; ellipse de sécurité si le libellé est très long
    (« Coffrets & idées cadeaux » sur un petit écran) */
 .v2 .mob-sub-title{font-size:19px;color:#2F2722;min-width:0;overflow:hidden;
