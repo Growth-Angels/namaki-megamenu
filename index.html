@@ -643,7 +643,7 @@
         { title:'La sélection', hue:'berry', links:[
           {label:'Voir tout'},{label:'Nouveautés',badge:'new'},{label:'Best sellers',badge:'hot'},
           {label:'Collaborations exclusives'},{label:'Coffrets'} ]},
-        { title:'Par budget', hue:'sun', links:[{label:'– de 15€'},{label:'de 15 à 50€'},{label:'+ de 50€'}] }
+        { title:'Par prix', hue:'sun', links:[{label:'– de 15€'},{label:'de 15 à 50€'},{label:'+ de 50€'}] }
       ],
       media:{ title:'À offrir les yeux fermés', c:'berry' } },
 
@@ -714,20 +714,38 @@
     mq.columns[0].cream = true;
     mq.columns.splice(3,1);
     mq.wide = false;
+    // Colonne de gauche : « Offre du moment » retiree, les deux gammes de packs
+    // ajoutees — elles pesent de plus en plus dans les commandes.
+    mq.columns[0].links = [{label:'Voir tout'},{label:'Nouveautés',badge:'new'},{label:'Best sellers',badge:'hot'},
+                           {label:'Collaborations exclusives'},{label:'Coffrets'},
+                           {label:'Packs collection'},{label:'Packs thématiques'},
+                           {label:'Fin de série'},{label:'Concours'}];
+    // « Palettes de maquillage » devient « Fards a l'eau » (nom reel de la gamme).
+    mq.columns[1].links[1] = {label:'Fards à l’eau'};
 
     // Idées cadeaux → « Coffrets & idées cadeaux » ; sélection réellement orientée cadeau
     var cd = get('cadeaux');
     cd.label = 'Coffrets & idées cadeaux';
-    cd.columns[0].title = 'Nos coffrets';
-    cd.columns[0].links = [{label:'Tous les coffrets'},{label:'Coffrets cadeaux'},
-                           {label:'Cadeaux de Noël'},{label:'Cadeaux d’anniversaire'},
-                           {label:'Cartes cadeaux'},{label:'Pochettes surprises'}];
+    // Trois colonnes : Coffrets / Idees cadeaux / Par prix.
+    cd.columns[0].title = 'Coffrets';
+    cd.columns[0].links = [{label:'Mini coffrets de maquillage'},{label:'Coffrets de maquillage'},
+                           {label:'Trousses de maquillage'},{label:'Packs collection'},
+                           {label:'Packs thématiques'},{label:'Tous les coffrets'}];
+    // « Cartes cadeaux » et « Pochettes surprises » ne figuraient dans aucune des deux
+    // listes transmises : rattachees ici plutot que supprimees du menu.
+    cd.columns.splice(1,0,{ title:'Idées cadeaux', hue:'coral', links:[
+      {label:'Cadeaux de Noël'},{label:'Cadeaux d’anniversaire'},
+      {label:'Cartes cadeaux'},{label:'Pochettes surprises'} ]});
 
     // Bons plans — « Fidélité » retirée (programme non lancé) ; petits prix ≤ 15€
     var bp = get('bonsplans');
     bp.columns = bp.columns.slice(0,2);
+    // Le lien « Packs produits » sort d'ici : il devient une colonne a part entiere.
+    bp.columns[0].links = bp.columns[0].links.filter(function(l){ return l.label !== 'Packs produits'; });
     bp.columns[1].title = 'Petits prix';
-    bp.columns[1].links = [{label:'– de 10€'},{label:'– de 15€'}];
+    bp.columns[1].links = [{label:'– de 10€'},{label:'– de 25€'}];   // palier elargi
+    bp.columns.push({ title:'Packs produits', hue:'lilac', links:[
+      {label:'Packs collection'},{label:'Packs thématiques'} ]});
 
     // Tutoriels — « Par marque » impossible (droits) → « Nos incontournables »
     var tu = get('tutoriels');
@@ -1088,7 +1106,13 @@
 .mm-branch::after{content:"";position:absolute;left:-6px;top:23px;width:9px;height:9px;border-radius:50%;
   background:#fff;border:2px solid #16B3AB;}
 
-.mm-branch{position:relative;background:#fff;border:1px solid #DCEAE7;border-radius:12px;overflow:hidden;}
+.mm-branch{position:relative;background:#fff;border:1px solid #DCEAE7;border-radius:12px;}
+    /* Surtout pas d'overflow:hidden ici : le trait de liaison (::before, left:-34px)
+       et la pastille (::after, left:-6px) sont volontairement HORS de la carte.
+       Les rogner coupait le trait entierement et ne laissait depasser que 3px de
+       pastille — d'ou les moignons flottants. L'arrondi est porte par les enfants. */
+    .mm-branch:not(.open) .mm-l1{border-radius:11px;}
+    .mm-branch.open .mm-l1{border-radius:11px 11px 0 0;}
 .mm-l1{width:100%;display:flex;align-items:center;gap:12px;padding:14px 18px;background:none;border:0;
   cursor:pointer;font-family:inherit;font-size:16px;font-weight:700;color:#2F2722;text-align:left;}
 .mm-l1:hover{background:#F4FAF8;}
@@ -1201,26 +1225,31 @@
          note:'Également en double aujourd’hui : fusionner en une seule URL.'},
         {label:'Collaborations exclusives', page:{fr:'/collaborations',en:'/en/collaborations',de:'/de/kooperationen'}, t:'ok',
          note:'Page existante <b>/collaborations</b> : à conserver telle quelle.'},
-        {label:'Coffrets', page:{fr:'/coffrets-maquillage-enfant',en:'/en/kids-makeup-gift-sets',de:'/de/schminkset-kinder'}, t:'new',
+        {label:'Coffrets', page:{fr:'/coffrets-maquillage-enfant',en:'/en/kids-makeup-gift-sets',de:'/de/geschenksets-kinder'}, t:'new',
          note:'Renvoie vers la rubrique Coffrets : un seul emplacement canonique pour cette page.'},
-        {label:'Offre du moment', page:{fr:'/promotions/offre-du-moment',en:'/en/promotions/current-offer',de:'/de/promotionen/aktuelles-angebot'}, t:'new'},
+        {label:'Packs collection', slug:{fr:'packs-collection',en:'collection-packs',de:'schminkset-kollektionen'}, t:'new',
+         note:'Gamme en forte progression dans les commandes : elle passe en accès direct depuis le menu.'},
+        {label:'Packs thématiques', slug:{fr:'packs-thematiques',en:'themed-packs',de:'schminkset-themenwelten'}, t:'new',
+         note:'Même logique que les packs collection. Bon candidat au maillage depuis les pages Occasions.'},
         {label:'Fin de série', page:{fr:'/promotions/fin-de-serie',en:'/en/promotions/last-chance',de:'/de/promotionen/restposten'}, t:'new'},
         {label:'Concours', page:{fr:'/concours',en:'/en/contests',de:'/de/gewinnspiele'}, t:'new',
          note:'Page dédiée (concours en cours + archives) plutôt qu’un lien sortant direct vers Instagram : le trafic reste sur le site.'}
       ]},
       {label:'Tous les produits', items:[
-        {label:'Crayons de maquillage', slug:{fr:'crayons-maquillage-enfant',en:'face-paint-crayons',de:'schminkstifte'}, t:'chg'},
-        {label:'Palettes de maquillage', slug:{fr:'palettes-maquillage-enfant',en:'makeup-palettes',de:'schmink-paletten'}, t:'chg'},
-        {label:'Fards à paupières', slug:{fr:'fards-paupieres',en:'eyeshadows',de:'lidschatten'}, t:'chg'},
-        {label:'Baumes & gloss', slug:{fr:'baumes-levres',en:'lip-balms',de:'lippenbalsam'}, t:'chg',
+        {label:'Crayons de maquillage', slug:{fr:'crayons-maquillage-enfant',en:'face-paint-crayons',de:'schminkstifte-kinder'}, t:'chg'},
+        {label:'Fards à l’eau', slug:{fr:'fards-a-l-eau',en:'water-based-face-paint',de:'wasserschminke-kinder'}, t:'chg',
+         live:{fr:'/c/maquillage-deguisement/palettes-maquillage-enfant',en:'/en/c/face-paint/water-based-face-painting-en',de:'/de/c/kinderschminke/wasserbasierten-schminkfarben-de'},
+         note:'Renommée « Fards à l’eau » (nom réel de la gamme). <b>Le slug doit suivre, avec un 301</b> depuis <b>palettes-maquillage-enfant</b>. <b>À confirmer</b> : cette entrée vise-t-elle l’actuelle page « palettes » ou la page « water based » déjà en ligne en EN et DE ?'},
+        {label:'Fards à paupières', slug:{fr:'fards-paupieres',en:'eyeshadows',de:'lidschattenpalette'}, t:'chg'},
+        {label:'Baumes & gloss', slug:{fr:'baumes-levres',en:'lip-balms',de:'lippenbalsam-kinder'}, t:'chg',
          note:'Slug actuel au singulier (<b>baumes-levre</b>) : passer au pluriel.'},
-        {label:'Mascara cheveux', slug:{fr:'mascara-cheveux',en:'hair-mascara',de:'haar-mascara'}, t:'chg',
+        {label:'Mascara cheveux', slug:{fr:'mascara-cheveux',en:'hair-mascara',de:'haarmascara'}, t:'chg',
          note:'Préférer <b>mascara-cheveux</b> à <b>mascara-cheveux-double-embout</b> : plus proche de la requête.'},
         {label:'Gels pailletés', slug:{fr:'gels-pailletes',en:'glitter-gels',de:'glitzergel'}, t:'chg'},
-        {label:'Tatouages enfant', slug:{fr:'tatouages-enfant',en:'kids-tattoos',de:'kinder-tattoos'}, t:'chg'},
-        {label:'Vernis à ongles', slug:{fr:'vernis-ongles-enfant',en:'kids-nail-polish',de:'kinder-nagellack'}, t:'chg',
+        {label:'Tatouages enfant', slug:{fr:'tatouages-enfant',en:'kids-tattoos',de:'kindertattoos'}, t:'chg'},
+        {label:'Vernis à ongles', slug:{fr:'vernis-ongles-enfant',en:'kids-nail-polish',de:'kindernagellack'}, t:'chg',
          note:'Slug actuel <b>vernis-eau</b> : « vernis à ongles enfant » correspond mieux à la recherche.'},
-        {label:'Accessoires', slug:{fr:'accessoires-maquillage',en:'makeup-accessories',de:'schmink-zubehoer'}, t:'ok'}
+        {label:'Accessoires', slug:{fr:'accessoires-maquillage',en:'makeup-accessories',de:'schminkzubehoer-kinder'}, t:'ok'}
       ]},
       {label:'Par âge (filtre)', items:[
         {label:'3 à 6 ans', filter:'?age=3-6', t:'flt'},
@@ -1234,36 +1263,50 @@
       ]}
     ]},
 
-    {label:'Coffrets & idées cadeaux', slug:{fr:'coffrets-maquillage-enfant',en:'kids-makeup-gift-sets',de:'schminkset-kinder'}, t:'new',
+    {label:'Coffrets & idées cadeaux', slug:{fr:'coffrets-maquillage-enfant',en:'kids-makeup-gift-sets',de:'geschenksets-kinder'}, t:'new',
      note:'Nouvelle catégorie mère. « Coffret » est un fort volume de recherche : il mérite son silo plutôt qu’une sous-catégorie.',
      groups:[
-      {label:'Nos coffrets', items:[
-        {label:'Tous les coffrets', self:true, t:'new'},
-        {label:'Coffrets cadeaux', slug:{fr:'coffrets-cadeaux',en:'gift-sets',de:'geschenksets'}, t:'new'},
-        {label:'Cadeaux de Noël', slug:{fr:'cadeaux-noel',en:'christmas-gifts',de:'weihnachtsgeschenke'}, t:'new',
-         note:'Page saisonnière : la garder en ligne toute l’année (l’historique se capitalise), pas de dépublication.'},
-        {label:'Cadeaux d’anniversaire', slug:{fr:'cadeaux-anniversaire',en:'birthday-gifts',de:'geburtstagsgeschenke'}, t:'new'},
-        {label:'Cartes cadeaux', page:{fr:'/carte-cadeau',en:'/en/gift-card',de:'/de/geschenkkarte'}, t:'new'},
-        {label:'Pochettes surprises', slug:{fr:'pochettes-surprises',en:'party-favours',de:'mitgebsel'}, t:'new'}
+      {label:'Coffrets', items:[
+        {label:'Mini coffrets de maquillage', slug:{fr:'mini-coffrets-maquillage',en:'mini-makeup-sets',de:'mini-schminkset-kinder'}, t:'new'},
+        {label:'Coffrets de maquillage', slug:{fr:'coffrets-maquillage',en:'makeup-gift-sets',de:'schminkkoffer-kinder'}, t:'new'},
+        {label:'Trousses de maquillage', slug:{fr:'trousses-maquillage',en:'makeup-bags',de:'kosmetiktasche-kinder'}, t:'chg',
+         live:{fr:'/c/maquillage-enfant/trousses-et-coffrets-maquillage-enfant',en:'/en/c/kids-makeup/kids-makeup-sets',de:'/de/c/kosmetik-fuer-kinder/kosmetiktasche-und-schminkkoffer-kinder'},
+         note:'La page actuelle mélange trousses <i>et</i> coffrets. La scinder, puisque les coffrets ont désormais leurs propres entrées.'},
+        {label:'Packs collection', slug:{fr:'packs-collection',en:'collection-packs',de:'schminkset-kollektionen'}, t:'new',
+         note:'Même page que dans Maquillage : une seule URL canonique, appelée depuis les deux menus.'},
+        {label:'Packs thématiques', slug:{fr:'packs-thematiques',en:'themed-packs',de:'schminkset-themenwelten'}, t:'new'},
+        {label:'Tous les coffrets', self:true, t:'chg',
+         live:{fr:'/coffrets-cadeaux-enfants',en:'/en/coffrets-cadeaux-enfants',de:'/de/geschenksets-kinder'},
+         note:'La page existe déjà. <b>Le slug EN n’est pas traduit</b> (<b>/en/coffrets-cadeaux-enfants</b>) : à reprendre.'}
       ]},
-      {label:'Par budget (filtre)', items:[
+      {label:'Idées cadeaux', items:[
+        {label:'Cadeaux de Noël', slug:{fr:'cadeaux-noel',en:'christmas-gifts',de:'geschenkideen-fuer-weihnachten'}, t:'chg',
+         live:{fr:'/idees-cadeaux-de-noel',en:'/en/christmas-gift-ideas',de:'/de/geschenkideen-fuer-weihnachten'},
+         note:'Page saisonnière déjà en ligne : la garder toute l’année, l’historique se capitalise. Pas de dépublication.'},
+        {label:'Cadeaux d’anniversaire', slug:{fr:'cadeaux-anniversaire',en:'birthday-gifts',de:'geschenkideen-kindergeburtstag'}, t:'new'},
+        {label:'Cartes cadeaux', page:{fr:'/carte-cadeau',en:'/en/gift-card',de:'/de/geschenkgutschein'}, t:'new',
+         note:'Absente des deux listes transmises : rattachée ici plutôt que retirée du menu. <b>À confirmer.</b>'},
+        {label:'Pochettes surprises', slug:{fr:'pochettes-surprises',en:'party-favours',de:'mitgebsel'}, t:'new',
+         note:'Absente des deux listes transmises : rattachée ici plutôt que retirée du menu. <b>À confirmer.</b>'}
+      ]},
+      {label:'Par prix (filtre)', items:[
         {label:'– de 15€', filter:'?prix=0-15', t:'flt'},
         {label:'de 15 à 50€', filter:'?prix=15-50', t:'flt'},
         {label:'+ de 50€', filter:'?prix=50-plus', t:'flt'}
       ]}
     ]},
 
-    {label:'Occasions', slug:{fr:'occasions',en:'occasions',de:'anlaesse'}, t:'chg',
+    {label:'Occasions', slug:{fr:'occasions',en:'occasions',de:'welten-und-anlaesse'}, t:'chg',
      note:'Remplace <b>/c/univers-occasions</b> : plus court et sans le préfixe /c/. Gisement SEO majeur.',
      groups:[{label:'Les occasions', items:[
         {label:'Anniversaire', slug:{fr:'maquillage-anniversaire',en:'birthday-face-paint',de:'kinderschminken-geburtstag'}, t:'new'},
         {label:'Soirée pyjama', slug:{fr:'soiree-pyjama',en:'pyjama-party',de:'pyjamaparty'}, t:'new'},
-        {label:'Carnaval', slug:{fr:'maquillage-carnaval',en:'carnival-face-paint',de:'fasching-schminken'}, t:'chg',
+        {label:'Carnaval', slug:{fr:'maquillage-carnaval',en:'carnival-face-paint',de:'faschingsschminke'}, t:'chg',
          note:'Existe déjà sous <b>/c/univers-occasions/maquillage-carnaval</b> : conserver le slug, retirer /c/.'},
-        {label:'Halloween', slug:{fr:'maquillage-halloween',en:'halloween-face-paint',de:'halloween-schminken'}, t:'chg',
+        {label:'Halloween', slug:{fr:'maquillage-halloween',en:'halloween-face-paint',de:'halloween-schminke'}, t:'chg',
          note:'Page la plus stratégique de l’année : mériterait un contenu éditorial (idées, pas-à-pas) au-dessus de la grille produits.'},
         {label:'Día de los Muertos', slug:{fr:'dia-de-los-muertos',en:'day-of-the-dead',de:'dia-de-los-muertos'}, t:'new'},
-        {label:'Noël', slug:{fr:'maquillage-noel',en:'christmas-face-paint',de:'weihnachts-schminken'}, t:'chg',
+        {label:'Noël', slug:{fr:'maquillage-noel',en:'christmas-face-paint',de:'weihnachts-sylvester-make-up'}, t:'chg',
          note:'Slug actuel <b>maquillage-noel-nouvel-an</b> : le raccourcir améliore la correspondance à la requête.'},
         {label:'Match & compétition', slug:{fr:'maquillage-supporter',en:'sports-face-paint',de:'sport-schminken'}, t:'new'},
         {label:'Kermesse école', slug:{fr:'kermesse-ecole',en:'school-fair',de:'schulfest'}, t:'new'},
@@ -1271,7 +1314,7 @@
         {label:'Mariage & baptême', slug:{fr:'mariage-bapteme',en:'wedding-christening',de:'hochzeit-taufe'}, t:'new'}
       ]}]},
 
-    {label:'Thématiques', slug:{fr:'themes-maquillage',en:'face-paint-themes',de:'schmink-themen'}, t:'new',
+    {label:'Thématiques', slug:{fr:'themes-maquillage',en:'face-paint-themes',de:'themenwelten'}, t:'new',
      note:'Aujourd’hui mélangées aux occasions (<b>maquillage-feerique</b>, <b>maquillage-animaux</b>…). Les séparer clarifie le maillage : une occasion est un moment, une thématique est un personnage.',
      groups:[
       {label:'Féérie', items:[
@@ -1304,45 +1347,48 @@
         {label:'Soldes d’été 2026', slug:{fr:'soldes-ete',en:'summer-sale',de:'sommerschlussverkauf'}, t:'new',
          note:'URL sans millésime : réutilisable chaque année, l’historique SEO se capitalise.'},
         {label:'Offre du moment', slug:{fr:'offre-du-moment',en:'current-offer',de:'aktuelles-angebot'}, t:'new'},
-        {label:'Packs produits', slug:{fr:'packs-produits',en:'bundles',de:'produkt-sets'}, t:'new'},
         {label:'Fin de série', slug:{fr:'fin-de-serie',en:'last-chance',de:'restposten'}, t:'new'},
         {label:'Concours', page:{fr:'/concours',en:'/en/contests',de:'/de/gewinnspiele'}, t:'new'}
       ]},
       {label:'Petits prix (filtre)', items:[
         {label:'– de 10€', filter:'?prix=0-10', t:'flt'},
-        {label:'– de 15€', filter:'?prix=0-15', t:'flt'}
+        {label:'– de 25€', filter:'?prix=0-25', t:'flt'}
+      ]},
+      {label:'Packs produits', items:[
+        {label:'Packs collection', slug:{fr:'packs-collection',en:'collection-packs',de:'schminkset-kollektionen'}, t:'new'},
+        {label:'Packs thématiques', slug:{fr:'packs-thematiques',en:'themed-packs',de:'schminkset-themenwelten'}, t:'new'}
       ]}
     ]},
 
-    {label:'Namaki', page:{fr:'/la-marque',en:'/en/about-namaki',de:'/de/ueber-namaki'}, t:'new',
+    {label:'Namaki', page:{fr:'/la-marque',en:'/en/about-namaki',de:'/de/die-marke'}, t:'new',
      note:'Pages corporate : elles restent à la racine (déjà indexées), la rubrique sert de point d’entrée.',
      groups:[{label:'La marque', items:[
-        {label:'Manifeste', page:{fr:'/manifeste',en:'/en/manifest',de:'/de/manifest'}, t:'chg',
+        {label:'Manifeste', page:{fr:'/manifeste',en:'/en/manifest',de:'/de/vision'}, t:'chg',
          note:'L’URL FR actuelle est <b>/manifest</b> (anglais) : passer à <b>/manifeste</b> avec un 301.'},
         {label:'Nos valeurs', page:{fr:'/nos-valeurs',en:'/en/our-values',de:'/de/unsere-werte'}, t:'new'},
         {label:'Fabrication & sécurité', page:{fr:'/fabrication-securite',en:'/en/manufacturing-safety',de:'/de/herstellung-sicherheit'}, t:'new'},
         {label:'Ingrédients & certifications', page:{fr:'/ingredients-certifications',en:'/en/ingredients-certifications',de:'/de/inhaltsstoffe-zertifizierungen'}, t:'new',
          note:'Page à fort potentiel de confiance (« maquillage bio enfant ») : y placer les labels COSMOS et la liste INCI.'},
-        {label:'Livraison & retours', page:{fr:'/livraison-retours',en:'/en/shipping-returns',de:'/de/versand-ruecksendungen'}, t:'ok'},
+        {label:'Livraison & retours', page:{fr:'/livraison-retours',en:'/en/shipping-returns',de:'/de/lieferung-ruecksendung'}, t:'ok'},
         {label:'Nous contacter', page:{fr:'/contact',en:'/en/contact',de:'/de/kontakt'}, t:'ok'}
       ]}]},
 
-    {label:'Tutoriels', page:{fr:'/tuto-maquillage',en:'/en/make-up-tutorial',de:'/de/schmink-tutorial'}, t:'ok',
+    {label:'Tutoriels', page:{fr:'/tuto-maquillage',en:'/en/make-up-tutorial',de:'/de/make-up-tutorial'}, t:'ok',
      note:'URLs existantes en FR et EN : à conserver. Chaque tuto doit pointer vers la thématique correspondante (maillage interne).',
      groups:[
       {label:'Par genre', items:[
-        {label:'Animaux', page:{fr:'/tuto-maquillage/animaux',en:'/en/make-up-tutorial/animals',de:'/de/schmink-tutorial/tiere'}, t:'new'},
-        {label:'Clowns & magie', page:{fr:'/tuto-maquillage/clown-magie',en:'/en/make-up-tutorial/clown-magic',de:'/de/schmink-tutorial/clown-magie'}, t:'new'},
-        {label:'Féérie', page:{fr:'/tuto-maquillage/feerie',en:'/en/make-up-tutorial/fairy-tale',de:'/de/schmink-tutorial/maerchen'}, t:'new'},
-        {label:'Halloween', page:{fr:'/tuto-maquillage/halloween',en:'/en/make-up-tutorial/halloween',de:'/de/schmink-tutorial/halloween'}, t:'new'},
-        {label:'Super-héros', page:{fr:'/tuto-maquillage/super-heros',en:'/en/make-up-tutorial/superheroes',de:'/de/schmink-tutorial/superhelden'}, t:'new'}
+        {label:'Animaux', page:{fr:'/tuto-maquillage/animaux',en:'/en/make-up-tutorial/animals',de:'/de/make-up-tutorial/tiere'}, t:'new'},
+        {label:'Clowns & magie', page:{fr:'/tuto-maquillage/clown-magie',en:'/en/make-up-tutorial/clown-magic',de:'/de/make-up-tutorial/clown-magie'}, t:'new'},
+        {label:'Féérie', page:{fr:'/tuto-maquillage/feerie',en:'/en/make-up-tutorial/fairy-tale',de:'/de/make-up-tutorial/maerchen'}, t:'new'},
+        {label:'Halloween', page:{fr:'/tuto-maquillage/halloween',en:'/en/make-up-tutorial/halloween',de:'/de/make-up-tutorial/halloween'}, t:'new'},
+        {label:'Super-héros', page:{fr:'/tuto-maquillage/super-heros',en:'/en/make-up-tutorial/superheroes',de:'/de/make-up-tutorial/superhelden'}, t:'new'}
       ]},
       {label:'Nos incontournables', items:[
-        {label:'Licorne magique', page:{fr:'/tuto-maquillage/licorne',en:'/en/make-up-tutorial/unicorn',de:'/de/schmink-tutorial/einhorn'}, t:'new'},
-        {label:'Tigre facile', page:{fr:'/tuto-maquillage/tigre',en:'/en/make-up-tutorial/tiger',de:'/de/schmink-tutorial/tiger'}, t:'new'},
-        {label:'Papillon coloré', page:{fr:'/tuto-maquillage/papillon',en:'/en/make-up-tutorial/butterfly',de:'/de/schmink-tutorial/schmetterling'}, t:'new'},
-        {label:'Squelette rigolo', page:{fr:'/tuto-maquillage/squelette',en:'/en/make-up-tutorial/skeleton',de:'/de/schmink-tutorial/skelett'}, t:'new'},
-        {label:'Sirène & océan', page:{fr:'/tuto-maquillage/sirene',en:'/en/make-up-tutorial/mermaid',de:'/de/schmink-tutorial/meerjungfrau'}, t:'new'}
+        {label:'Licorne magique', page:{fr:'/tuto-maquillage/licorne',en:'/en/make-up-tutorial/unicorn',de:'/de/make-up-tutorial/einhorn'}, t:'new'},
+        {label:'Tigre facile', page:{fr:'/tuto-maquillage/tigre',en:'/en/make-up-tutorial/tiger',de:'/de/make-up-tutorial/tiger'}, t:'new'},
+        {label:'Papillon coloré', page:{fr:'/tuto-maquillage/papillon',en:'/en/make-up-tutorial/butterfly',de:'/de/make-up-tutorial/schmetterling'}, t:'new'},
+        {label:'Squelette rigolo', page:{fr:'/tuto-maquillage/squelette',en:'/en/make-up-tutorial/skeleton',de:'/de/make-up-tutorial/skelett'}, t:'new'},
+        {label:'Sirène & océan', page:{fr:'/tuto-maquillage/sirene',en:'/en/make-up-tutorial/mermaid',de:'/de/make-up-tutorial/meerjungfrau'}, t:'new'}
       ]}
     ]},
 
@@ -1351,12 +1397,10 @@
      groups:[{label:'Barre supérieure', items:[
         {label:'Points de vente', page:{fr:'/points-de-vente',en:'/en/points-of-sale',de:'/de/verkaufsstellen'}, t:'ok',
          note:'Fort intérêt local : y publier la liste complète des revendeurs, ville par ville.'},
-        {label:'Namaki & les pros', page:{fr:'/namaki-et-les-pros',en:'/en/namaki-for-professionals',de:'/de/namaki-fuer-profis'}, t:'ok'},
+        {label:'Namaki & les pros', page:{fr:'/namaki-et-les-pros',en:'/en/namaki-for-professionals',de:'/de/geschaeftskunden'}, t:'ok'},
         {label:'FAQ', page:{fr:'/faq',en:'/en/faq',de:'/de/faq'}, t:'new',
          note:'À baliser en <b>FAQPage</b> (données structurées) pour viser les résultats enrichis.'},
-        {label:'Blog', page:{fr:'/blog',en:'/en/blog',de:'/de/blog'}, t:'new'},
-        {label:'Produit (fiche)', page:{fr:'/produit/<slug>',en:'/en/product/<slug>',de:'/de/produkt/<slug>'}, t:'ok',
-         note:'Bases déjà traduites : rien à changer. Prévoir le balisage <b>Product</b> + avis.'}
+        {label:'Blog', page:{fr:'/blog',en:'/en/blog',de:'/de/blog'}, t:'new'}
       ]}]}
   ];
 
