@@ -1085,6 +1085,32 @@
 .tag-flt{background:#F0EDF7;color:#6E4FA8;}
 
 /* --- alertes SEO --- */
+
+/* ---------- Tableau des slugs par langue ---------- */
+.slugt{background:#fff;border:1px solid #DCEAE7;border-radius:12px;margin-top:34px;overflow:hidden;}
+.slugt-h{padding:20px 22px 6px;}
+.slugt-h h3{margin:0 0 6px;font-size:17px;color:#123E46;}
+.slugt-h p{margin:0;font-size:13px;line-height:1.55;color:#5E767C;max-width:82ch;}
+.slugt-wrap{overflow-x:auto;padding:14px 0 4px;}
+.slugt table{border-collapse:collapse;width:100%;min-width:1080px;font-size:12.5px;}
+.slugt th{text-align:left;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#0E8F89;
+  padding:8px 14px;border-bottom:1px solid #DCEAE7;white-space:nowrap;background:#F7FAF9;position:sticky;top:0;}
+.slugt td{padding:9px 14px;border-bottom:1px solid #F0F4F3;vertical-align:top;}
+.slugt tr:last-child td{border-bottom:0;}
+.slugt tbody tr:hover td{background:#FDF9F1;}
+.slugt .rub td{background:#EAF6F3;font-weight:700;color:#123E46;font-size:11px;
+  letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;}
+.slugt .pg{color:#2F2722;}
+.slugt .pg small{display:block;color:#8A9BA0;font-size:10.5px;margin-top:2px;}
+.slugt code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:#123E46;
+  background:#F4F7F6;border-radius:4px;padding:2px 6px;display:inline-block;word-break:break-all;}
+.slugt code.na{color:#B0BEC2;background:none;padding:0;}
+.slugt .st{white-space:nowrap;}
+.slugt .live{display:block;margin-top:5px;font-size:11px;color:#0E8F89;text-decoration:underline;word-break:break-all;}
+.slugt .live:hover{color:#8A4A3C;}
+.slugt-foot{padding:12px 22px 18px;font-size:11.5px;color:#5E767C;border-top:1px solid #F0F4F3;}
+@media (max-width:900px){ .slugt table{min-width:900px;} }
+
 .arbo-alerts{background:#fff;border:1px solid #DCEAE7;border-radius:12px;padding:18px 20px;margin-bottom:30px;}
 .arbo-alerts h3{margin:0 0 12px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#0E8F89;}
 .arbo-alerts ul{margin:0;padding-left:18px;}
@@ -1205,6 +1231,7 @@
         <div class="mm-branches" id="mmBranches"></div>
       </div>
     </div>
+    <div class="slugt" id="slugTable"></div>
   </div>
 </div>
 <div class="mm-tip" id="mmTip"></div>
@@ -1420,6 +1447,110 @@
 
   var wrap=document.getElementById('mmBranches'), tip=document.getElementById('mmTip');
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+  /* ============ Tableau des slugs par langue ============
+     Alimente par le MEME tableau A que la carte ci-dessus : les deux ne peuvent
+     pas diverger. La colonne « en ligne aujourd'hui » ne contient que des URL
+     relevees dans le sitemap de production (aucune URL reconstruite). */
+  var LIVE = {
+    'Maquillage':['/c/maquillage-enfant','/en/c/kids-makeup','/de/c/kosmetik-fuer-kinder'],
+    'Nouveautés':['/c/maquillage-enfant/nouveautes-maquillage','/en/c/kids-makeup/makeup-new','/de/c/kosmetik-fuer-kinder/neuheiten-kosmetik'],
+    'Best sellers':['/c/maquillage-enfant/meilleures-ventes-maquillage','/en/c/kids-makeup/makeup-bestsellers','/de/c/kosmetik-fuer-kinder/bestseller-kosmetik'],
+    'Collaborations exclusives':['/collaborations','/en/collaborations','/de/kooperationen'],
+    'Crayons de maquillage':['/c/maquillage-deguisement/crayons-maquillage-enfant','/en/c/face-paint/face-paint-sticks','/de/c/kinderschminke/schminkstifte-kinder'],
+    'Fards à l’eau':['/c/maquillage-deguisement/palettes-maquillage-enfant','/en/c/face-paint/water-based-face-painting-en','/de/c/kinderschminke/wasserbasierten-schminkfarben-de'],
+    'Fards à paupières':['/c/maquillage-enfant/fards-paupieres','/en/c/kids-makeup/eyeshadow-palette','/de/c/kosmetik-fuer-kinder/lidschattenpalette'],
+    'Baumes & gloss':['/c/maquillage-enfant/baumes-levre','/en/c/kids-makeup/kids-lip-balm','/de/c/kosmetik-fuer-kinder/lippenbalsam-kinder'],
+    'Mascara cheveux':['/c/maquillage-deguisement/mascara-cheveux','/en/c/face-paint/hair-mascara','/de/c/kinderschminke/haarmascara'],
+    'Tatouages enfant':['/c/maquillage-enfant/tatouages-enfant','/en/c/kids-makeup/fairy-kids-tattoos','/de/c/kosmetik-fuer-kinder/kindertattoos'],
+    'Vernis à ongles':['/c/maquillage-enfant/vernis-eau','/en/c/kids-makeup/kids-nail-polish','/de/c/kosmetik-fuer-kinder/kindernagellack'],
+    'Accessoires':['/c/maquillage-enfant/accessoires-maquillage','/en/c/kids-makeup/makeup-accessories','/de/c/kosmetik-fuer-kinder/schminkzubehoer'],
+    'Coffrets & idées cadeaux':['/coffrets-cadeaux-enfants','/en/coffrets-cadeaux-enfants','/de/geschenksets-kinder'],
+    'Tous les coffrets':['/coffrets-cadeaux-enfants','/en/coffrets-cadeaux-enfants','/de/geschenksets-kinder'],
+    'Trousses de maquillage':['/c/maquillage-enfant/trousses-et-coffrets-maquillage-enfant','/en/c/kids-makeup/kids-makeup-sets','/de/c/kosmetik-fuer-kinder/kosmetiktasche-und-schminkkoffer-kinder'],
+    'Cadeaux de Noël':['/idees-cadeaux-de-noel','/en/christmas-gift-ideas','/de/geschenkideen-fuer-weihnachten'],
+    'Occasions':['/c/univers-occasions','/en/c/occasion','/de/c/welten-und-anlaesse'],
+    'Carnaval':['/c/univers-occasions/maquillage-carnaval','/en/c/occasion/carnival-makeup','/de/c/welten-und-anlaesse/faschingsschminke'],
+    'Halloween':['/c/univers-occasions/maquillage-halloween','/en/c/occasion/halloween-makeup','/de/c/welten-und-anlaesse/halloween-schminke'],
+    'Noël':['/c/univers-occasions/maquillage-noel-nouvel-an','/en/c/occasion/kids-makeup-for-christmas','/de/c/welten-und-anlaesse/weihnachts-sylvester-make-up'],
+    'Bons plans':['/c/promotions','/en/c/promotions','/de/c/promotionen'],
+    'Namaki':['/manifest','/en/manifest','/de/vision'],
+    'Manifeste':['/manifest','/en/manifest','/de/vision'],
+    'Livraison & retours':['/livraison-retours','/en/delivery-returns','/de/lieferung-ruecksendung'],
+    'Nous contacter':['/contact','/en/contact-us','/de/kontakt'],
+    'Tutoriels':['/tuto-maquillage','/en/make-up-tutorial','/de/make-up-tutorial'],
+    'Points de vente':['/points-de-vente','/en/points-of-sale','/de/verkaufsstellen'],
+    'Namaki & les pros':['/namaki-et-les-pros','/en/become-a-partner','/de/geschaeftskunden'],
+    'FAQ':['/faq','/en/faq','/de/faq']
+  };
+  var GABARITS = [
+    ['Fiche produit','/produit/&lt;slug&gt;','/en/product/&lt;slug&gt;','/de/produkt/&lt;slug&gt;','ok',
+     ['/produit/palette-de-maquillage-6-couleurs-arc-en-ciel','/en/product/pirate-pack','/de/produkt/piraten-paket']],
+    ['Boutique (tous les produits)','/boutique','/en/boutique','/de/boutique','ok',
+     ['/boutique','/en/boutique','/de/boutique']],
+    ['Article de blog','/&lt;slug&gt;','/en/&lt;slug&gt;','/de/&lt;slug&gt;','chg', null],
+    ['Fiche tutoriel','/tuto-maquillage/&lt;slug&gt;','/en/make-up-tutorial/&lt;slug&gt;','/de/make-up-tutorial/&lt;slug&gt;','ok',
+     ['/tuto-maquillage','/en/make-up-tutorial','/de/make-up-tutorial']]
+  ];
+  var STAT = {ok:'Identique à l’existant', chg:'Mise à jour prévue', neww:'À créer'};
+
+  (function buildSlugTable(){
+    var host=document.getElementById('slugTable'); if(!host) return;
+    var rows=[];
+    function cell(v){ return v ? '<code>'+esc(v)+'</code>' : '<code class="na">—</code>'; }
+    function liveCell(arr,i){
+      if(!arr||!arr[i]) return '';
+      return '<a class="live" href="https://namaki.fr'+arr[i]+'" target="_blank" rel="noopener">voir en ligne ↗</a>';
+    }
+    function push(label,ctx,fr,en,de,t,live){
+      nPages++;
+      var st = t==='new' ? STAT.neww : (t==='chg' ? STAT.chg : STAT.ok);
+      var cls= t==='new' ? 'tag-new' : (t==='chg' ? 'tag-chg' : 'tag-ok');
+      rows.push('<tr>'
+        +'<td class="pg">'+esc(label)+(ctx?'<small>'+esc(ctx)+'</small>':'')+'</td>'
+        +'<td>'+cell(fr)+liveCell(live,0)+'</td>'
+        +'<td>'+cell(en)+liveCell(live,1)+'</td>'
+        +'<td>'+cell(de)+liveCell(live,2)+'</td>'
+        +'<td class="st"><span class="arbo-tag '+cls+'">'+st+'</span></td></tr>');
+    }
+    var nFlt=0, nPages=0;
+    A.forEach(function(rub){
+      rows.push('<tr class="rub"><td colspan="5">'+esc(rub.label)+'</td></tr>');
+      push(rub.label,'Page mère de la rubrique',
+           urlFor(rub,null,'fr'),urlFor(rub,null,'en'),urlFor(rub,null,'de'),rub.t,
+           rub.live?[rub.live.fr,rub.live.en,rub.live.de]:LIVE[rub.label]);
+      (rub.groups||[]).forEach(function(g){
+        (g.items||[]).forEach(function(it){
+          if(it.t==='flt'){ nFlt++; return; }              // un filtre n'est pas une page
+          push(it.label, rub.label+' › '+g.label,
+               urlFor(it,rub,'fr'),urlFor(it,rub,'en'),urlFor(it,rub,'de'),it.t,
+               it.live?[it.live.fr,it.live.en,it.live.de]:LIVE[it.label]);
+        });
+      });
+    });
+    rows.push('<tr class="rub"><td colspan="5">Gabarits transverses (hors menu)</td></tr>');
+    GABARITS.forEach(function(g){
+      nPages++;
+      var st=g[4]==='new'?STAT.neww:(g[4]==='chg'?STAT.chg:STAT.ok);
+      var cls=g[4]==='new'?'tag-new':(g[4]==='chg'?'tag-chg':'tag-ok');
+      rows.push('<tr><td class="pg">'+g[0]+'<small>Gabarit, pas une entrée de menu</small></td>'
+        +'<td><code>'+g[1]+'</code>'+liveCell(g[5],0)+'</td>'
+        +'<td><code>'+g[2]+'</code>'+liveCell(g[5],1)+'</td>'
+        +'<td><code>'+g[3]+'</code>'+liveCell(g[5],2)+'</td>'
+        +'<td class="st"><span class="arbo-tag '+cls+'">'+st+'</span></td></tr>');
+    });
+    host.innerHTML =
+      '<div class="slugt-h"><h3>Slugs par langue — plan de production</h3>'
+      +'<p>Une ligne par page à produire. Les slugs allemands suivent la fiche de traduction officielle '
+      +'(Namaki - Traduction DE) : Schminkkoffer pour un coffret, Kosmetiktasche pour une trousse, '
+      +'Schminkstifte-kinder pour les crayons. Les liens « voir en ligne » pointent vers la page '
+      +'réellement en production aujourd’hui, relevée dans le sitemap.</p></div>'
+      +'<div class="slugt-wrap"><table><thead><tr>'
+      +'<th>Type de page</th><th>Slug FR</th><th>Slug EN</th><th>Slug DE</th><th>Statut</th>'
+      +'</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>'
+      +'<div class="slugt-foot">'+nPages+' pages à produire ou à reprendre. Les '+nFlt+' filtres (par âge, par prix) '
+      +'sont exclus : ce sont des paramètres d’URL en noindex, pas des pages à produire.</div>';
+  })();
 
   A.forEach(function(rub,ri){
     var count=rub.groups.reduce(function(n,g){return n+g.items.length;},0);
