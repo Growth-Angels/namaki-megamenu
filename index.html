@@ -632,7 +632,7 @@
           {label:'Baumes & gloss'},{label:'Mascara cheveux'},{label:'Gels pailletés'},
           {label:'Tatouages enfant'},{label:'Vernis à ongles'},{label:'Accessoires'} ]},
         { title:'Par âge', hue:'sun', links:[{label:'3 à 6 ans'},{label:'6 à 9 ans'},{label:'9 ans et +'}],
-          title2:'Par prix', hue2:'berry', links2:[{label:'– de 15€'},{label:'de 15 à 50€'},{label:'+ de 50€'}] },
+          title2:'Par prix', hue2:'berry', links2:[{label:'– de 15€'},{label:'de 15 à 45€'},{label:'+ de 45€'}] },
         { title:'Par zone du corps', hue:'lilac', links:[
           {label:'Doigts'},{label:'Tête'},{label:'Yeux'},{label:'Bouche'},{label:'Cheveux'},{label:'Corps'} ]}
       ],
@@ -643,7 +643,7 @@
         { title:'La sélection', hue:'berry', links:[
           {label:'Voir tout'},{label:'Nouveautés',badge:'new'},{label:'Best sellers',badge:'hot'},
           {label:'Collaborations exclusives'},{label:'Coffrets'} ]},
-        { title:'Par prix', hue:'sun', links:[{label:'– de 15€'},{label:'de 15 à 50€'},{label:'+ de 50€'}] }
+        { title:'Par prix', hue:'sun', links:[{label:'– de 15€'},{label:'de 15 à 45€'},{label:'+ de 45€'}] }
       ],
       media:{ title:'À offrir les yeux fermés', c:'berry' } },
 
@@ -671,7 +671,7 @@
         { title:'Offres du moment', hue:'coral', links:[
           {label:'Soldes d’été 2026',badge:'hot'},{label:'Offre du moment'},{label:'Packs produits'},
           {label:'Fin de série'},{label:'Concours'} ]},
-        { title:'Petits prix', hue:'sun', links:[{label:'– de 15€'},{label:'de 15 à 50€'},{label:'+ de 50€'}] },
+        { title:'Petits prix', hue:'sun', links:[{label:'– de 15€'},{label:'de 15 à 45€'},{label:'+ de 45€'}] },
         { title:'Fidélité', hue:'aqua', links:[{label:'Programme Namaki'},{label:'Parrainage'},{label:'Newsletter -10%'}] }
       ],
       media:{ title:'Soldes d’été', c:'coral' } },
@@ -717,8 +717,7 @@
     // Colonne de gauche : « Offre du moment » retiree, les deux gammes de packs
     // ajoutees — elles pesent de plus en plus dans les commandes.
     mq.columns[0].links = [{label:'Voir tout'},{label:'Nouveautés',badge:'new'},{label:'Best sellers',badge:'hot'},
-                           {label:'Collaborations exclusives'},{label:'Coffrets'},
-                           {label:'Packs collection'},{label:'Packs thématiques'},
+                           {label:'Collaborations exclusives'},{label:'Coffrets & Packs'},
                            {label:'Fin de série'},{label:'Concours'}];
     // « Palettes de maquillage » devient « Fards a l'eau » (nom reel de la gamme).
     mq.columns[1].links[1] = {label:'Fards à l’eau'};
@@ -728,9 +727,8 @@
     cd.label = 'Coffrets & idées cadeaux';
     // Trois colonnes : Coffrets / Idees cadeaux / Par prix.
     cd.columns[0].title = 'Coffrets';
-    cd.columns[0].links = [{label:'Mini coffrets de maquillage'},{label:'Coffrets de maquillage'},
-                           {label:'Trousses de maquillage'},{label:'Packs collection'},
-                           {label:'Packs thématiques'},{label:'Tous les coffrets'}];
+    cd.columns[0].links = [{label:'Coffrets & trousses de maquillage'},{label:'Coffrets Vernis à ongles'},
+                           {label:'Coffrets thématiques'},{label:'Tous les coffrets'}];
     // « Cartes cadeaux » et « Pochettes surprises » ne figuraient dans aucune des deux
     // listes transmises : rattachees ici plutot que supprimees du menu.
     cd.columns.splice(1,0,{ title:'Idées cadeaux', hue:'coral', links:[
@@ -1252,12 +1250,9 @@
          note:'Également en double aujourd’hui : fusionner en une seule URL.'},
         {label:'Collaborations exclusives', page:{fr:'/collaborations',en:'/en/collaborations',de:'/de/kooperationen'}, t:'ok',
          note:'Page existante <b>/collaborations</b> : à conserver telle quelle.'},
-        {label:'Coffrets', page:{fr:'/coffrets-maquillage-enfant',en:'/en/kids-makeup-gift-sets',de:'/de/geschenksets-kinder'}, t:'new',
-         note:'Renvoie vers la rubrique Coffrets : un seul emplacement canonique pour cette page.'},
-        {label:'Packs collection', slug:{fr:'packs-collection',en:'collection-packs',de:'schminkset-kollektionen'}, t:'new',
-         note:'Gamme en forte progression dans les commandes : elle passe en accès direct depuis le menu.'},
-        {label:'Packs thématiques', slug:{fr:'packs-thematiques',en:'themed-packs',de:'schminkset-themenwelten'}, t:'new',
-         note:'Même logique que les packs collection. Bon candidat au maillage depuis les pages Occasions.'},
+        {label:'Coffrets & Packs', page:{fr:'/coffrets-maquillage-enfant',en:'/en/kids-makeup-gift-sets',de:'/de/geschenksets-kinder'}, t:'new',
+         note:'Renvoie vers la rubrique Coffrets, qui regroupe désormais coffrets et packs : un seul emplacement canonique.'},
+
         {label:'Fin de série', page:{fr:'/promotions/fin-de-serie',en:'/en/promotions/last-chance',de:'/de/promotionen/restposten'}, t:'new'},
         {label:'Concours', page:{fr:'/concours',en:'/en/contests',de:'/de/gewinnspiele'}, t:'new',
          note:'Page dédiée (concours en cours + archives) plutôt qu’un lien sortant direct vers Instagram : le trafic reste sur le site.'}
@@ -1285,8 +1280,8 @@
       ]},
       {label:'Par prix (filtre)', items:[
         {label:'– de 15€', filter:'?prix=0-15', t:'flt'},
-        {label:'de 15 à 50€', filter:'?prix=15-50', t:'flt'},
-        {label:'+ de 50€', filter:'?prix=50-plus', t:'flt'}
+        {label:'de 15 à 45€', filter:'?prix=15-45', t:'flt'},
+        {label:'+ de 45€', filter:'?prix=45-plus', t:'flt'}
       ]}
     ]},
 
@@ -1294,14 +1289,13 @@
      note:'Nouvelle catégorie mère. « Coffret » est un fort volume de recherche : il mérite son silo plutôt qu’une sous-catégorie.',
      groups:[
       {label:'Coffrets', items:[
-        {label:'Mini coffrets de maquillage', slug:{fr:'mini-coffrets-maquillage',en:'mini-makeup-sets',de:'mini-schminkset-kinder'}, t:'new'},
-        {label:'Coffrets de maquillage', slug:{fr:'coffrets-maquillage',en:'makeup-gift-sets',de:'schminkkoffer-kinder'}, t:'new'},
-        {label:'Trousses de maquillage', slug:{fr:'trousses-maquillage',en:'makeup-bags',de:'kosmetiktasche-kinder'}, t:'chg',
+        {label:'Coffrets & trousses de maquillage', slug:{fr:'coffrets-trousses-maquillage',en:'makeup-sets-and-bags',de:'schminkkoffer-und-kosmetiktasche-kinder'}, t:'chg',
          live:{fr:'/c/maquillage-enfant/trousses-et-coffrets-maquillage-enfant',en:'/en/c/kids-makeup/kids-makeup-sets',de:'/de/c/kosmetik-fuer-kinder/kosmetiktasche-und-schminkkoffer-kinder'},
-         note:'La page actuelle mélange trousses <i>et</i> coffrets. La scinder, puisque les coffrets ont désormais leurs propres entrées.'},
-        {label:'Packs collection', slug:{fr:'packs-collection',en:'collection-packs',de:'schminkset-kollektionen'}, t:'new',
-         note:'Même page que dans Maquillage : une seule URL canonique, appelée depuis les deux menus.'},
-        {label:'Packs thématiques', slug:{fr:'packs-thematiques',en:'themed-packs',de:'schminkset-themenwelten'}, t:'new'},
+         note:'La page existe déjà et regroupe bien trousses <b>et</b> coffrets : l’intitulé du menu s’aligne enfin sur son contenu. Slug FR à raccourcir avec une 301.'},
+        {label:'Coffrets Vernis à ongles', slug:{fr:'coffrets-vernis-ongles',en:'nail-polish-sets',de:'kindernagellack-sets'}, t:'new',
+         note:'Les coffrets 3 vernis existent en fiches produit mais n’ont pas de page de regroupement. Terme DE aligné sur <b>kindernagellack-3er-set</b> de la fiche de traduction.'},
+        {label:'Coffrets thématiques', slug:{fr:'coffrets-thematiques',en:'themed-gift-sets',de:'schminkkoffer-themenwelten'}, t:'new',
+         note:'Point d’entrée naturel depuis les pages Occasions et Thématiques (maillage interne).'},
         {label:'Tous les coffrets', self:true, t:'chg',
          live:{fr:'/coffrets-cadeaux-enfants',en:'/en/coffrets-cadeaux-enfants',de:'/de/geschenksets-kinder'},
          note:'La page existe déjà. <b>Le slug EN n’est pas traduit</b> (<b>/en/coffrets-cadeaux-enfants</b>) : à reprendre.'}
@@ -1318,8 +1312,8 @@
       ]},
       {label:'Par prix (filtre)', items:[
         {label:'– de 15€', filter:'?prix=0-15', t:'flt'},
-        {label:'de 15 à 50€', filter:'?prix=15-50', t:'flt'},
-        {label:'+ de 50€', filter:'?prix=50-plus', t:'flt'}
+        {label:'de 15 à 45€', filter:'?prix=15-45', t:'flt'},
+        {label:'+ de 45€', filter:'?prix=45-plus', t:'flt'}
       ]}
     ]},
 
@@ -1466,8 +1460,8 @@
     'Vernis à ongles':['/c/maquillage-enfant/vernis-eau','/en/c/kids-makeup/kids-nail-polish','/de/c/kosmetik-fuer-kinder/kindernagellack'],
     'Accessoires':['/c/maquillage-enfant/accessoires-maquillage','/en/c/kids-makeup/makeup-accessories','/de/c/kosmetik-fuer-kinder/schminkzubehoer'],
     'Coffrets & idées cadeaux':['/coffrets-cadeaux-enfants','/en/coffrets-cadeaux-enfants','/de/geschenksets-kinder'],
+    'Coffrets & Packs':['/coffrets-cadeaux-enfants','/en/coffrets-cadeaux-enfants','/de/geschenksets-kinder'],
     'Tous les coffrets':['/coffrets-cadeaux-enfants','/en/coffrets-cadeaux-enfants','/de/geschenksets-kinder'],
-    'Trousses de maquillage':['/c/maquillage-enfant/trousses-et-coffrets-maquillage-enfant','/en/c/kids-makeup/kids-makeup-sets','/de/c/kosmetik-fuer-kinder/kosmetiktasche-und-schminkkoffer-kinder'],
     'Cadeaux de Noël':['/idees-cadeaux-de-noel','/en/christmas-gift-ideas','/de/geschenkideen-fuer-weihnachten'],
     'Occasions':['/c/univers-occasions','/en/c/occasion','/de/c/welten-und-anlaesse'],
     'Carnaval':['/c/univers-occasions/maquillage-carnaval','/en/c/occasion/carnival-makeup','/de/c/welten-und-anlaesse/faschingsschminke'],
