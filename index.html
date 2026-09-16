@@ -1199,6 +1199,7 @@
 .wf-genres b{height:13px;width:44px;border:1px solid #CFDBD8;border-radius:999px;background:#fff;display:block;}
 .wf-genres b.on{background:#123E46;border-color:#123E46;}
 .wf-more{height:14px;width:92px;border-radius:999px;border:1.5px solid #16B3AB;margin:9px auto 2px;}
+.wf-gal{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin-top:4px;} .wf-gal .wf-img{aspect-ratio:1;}
 /* --- le brief --- */
 .zon-brief{background:#fff;border:1px solid #DCEAE7;border-radius:12px;padding:24px 26px 26px;}
 .zon-b-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
@@ -2068,6 +2069,7 @@
       var fg='';['Prix','Format','Certifications','Points forts'].forEach(function(){fg+='<div class="wf-fg"><div class="wf-l w60"></div>'+rep('<div class="wf-cb"><i></i><div class="wf-l w80"></div></div>',3)+'</div>';});
       return '<div class="wf-shop"><div class="wf-fbar"><div class="wf-h3"></div>'+fg+'</div>'
         +'<div><div class="wf-sort"><span></span></div><div class="wf-grid wf-grid3" style="margin-top:0">'+rep(CARD,6)+'</div></div></div>';},
+    gallery:function(){return '<div class="wf-h3"></div><div class="wf-gal">'+rep('<div class="wf-img"></div>',6)+'</div>';},
     genres:function(){return '<div class="wf-genres"><b class="on"></b><b></b><b></b><b></b><b></b><b></b></div>';},
     edit:function(){return '<div class="wf-h2"></div><div class="wf-l w90"></div><div class="wf-l w90"></div><div class="wf-l w80"></div><div class="wf-l w60"></div>';},
     edit2:function(){return '<div class="wf-h2"></div><div class="wf-split"><div><div class="wf-l w90"></div><div class="wf-l w90"></div><div class="wf-l w80"></div><div class="wf-l w50"></div></div><div class="wf-img wf-side"></div></div>';},
@@ -2175,10 +2177,14 @@
    ['H1 + chapô','En-tête','seo','hero',{r:'Requête produit. Ajouter systématiquement « enfant » : sans lui, la requête devient adulte et inatteignable.',
      e:['H1 de 55 à 65 signes','Chapô de 250 signes : à quoi ça sert, pour quel âge'],
      x:'<b>H1 :</b> Crayons de maquillage enfant bio : tracés fins et couleurs vives'}],
+   ['Comment choisir (H2)','Réassurance, juste sous le chapô','seo','edit',{r:'Placé avant la grille : le parent lit d’abord pourquoi ce produit lui convient, puis choisit. C’est le bloc qui lève les objections : composition, âge, retrait.',
+     e:['400 à 600 signes','H2 contenant la requête et un verbe d’action','Traiter dans l’ordre : à quoi ça sert, pour quel âge, comment ça s’enlève'],
+     x:'<b>H2 :</b> Bien choisir ses crayons de maquillage pour enfant<br><br>Un crayon pour les tracés fins, un fard pour les aplats : c’est la règle. Nos crayons sont certifiés bio, tiennent la journée et partent à l’eau tiède.'}],
+   ['Bibliothèque d’images','Sous le bloc Comment choisir','ui','gallery',{r:'Une petite galerie de six à huit images : le produit en situation, la texture, le rendu sur peau, un avant/après. Elle montre ce que le texte vient d’expliquer.',
+     e:['6 à 8 images, format carré','Un texte alternatif par image, contenant la requête','Une légende courte de 40 à 60 signes, facultative','Pas de visuels produit détourés : ils sont déjà dans la grille'],
+     x:'<b>Alt :</b> Crayon de maquillage enfant bio, tracé fin sur la joue<br><b>Légende :</b> Le tracé reste net même sur peau fine'}],
    ['Filtres + grille produits','Filtres à gauche, tri à droite','ui','shop',{r:'Le catalogue de la catégorie : panneau de filtres à gauche, tri à droite, grille au centre. Même disposition que les pages Occasion.',
      e:['Filtres et tri en paramètres, non indexables','Tri par défaut : pertinence, pas nouveauté'],x:'Pas de rédaction.'}],
-   ['Comment choisir (H2)','Réassurance','seo','edit',{r:'Le bloc qui lève les objections : composition, âge, retrait.',
-     e:['400 à 600 signes'],x:'<b>H2 :</b> Bien choisir ses crayons de maquillage pour enfant'}],
    ['Les looks à faire avec (H2)','Maillage','seo','looks',{r:'Renvoie vers les Thématiques et Tutoriels réalisables avec ce produit.',
      e:['4 à 6 liens'],x:'<b>H2 :</b> Les maquillages à réaliser avec des crayons'}],
    ['FAQ (H2)','Données structurées','seo','faq',{r:'3 à 5 questions produit.',e:[],x:'Les crayons conviennent-ils aux peaux sensibles ?'}]
