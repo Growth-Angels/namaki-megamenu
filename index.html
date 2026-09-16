@@ -1416,24 +1416,24 @@
     {label:'Tutoriels', page:{fr:'/tuto-maquillage',en:'/en/make-up-tutorial',de:'/de/make-up-tutorial'}, t:'ok',
      note:'URLs existantes en FR et EN : à conserver. Chaque tuto doit pointer vers la thématique correspondante (maillage interne).',
      groups:[
-      {label:'Par genre (filtre)', items:[
-        {label:'Animaux', filter:'?genre=animaux', t:'flt',
-         note:'Aucune demande de page de regroupement : <b>40 recherches</b> pour « maquillage enfant animaux facile ». Filtre de navigation, pas une URL à indexer.'},
-        {label:'Clowns & magie', filter:'?genre=clowns-magie', t:'flt',
-         note:'<b>160 recherches</b> cumulées. Trop faible pour une page dédiée : filtre de navigation.'},
-        {label:'Féérie', filter:'?genre=feerie', t:'flt',
-         note:'<b>Aucune</b> requête « comment » dans le corpus 2026. Filtre de navigation.'},
-        {label:'Halloween', filter:'?genre=halloween', t:'flt',
-         note:'La demande existe (<b>3 950 recherches</b>, dont « maquillage halloween facile enfant » à 2 100) mais elle est <b>captée par la page Occasions Halloween</b> (9 700), qui doit porter une section « pas à pas ». Une page tuto séparée la cannibaliserait.'},
-        {label:'Super-héros', filter:'?genre=super-heros', t:'flt',
-         note:'<b>Aucune</b> requête « comment » dans le corpus 2026. Filtre de navigation. Attention aux licences (Spiderman).'}
+      {label:'Par genre', items:[
+        {label:'Animaux', page:{fr:'/tuto-maquillage/animaux',en:'/en/make-up-tutorial/animals',de:'/de/make-up-tutorial/tiere'}, t:'new',
+         note:'Page de regroupement et <b>segment d\'URL</b> des tutos animaux. Demande propre faible (40) : sa valeur est structurelle, pas dans son trafic direct. Y placer un texte d\'introduction et la liste des tutos.'},
+        {label:'Clowns & magie', page:{fr:'/tuto-maquillage/clown-magie',en:'/en/make-up-tutorial/clown-magic',de:'/de/make-up-tutorial/clown-magie'}, t:'new',
+         note:'Segment d\'URL. Demande propre : <b>160 recherches</b>.'},
+        {label:'Féérie', page:{fr:'/tuto-maquillage/feerie',en:'/en/make-up-tutorial/fairy-tale',de:'/de/make-up-tutorial/maerchen'}, t:'new',
+         note:'Segment d\'URL. Aucune demande propre dans le corpus 2026 : page de structure.'},
+        {label:'Halloween', seo:'Halloween (tutos)', page:{fr:'/tuto-maquillage/halloween',en:'/en/make-up-tutorial/halloween',de:'/de/make-up-tutorial/halloween'}, t:'new',
+         note:'<b>3 950 recherches</b>, la seule famille de tutos à forte demande. <b>Point de vigilance</b> : sa requête dominante, « maquillage halloween facile enfant » (2 100), est proche de celle de la page Occasions Halloween (9 700). Différencier nettement : ici le <b>pas à pas</b>, là-bas les <b>produits et l\'inspiration</b>. Lien réciproque obligatoire.'},
+        {label:'Super-héros', page:{fr:'/tuto-maquillage/super-heros',en:'/en/make-up-tutorial/superheroes',de:'/de/make-up-tutorial/superhelden'}, t:'new',
+         note:'Segment d\'URL. Aucune demande propre. Attention aux licences : viser « super-héros », jamais « Spiderman ».'}
       ]},
       {label:'Nos incontournables', items:[
-        {label:'Licorne magique', page:{fr:'/tuto-maquillage/licorne',en:'/en/make-up-tutorial/unicorn',de:'/de/make-up-tutorial/einhorn'}, t:'new'},
-        {label:'Tigre facile', page:{fr:'/tuto-maquillage/tigre',en:'/en/make-up-tutorial/tiger',de:'/de/make-up-tutorial/tiger'}, t:'new'},
-        {label:'Papillon coloré', page:{fr:'/tuto-maquillage/papillon',en:'/en/make-up-tutorial/butterfly',de:'/de/make-up-tutorial/schmetterling'}, t:'new'},
-        {label:'Squelette rigolo', page:{fr:'/tuto-maquillage/squelette',en:'/en/make-up-tutorial/skeleton',de:'/de/make-up-tutorial/skelett'}, t:'new'},
-        {label:'Sirène & océan', page:{fr:'/tuto-maquillage/sirene',en:'/en/make-up-tutorial/mermaid',de:'/de/make-up-tutorial/meerjungfrau'}, t:'new'}
+        {label:'Licorne magique', page:{fr:'/tuto-maquillage/feerie/licorne',en:'/en/make-up-tutorial/fairy-tale/unicorn',de:'/de/make-up-tutorial/maerchen/einhorn'}, t:'new'},
+        {label:'Tigre facile', page:{fr:'/tuto-maquillage/animaux/tigre',en:'/en/make-up-tutorial/animals/tiger',de:'/de/make-up-tutorial/tiere/tiger'}, t:'new'},
+        {label:'Papillon coloré', page:{fr:'/tuto-maquillage/animaux/papillon',en:'/en/make-up-tutorial/animals/butterfly',de:'/de/make-up-tutorial/tiere/schmetterling'}, t:'new'},
+        {label:'Squelette rigolo', page:{fr:'/tuto-maquillage/halloween/squelette',en:'/en/make-up-tutorial/halloween/skeleton',de:'/de/make-up-tutorial/halloween/skelett'}, t:'new'},
+        {label:'Sirène & océan', page:{fr:'/tuto-maquillage/feerie/sirene',en:'/en/make-up-tutorial/fairy-tale/mermaid',de:'/de/make-up-tutorial/maerchen/meerjungfrau'}, t:'new'}
       ]}
     ]},
 
@@ -1630,6 +1630,16 @@
    'Fée des fleurs':['qui','maquillage enfant fee',60,'Volume faible sur le corpus 2026.'],
    'Squelette mexicain':['qui','tuto maquillage catrina',10,'<b>Fait doublon</b> avec l\'occasion Día de los Muertos (4 150). À fusionner.'],
    'Ballerine':['na','',0,'Absent du corpus 2026.'],
+   'Halloween (tutos)':['comment','maquillage halloween facile enfant',2100,'Seule famille de tutos à forte demande : <b>3 950 recherches</b>. <b>Attention au recoupement</b> avec la page Occasions Halloween (9 700). Différencier nettement : ici le <b>pas à pas</b>, là-bas les produits et l\'inspiration. Lien réciproque obligatoire.'],
+   'Animaux':['comment','maquillage enfant animaux facile',40,'Page de structure : elle porte le segment d\'URL des tutos animaux. Sa valeur est le maillage, pas son trafic propre.'],
+   'Clowns & magie':['comment','tuto maquillage clown facile',50,'Grappe de 160. Page de structure.'],
+   'Féérie':['comment','',0,'Aucune demande propre dans le corpus 2026. Page de structure : elle porte le segment d\'URL.'],
+   'Super-héros':['comment','',0,'Aucune demande propre. Page de structure. Viser « super-héros », jamais une licence.'],
+   'Squelette rigolo':['comment','maquillage squelette enfant',3800,'Le tutoriel le plus porteur du site. Le gros du volume ne dit pas « tuto » : titrer sur <b>facile</b>.'],
+   'Papillon coloré':['comment','maquillage papillon enfant',1100,'Grappe de 2 310. Second tutoriel en volume.'],
+   'Licorne magique':['comment','maquillage enfant licorne',600,'Grappe de 960, dont 200 sur « licorne facile ».'],
+   'Tigre facile':['comment','maquillage enfant tigre',150,'Grappe de 460. Volume modeste : à produire après les trois premiers.'],
+   'Sirène & océan':['comment','maquillage enfant sirene',100,'Volume faible sur le corpus 2026.'],
    'Jungle':['na','',0,'Absent du corpus 2026.'],
    'Tutti frutti':['na','',0,'Absent du corpus 2026.']
   };
@@ -1661,11 +1671,23 @@
      'Maquillage pirate enfant facile : le tuto pas à pas'],
    'Tutoriels':[[['maquillage enfant simple',1400],['tuto maquillage',1400],['tuto maquillage enfant',300],['maquillage enfant facile et rapide',300],['maquillage enfant facile fille',300]],
      'Tutos maquillage enfant faciles : le pas à pas en vidéo'],
+   'Halloween (tutos)':[[['tuto maquillage halloween',700],['maquillage enfant halloween facile',400],['tuto maquillage halloween facile',200],['tuto maquillage halloween enfant',100]],
+     'Tutos maquillage Halloween enfant faciles : le pas à pas'],
+   'Squelette rigolo':[[['maquillage enfant squelette',400],['tuto maquillage squelette',60],['tuto maquillage squelette enfant',30],['tuto maquillage squelette facile',10]],
+     'Maquillage squelette enfant facile : le tuto pas à pas'],
+   'Papillon coloré':[[['maquillage enfant papillon',800],['maquillage enfant papillon facile',150],['tuto maquillage papillon',20]],
+     'Maquillage papillon enfant facile : le tuto pas à pas'],
+   'Licorne magique':[[['maquillage enfant licorne facile',200],['maquillage enfant facile licorne',80],['tuto maquillage licorne facile',20]],
+     'Maquillage licorne enfant facile : le tuto pas à pas'],
+   'Tigre facile':[[['maquillage tigre enfant',150],['tuto maquillage tigre',20]],
+     'Maquillage tigre enfant facile : le tuto pas à pas'],
+   'Sirène & océan':[[['maquillage sirene enfant',100]],
+     'Maquillage sirène enfant facile : le tuto pas à pas'],
    'Coffrets & idées cadeaux':[[['cadeau enfant 3 ans',5900],['cadeau enfant 4 ans',4200],['idee cadeau enfant 3 ans',2900],['cadeau enfant 5 ans',2400],['cadeau enfant 6 ans',2100]],
      'Coffrets et idées cadeaux maquillage enfant, dès 3 ans']
   };
-  function seoHtml(label){
-    var d=SEO[label]; if(!d) return '';
+  function seoHtml(node){
+    var label=node.seo||node.label, d=SEO[label]; if(!d) return '';
     var m=INTENT[d[0]], h='<div class="mm-tip-seo">'
       +'<span class="mm-tip-int i-'+d[0]+'">'+m[0]+'</span><span class="mm-tip-intl">'+m[1]+'</span>';
     if(d[1]) h+='<div class="mm-tip-kw">'+esc(d[1])+'<b>'+(d[2]?d[2].toLocaleString('fr-FR')+' rech./mois':'volume à relever')+'</b></div>';
@@ -1686,7 +1708,7 @@
       h+='<div class="mm-tip-row"><span class="mm-tip-lang">'+l.toUpperCase()+'</span>'
         +'<span class="mm-tip-url">'+esc(urlFor(node,parent,l))+'</span></div>';
     });
-    h+=seoHtml(node.label);
+    h+=seoHtml(node);
     h+='<div class="mm-tip-note"><b>'+LABEL[t]+'</b>'+(node.note? ' — '+node.note : '')+'</div>';
     tip.innerHTML=h; tip.classList.add('show');
     var r=el.getBoundingClientRect(), tr=tip.getBoundingClientRect();
