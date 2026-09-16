@@ -1437,13 +1437,13 @@
     <div>
       <h2 class="zon-h">Feuille de route</h2>
       <p class="zon-sub">Ce qui conditionne la mise en ligne du nouveau menu, ce qui en est indépendant, et les
-      échéances posées au 16 septembre 2026. Les points en orange attendent une décision.</p>
+      échéances posées le 16 septembre 2026. Les points en orange attendent une décision.</p>
     </div>
     <button type="button" class="zon-close" id="rmClose">✕ Fermer</button>
   </div>
   <div class="rm-tl">
-    <div class="now"><b>16 sept · aujourd'hui</b><p>Maquette V2, arborescence, slugs et zoning livrés dans ce document.</p></div>
-    <div><b>Mer. 23 sept</b><p>Prototypes finaux de la nouvelle homepage (GA). Zoning des pages thématiques (GA ou Namaki, à confirmer).</p></div>
+    <div class="now"><b>Mer. 23 sept · Maquette V2</b><p>Livraison de la maquette V2 : menu, arborescence, slugs FR/EN/DE, zoning des gabarits et feuille de route.</p></div>
+    <div><b>Mer. 23 sept · Homepage et thématiques</b><p>Prototypes finaux de la nouvelle homepage (GA). Zoning des pages thématiques (GA ou Namaki, à confirmer).</p></div>
     <div><b>Dès que prêt</b><p>Mise en ligne du nouveau menu, une fois les quatre prérequis Namaki levés et la section « Nos gammes » retirée de la HP.</p></div>
     <div><b>Mi-octobre</b><p>Premier lot de 10 pages thématiques prioritaires, et nouvelle entrée « Thématiques » dans le menu.</p></div>
   </div>
@@ -1864,6 +1864,9 @@
    'Squelette mexicain':['qui','tuto maquillage catrina',10,'<b>Fait doublon</b> avec l\'occasion Día de los Muertos (4 150). À fusionner.'],
    'Ballerine':['na','',0,'Absent du corpus 2026.'],
    'Halloween (tutos)':['comment','maquillage halloween facile enfant',2100,'Seule famille de tutos à forte demande : <b>3 950 recherches</b>. <b>Attention au recoupement</b> avec la page Occasions Halloween (9 700). Différencier nettement : ici le <b>pas à pas</b>, là-bas les produits et l\'inspiration. Lien réciproque obligatoire.'],
+   'Fin de série':['produit','',0,'Page de déstockage, sans requête pérenne. Une seule URL, appelée depuis Maquillage et Bons plans.'],
+   'Concours':['produit','',0,'Page unique. Y regrouper le concours en cours, le lien Instagram et l\'historique des concours passés.'],
+   'Menu secondaire':['produit','namaki',800,'Page d\'accueil. Requête de marque : elle doit rester la destination naturelle de « namaki ».'],
    'Voir tout':['produit','maquillage enfant',17000,'Ne pas créer de page distincte : c\'est la catégorie mère elle-même, sinon contenu dupliqué.'],
    'Nouveautés':['produit','nouveautes maquillage enfant',0,'Page de fraîcheur, pas de requête propre. <b>Deux URL existent aujourd\'hui</b> : n\'en garder qu\'une.'],
    'Best sellers':['produit','meilleures ventes maquillage enfant',0,'Même cas : deux URL en ligne, à fusionner.'],
@@ -1984,6 +1987,48 @@
      'Namaki et les pros : maquilleurs, écoles, comités d’entreprise'],
    'Idées cadeaux':[[['idee cadeau enfant 3 ans',2900],['idee cadeau enfant 2 ans',2500]],
      'Idées cadeaux maquillage enfant : par âge et par budget'],
+   'Voir tout':[[],'Maquillage enfant bio, fabriqué en France : toute la gamme Namaki (même page que la catégorie mère)'],
+   'Nouveautés':[[],'Nouveautés maquillage enfant : les derniers produits Namaki'],
+   'Best sellers':[[],'Best-sellers maquillage enfant : les produits préférés des parents'],
+   'Collaborations exclusives':[[],'Collaborations exclusives Namaki : Centre Pompidou, Marie Claire, Lascaux'],
+   'Coffrets & Packs':[[['coffret maquillage enfant',400]],'Coffrets et packs de maquillage enfant, dès 3 ans'],
+   'Fin de série':[[],'Fin de série : les derniers maquillages enfant à petit prix'],
+   'Concours':[[],'Concours Namaki : jouez et gagnez un maquillage enfant bio'],
+   'Accessoires':[[],'Accessoires de maquillage enfant : pinceaux, éponges, taille-crayon'],
+   'Cartes cadeaux':[[],'Carte cadeau Namaki : offrir un maquillage enfant bio'],
+   'Pochettes surprises':[[],'Pochettes surprises maquillage enfant : les petits cadeaux d’anniversaire'],
+   'Anniversaire':[[['anniversaire enfant',7600],['maquilleuse anniversaire enfant',250]],'Organiser un anniversaire enfant : idées, activités et maquillage'],
+   'Soirée pyjama':[[['soirée pyjama',2500],['invitation soirée pyjama',450],['soiree pyjama enfant',400]],'Organiser une soirée pyjama : idées, activités et maquillage pour enfants'],
+   'Match & compétition':[[],'Maquillage supporter enfant : couleurs et drapeaux pour le match'],
+   'Kermesse école':[[['maquillage enfant kermesse',200]],'Maquillage kermesse enfant : idées rapides pour un stand qui tourne'],
+   'Gala danse':[[['maquillage enfant danse',10]],'Maquillage de gala de danse pour enfant : discret et qui tient'],
+   'Mariage & baptême':[[['tuto maquillage mariage',250]],'Maquillage enfant pour mariage et baptême : léger et naturel'],
+   'Fée des fleurs':[[['maquillage enfant fee',60]],'Maquillage fée enfant : le look fée des fleurs, facile'],
+   'Sirène':[[['maquillage enfant sirene',100]],'Maquillage sirène enfant : écailles et reflets, faciles à faire'],
+   'Ballerine':[[],'Maquillage ballerine enfant : le look danseuse en quelques gestes'],
+   'Princesse de l’hiver':[[['maquillage enfant princesse',300]],'Maquillage princesse des glaces enfant : le look hiver'],
+   'Jungle':[[],'Maquillage jungle enfant : perroquet, singe et feuillages'],
+   'Safari':[[['maquillage enfant lion',250],['maquillage tigre enfant',150]],'Maquillage safari enfant : lion, tigre, girafe, zèbre'],
+   'Tutti frutti':[[],'Maquillage fruits enfant : fraise, pastèque, ananas'],
+   'Squelette mexicain':[[['tuto maquillage catrina',10]],'Maquillage squelette mexicain enfant : la catrina (à fusionner avec Día de los Muertos)'],
+   'Bons plans':[[],'Bons plans maquillage enfant : promotions, packs et fins de série'],
+   'Soldes d’été 2026':[[],'Soldes d’été Namaki : maquillage enfant bio à prix réduit'],
+   'Offre du moment':[[],'Offre du moment Namaki : la promotion en cours'],
+   'Packs collection':[[],'Packs collection : les maquillages d’une collection Namaki réunis'],
+   'Packs thématiques':[[],'Packs thématiques : tout le maquillage d’un univers en un pack'],
+   'Namaki':[[['namaki',800]],'Namaki, la marque : maquillage enfant bio, fabriqué en France'],
+   'Manifeste':[[],'Le manifeste Namaki : la cosmétique devient récréative'],
+   'Nos valeurs':[[],'Nos valeurs : bio, sécurité, fabrication française et jeu'],
+   'Livraison & retours':[[],'Livraison et retours : délais, frais et conditions'],
+   'Nous contacter':[[],'Contacter Namaki : service client et conseils'],
+   'Animaux':[[['maquillage enfant animaux facile',40]],'Tutos maquillage animaux pour enfants : chat, tigre, papillon, faciles à réussir'],
+   'Clowns & magie':[[['tuto maquillage clown facile',50],['maquillage enfant clown facile',50]],'Tutos maquillage clown et magie pour enfants, faciles à réussir'],
+   'Féérie':[[],'Tutos maquillage féerique pour enfants : licorne, fée, sirène, faciles à réussir'],
+   'Super-héros':[[],'Tutos maquillage super-héros pour enfants, faciles à réussir'],
+   'Menu secondaire':[[['namaki',800]],'Namaki : maquillage enfant bio, fabriqué en France'],
+   'Points de vente':[[],'Points de vente Namaki : trouver un revendeur près de chez vous'],
+   'FAQ':[[],'FAQ Namaki : composition, âge, retrait, livraison'],
+   'Blog':[[],'Le blog Namaki : idées de fêtes, activités et maquillage enfant'],
    'Halloween (tutos)':[[['tuto maquillage halloween',700],['maquillage enfant halloween facile',400],['tuto maquillage halloween facile',200],['tuto maquillage halloween enfant',100]],
      'Tutos maquillage Halloween enfant faciles : le pas à pas'],
    'Squelette rigolo':[[['maquillage enfant squelette',400],['tuto maquillage squelette',60],['tuto maquillage squelette enfant',30],['tuto maquillage squelette facile',10]],
@@ -2007,9 +2052,12 @@
     if(d[3]) h+='<div class="mm-tip-why">'+d[3]+'</div>';
     var k=KW[label];
     if(k){
-      h+='<div class="mm-tip-sec"><span class="mm-tip-sect">Requêtes secondaires à couvrir</span>';
-      k[0].forEach(function(x){ h+='<div class="mm-tip-sr">'+esc(x[0])+'<b>'+x[1].toLocaleString('fr-FR')+'</b></div>'; });
-      h+='</div><div class="mm-tip-sec"><span class="mm-tip-sect">Title &amp; H1 proposés</span>'
+      if(k[0]&&k[0].length){
+        h+='<div class="mm-tip-sec"><span class="mm-tip-sect">Requêtes secondaires à couvrir</span>';
+        k[0].forEach(function(x){ h+='<div class="mm-tip-sr">'+esc(x[0])+'<b>'+(x[1]?x[1].toLocaleString('fr-FR'):'à relever')+'</b></div>'; });
+        h+='</div>';
+      }
+      h+='<div class="mm-tip-sec"><span class="mm-tip-sect">Title &amp; H1 proposés</span>'
        +'<div class="mm-tip-h1">'+esc(k[1])+'</div></div>';
     }
     return h+'</div>';
