@@ -1837,8 +1837,8 @@
               na:['À RELEVER','Absent du corpus 2026']};
   var SEO={
    'Maquillage':['produit','maquillage enfant',17000,'Catégorie mère, destinataire de tout le maillage interne.'],
-   'Occasions':['quand','maquillage halloween enfant',9700,'Silo calendaire. Sur 9 occasions du menu, 4 seulement portent une intention maquillage réelle.'],
-   'Thématiques':['qui','maquillage squelette enfant',3800,'Silo permanent, non saisonnier : 23,9 % de la demande de la grappe « maquillage enfant ».'],
+   'Occasions':['quand','idée maquillage enfant',800,'<b>Page hub, sans requête propre</b> : « occasion » n\'est jamais tapé (60 rech.). Sa valeur est la distribution vers les 4 occasions à intention (Halloween 9 700, Carnaval, Noël, Día de los Muertos). Elle porte la requête générique « idée maquillage enfant » (grappe de 2 120) : une idée se cherche pour un moment.'],
+   'Thématiques':['qui','modele maquillage enfant',800,'<b>Page hub, sans requête propre</b> : « thème » n\'est jamais tapé (20 rech.). Elle porte « modèle maquillage enfant » (grappe de 1 170) : un modèle est un look. Sa valeur est la distribution vers les 20 looks, qui pèsent 23,9 % de la demande.'],
    'Tutoriels':['comment','maquillage enfant facile',4300,'<b>« facile » pèse 15 880 contre 13 230 pour « tuto »</b>, sur deux fois moins de requêtes. Titrer sur la simplicité, pas sur le format.'],
    'Coffrets & idées cadeaux':['produit','cadeau enfant',6900,'Grappe « cadeau enfant » : 78 080 recherches mensuelles.'],
    'Halloween':['quand','maquillage halloween enfant',9700,'99 % de la grappe porte une intention maquillage. <b>Hub de 7 des 10 premières thématiques</b> : c\'est elle qui les distribue. Doit aussi porter une section « pas à pas » pour capter « maquillage halloween facile enfant » (2 100) : c\'est la même intention, une seule page doit la servir.'],
@@ -1922,6 +1922,10 @@
   var KW={
    'Maquillage':[[['maquillage pour enfant',1700],['maquillage enfant fille',1300],['maquillage enfant bio',1200],['palette maquillage enfant',1100],['malette maquillage enfant',1400],['modele maquillage enfant',800]],
      'Maquillage enfant bio, fabriqué en France — palettes, crayons et coffrets'],
+   'Occasions':[[['idee maquillage enfant',600],['idée maquillage enfant',200],['idee maquillage enfant halloween',80],['maquillage enfant fete',50]],
+     'Idées de maquillage enfant pour chaque occasion : Halloween, Carnaval, Noël'],
+   'Thématiques':[[['maquillage enfant modèle',200],['maquillage visage enfant',800],['maquillage enfant modele facile',50]],
+     'Modèles de maquillage enfant : tous nos looks, du plus simple au plus fou'],
    'Halloween':[[['maquillage enfant halloween',3000],['maquillage halloween facile enfant',2100],['idee maquillage enfant halloween',80],['maquillage enfant halloween garcon',40]],
      'Maquillage Halloween enfant : 20 idées faciles, pas à pas'],
    'Carnaval':[[['maquillage carnaval enfant',700],['maquillage enfant carnaval',500],['maquillage carnaval facile',300]],
@@ -2069,6 +2073,9 @@
       var fg='';['Prix','Format','Certifications','Points forts'].forEach(function(){fg+='<div class="wf-fg"><div class="wf-l w60"></div>'+rep('<div class="wf-cb"><i></i><div class="wf-l w80"></div></div>',3)+'</div>';});
       return '<div class="wf-shop"><div class="wf-fbar"><div class="wf-h3"></div>'+fg+'</div>'
         +'<div><div class="wf-sort"><span></span></div><div class="wf-grid wf-grid3" style="margin-top:0">'+rep(CARD,6)+'</div></div></div>';},
+    tiles2:function(){return '<div class="wf-grid" style="grid-template-columns:1fr 1fr">'+rep('<div class="wf-card"><div class="wf-img" style="aspect-ratio:3/2"></div><div class="wf-h3" style="width:60%"></div><div class="wf-l w80"></div></div>',6)+'</div>';},
+    tiles3:function(){return '<div class="wf-grid wf-grid3">'+rep('<div class="wf-card"><div class="wf-img wf-43"></div><div class="wf-l w70"></div></div>',9)+'</div>';},
+    fams:function(){return '<div class="wf-genres"><b class="on"></b><b></b><b></b><b></b></div>';},
     gallery:function(){return '<div class="wf-h3"></div><div class="wf-gal">'+rep('<div class="wf-img"></div>',6)+'</div>';},
     genres:function(){return '<div class="wf-genres"><b class="on"></b><b></b><b></b><b></b><b></b><b></b></div>';},
     edit:function(){return '<div class="wf-h2"></div><div class="wf-l w90"></div><div class="wf-l w90"></div><div class="wf-l w80"></div><div class="wf-l w60"></div>';},
@@ -2087,6 +2094,25 @@
   };
   /* [ nom, sous-titre, type, zone, brief ] */
   var T=[
+  {id:'hubocc', n:'Page Occasions', s:'La liste de toutes les occasions', u:'/occasions',
+   src:'Page hub : distribue vers les occasions', b:[
+   ['Fil d’Ariane','Navigation','nav','crumb',{r:'Accueil › Occasions',e:[],x:'Pas de rédaction.'}],
+   ['H1 + chapô','La requête générique','seo','hero',{r:'La page n’a pas de requête propre, « occasion » n’est jamais tapé. Elle porte « idée maquillage enfant » (800) et annonce la logique de la rubrique : un maquillage pour chaque moment de l’année.',
+     e:['H1 contenant « idées » et « occasion », 55 à 65 signes','Chapô de 250 signes qui nomme les quatre grandes occasions','Ne pas décrire la marque, décrire le calendrier'],
+     x:'<b>H1 :</b> Idées de maquillage enfant pour chaque occasion<br><br><b>Chapô :</b> Halloween, carnaval, Noël, Día de los Muertos : à chaque fête son maquillage. Choisissez l’occasion, on vous montre les looks, les produits et le pas à pas.'}],
+   ['Les occasions, dans l’ordre du calendrier','Le cœur de page','seo','tiles2',{r:'Une tuile par occasion, avec image, titre et une phrase. Les quatre occasions à intention maquillage en tête, ordonnées depuis la date du jour : la prochaine fête d’abord.',
+     e:['Titre de tuile = le H1 de la page fille (Maquillage Halloween enfant)','Une phrase de 80 à 120 signes par tuile','Ordre calendaire glissant : à la rentrée, Halloween en premier ; en janvier, Carnaval'],
+     x:'<b>Halloween</b> · Le maquillage le plus demandé de l’année, du squelette à la sorcière.<br><b>Carnaval</b> · Couleurs vives et looks rapides pour la parade.',
+     w:'Anniversaire, soirée pyjama, kermesse, gala et mariage n’ont pas d’intention maquillage : ne pas les mettre au même niveau que les quatre grandes occasions. Ils vont dans le bloc suivant.'}],
+   ['Quel maquillage pour quelle occasion (H2)','Éditorial','seo','edit',{r:'Le bloc qui donne de la matière à indexer et qui installe la logique « quand ». Court.',
+     e:['300 à 450 signes','Une phrase par grande occasion : ce qui la caractérise, le niveau de difficulté','Lien inline vers chaque page fille'],
+     x:'<b>H2 :</b> Quel maquillage pour quelle occasion ?<br><br>Halloween appelle du noir et du blanc, et des looks qui font peur sans effrayer. Le carnaval, c’est la couleur : papillons, clowns, animaux. Noël joue le scintillant.'}],
+   ['Les fêtes à préparer (H2)','Articles de blog','txt','related',{r:'Anniversaire, soirée pyjama, kermesse : de vraies audiences (139 000 recherches) mais sans intention maquillage. Ici sous forme d’articles, pas de catégories.',
+     e:['3 vignettes vers les articles : anniversaire enfant, soirée pyjama, kermesse','Titre d’article = la requête réelle (« Organiser un anniversaire enfant »), pas « maquillage anniversaire »'],
+     x:'<b>H2 :</b> Les fêtes à préparer'}],
+   ['Vers les Thématiques et les Tutoriels (H2)','Maillage','nav','link',{r:'Renvoie vers l’autre entrée du site : par personnage, et vers les tutoriels.',
+     e:['Deux liens explicites : « tous nos looks par personnage », « nos tutos faciles »'],x:'<b>H2 :</b> Plutôt un personnage qu’une date ?'}]
+  ]},
   {id:'occ', n:'Occasion', s:'Halloween, Carnaval, Noël…', u:'/occasions/maquillage-halloween',
    src:'Relevé sur la préproduction · page Halloween', b:[
    ['Fil d’Ariane','Navigation','nav','crumb',{r:'Situe la page dans le silo et distribue du maillage vers la catégorie mère.',
@@ -2112,6 +2138,25 @@
      e:['4 à 6 questions','Réponses de 200 à 300 signes','Balisage FAQPage obligatoire'],
      x:'À quel âge peut-on maquiller un enfant ?<br>Comment enlever un maquillage Halloween ?<br>Le maquillage tient-il toute la soirée ?<br>Est-ce adapté aux peaux sensibles ?'}],
    ['Autres collections (H2)','Maillage','nav','collections',{r:'Renvoie vers les autres Occasions.',e:['3 à 5 collections'],x:'Pas de rédaction longue : les intitulés suffisent.'}]
+  ]},
+  {id:'hubthem', n:'Page Thématiques', s:'La liste de tous les looks', u:'/themes-maquillage',
+   src:'Page hub : distribue vers les looks', b:[
+   ['Fil d’Ariane','Navigation','nav','crumb',{r:'Accueil › Thématiques',e:[],x:'Pas de rédaction.'}],
+   ['H1 + chapô','La requête générique','seo','hero',{r:'« Thème » n’est jamais tapé (20 rech.). La page porte « modèle maquillage enfant » (800) : un modèle est un look, c’est exactement ce que liste la rubrique.',
+     e:['H1 contenant « modèles » et « maquillage enfant »','Chapô de 250 signes : combien de looks, classés comment','Annoncer les familles : féérie, aventure, animaux, Halloween'],
+     x:'<b>H1 :</b> Modèles de maquillage enfant : tous nos looks<br><br><b>Chapô :</b> Vingt personnages à reproduire, du papillon au squelette, classés par univers et par niveau. Chaque look renvoie vers ses produits et son pas à pas.'}],
+   ['Familles','Pour filtrer les looks','ui','fams',{r:'La rangée des univers, comme sur la catégorie tutoriels : Tous, Féérie, Aventure, Halloween & magie. Ce sont des ancres ou des filtres sur la page, pas des URL séparées.',
+     e:['Une entrée par famille, « Tous » actif par défaut','Filtre en paramètre ?famille= ou ancre, jamais une page indexable'],
+     x:'Tous · Féérie · Aventure · Halloween &amp; magie'}],
+   ['La grille des looks','Le cœur de page','seo','tiles3',{r:'Une tuile par thématique, image du look fini et titre. Ordonnée par volume de recherche, pas par ordre alphabétique : squelette, vampire, papillon, araignée, clown, chat, licorne, citrouille, sorcière, pirate en tête.',
+     e:['Titre de tuile = le H1 de la page fille (Maquillage squelette enfant)','Pas de phrase sous la tuile : l’image et le titre suffisent','Badge de niveau facultatif : facile, intermédiaire, avancé'],
+     x:'Squelette · Vampire · Papillon · Araignée · Clown · Chat · Licorne · Citrouille · Sorcière · Pirate…',
+     w:'Squelette mexicain fait doublon avec l’occasion Día de los Muertos : une seule tuile, vers l’occasion.'}],
+   ['Choisir un look selon l’âge et le niveau (H2)','Éditorial','seo','edit',{r:'La matière à indexer, et le conseil que le parent attend : par où commencer.',
+     e:['300 à 450 signes','Trois paliers : dès 3 ans, dès 6 ans, pour les grands','Lien inline vers deux ou trois looks par palier'],
+     x:'<b>H2 :</b> Quel maquillage pour quel âge ?<br><br>À 3 ans, un papillon ou une coccinelle : deux couleurs, cinq minutes. À 6 ans, on ose le tigre. Le squelette et le vampire demandent une main plus sûre.'}],
+   ['Vers les Occasions et les Tutoriels (H2)','Maillage','nav','link',{r:'Renvoie vers l’entrée par date, et vers les tutoriels.',
+     e:['Deux liens explicites : « par occasion », « nos tutos faciles »'],x:'<b>H2 :</b> Un maquillage pour une fête précise ?'}]
   ]},
   {id:'them', n:'Thématique', s:'Squelette, Licorne, Pirate…', u:'/themes-maquillage/maquillage-squelette',
    src:'Même gabarit que l’Occasion, recentré sur le look', b:[
