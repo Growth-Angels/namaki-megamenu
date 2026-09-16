@@ -1229,7 +1229,7 @@
   font-family:'Figtree',system-ui,-apple-system,sans-serif;letter-spacing:.02em;color:#2F2722;-webkit-font-smoothing:antialiased;}
 .rm.open{display:block;}
 .rm-in{max-width:1180px;margin:0 auto;padding:28px 32px 90px;}
-.rm-tl{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 30px;}
+.rm-tl{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:0 0 30px;}
 .rm-tl>div{background:#fff;border:1px solid #DCEAE7;border-radius:12px;padding:14px 16px;position:relative;}
 .rm-tl>div:before{content:"";position:absolute;left:16px;top:-1px;width:34px;height:3px;border-radius:0 0 3px 3px;background:#16B3AB;}
 .rm-tl>div.now:before{background:#8A4A3C;} .rm-tl>div.late:before{background:#F2867C;}
@@ -1251,6 +1251,7 @@
 .rm-own{font-size:11px;font-weight:800;letter-spacing:.06em;padding:4px 10px;border-radius:999px;}
 .rm-own.o-nmk{background:#FDECE9;color:#B5493C;} .rm-own.o-ga{background:#EAF6F3;color:#0E8F89;} .rm-own.o-both{background:#F0EDF7;color:#6E4FA8;}
 .rm-due{font-size:12px;color:#5E767C;} .rm-due b{color:#8A4A3C;font-weight:700;}
+@media (max-width:1100px){ .rm-tl{grid-template-columns:1fr 1fr 1fr;} }
 @media (max-width:900px){ .rm-tl{grid-template-columns:1fr 1fr;} .rm-card{grid-template-columns:34px 1fr;} .rm-side{grid-column:2;flex-direction:row;align-items:center;} }
 
 .arbo-alerts{background:#fff;border:1px solid #DCEAE7;border-radius:12px;padding:18px 20px;margin-bottom:30px;}
@@ -1444,6 +1445,7 @@
   <div class="rm-tl">
     <div class="now"><b>Mer. 23 sept · Maquette V2</b><p>Livraison de la maquette V2 : menu, arborescence, slugs FR/EN/DE, zoning des gabarits et feuille de route.</p></div>
     <div><b>Mer. 23 sept · Homepage et thématiques</b><p>Prototypes finaux de la nouvelle homepage (GA). Zoning des pages thématiques (GA ou Namaki, à confirmer).</p></div>
+    <div class="late"><b>Jeu. 24 · Ven. 25 sept · Halloween</b><p>Présentation des campagnes Meta et Google le jeudi 24, lancement le vendredi 25. Budget de 2 000 à 5 000 € à valider ensemble.</p></div>
     <div><b>Dès que prêt</b><p>Mise en ligne du nouveau menu, une fois les quatre prérequis Namaki levés et la section « Nos gammes » retirée de la HP.</p></div>
     <div><b>Mi-octobre</b><p>Premier lot de 10 pages thématiques prioritaires, et nouvelle entrée « Thématiques » dans le menu.</p></div>
   </div>
@@ -1482,6 +1484,13 @@
     <div class="rm-card done"><div class="rm-n">9</div><div><p class="rm-t">Page tutoriel (single) : conservée en l'état</p>
       <p class="rm-d">Rien à produire. Seule évolution recommandée, hors chantier : ajouter « enfant » et « facile » dans les titles et H1.</p></div>
       <div class="rm-side"><span class="rm-own o-both">RIEN À FAIRE</span></div></div>
+  </div>
+
+  <div class="rm-sec"><div class="rm-h2">Acquisition · Halloween</div>
+    <div class="rm-card q"><div class="rm-n">10</div><div><p class="rm-t">Campagnes Meta et Google Halloween : présentation le 24, lancement le 25</p>
+      <p class="rm-d">Présentation des campagnes <b>jeudi 24 septembre</b>, lancement <b>vendredi 25 septembre</b>. Le pic de recherche Halloween démarre début octobre : lancer le 25 laisse une semaine d'apprentissage aux algorithmes avant la montée.</p>
+      <div class="rm-q"><b>À valider ensemble.</b> Budget global entre <b>2 000 € et 5 000 €</b>, à répartir entre Meta et Google. La répartition se décide en présentation, selon les objectifs : Meta pour la découverte et les visuels de looks, Google pour capter les 17 000 recherches mensuelles de la grappe Halloween.</div></div>
+      <div class="rm-side"><span class="rm-own o-ga">GROWTH ANGELS</span><span class="rm-due">présentation <b>24 sept.</b> · lancement <b>25 sept.</b></span></div></div>
   </div>
 </div></div>
 <div class="mm-tip" id="mmTip"></div>
