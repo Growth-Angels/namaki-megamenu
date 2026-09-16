@@ -1111,58 +1111,102 @@
 @media (max-width:900px){ .slugt table{min-width:900px;} }
 
 
-/* ============ ZONING : gabarits de page ============ */
-.zon{position:fixed;inset:0;z-index:300;background:#FBF7EF;overflow:auto;display:none;}
+
+/* ============ ZONING : gabarits de page (même coquille que l'arborescence) ============ */
+.zon{position:fixed;inset:0;z-index:300;background:#FBF9F5;overflow:auto;display:none;
+  font-family:'Figtree',system-ui,-apple-system,sans-serif;letter-spacing:.02em;color:#2F2722;
+  -webkit-font-smoothing:antialiased;}
 .zon.open{display:block;}
-.zon-in{max-width:1400px;margin:0 auto;padding:30px 26px 70px;}
-.zon-top{display:flex;align-items:flex-start;gap:20px;margin-bottom:8px;}
-.zon-h{font-size:24px;font-weight:800;color:#123E46;margin:0 0 6px;}
-.zon-sub{font-size:14px;line-height:1.6;color:#5E767C;margin:0;max-width:78ch;}
-.zon-close{margin-left:auto;flex:0 0 auto;background:#fff;border:1px solid #DCEAE7;border-radius:10px;
-  padding:9px 15px;font:inherit;font-size:13px;color:#123E46;cursor:pointer;}
-.zon-close:hover{background:#FDF9F1;}
-.zon-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 20px;}
-.zon-tab{background:#fff;border:1px solid #DCEAE7;border-radius:999px;padding:9px 16px;font:inherit;
-  font-size:13px;color:#5E767C;cursor:pointer;transition:.14s;}
-.zon-tab:hover{background:#FDF9F1;color:#8A4A3C;}
-.zon-tab.on{background:#123E46;border-color:#123E46;color:#fff;}
-.zon-tab small{display:block;font-size:10.5px;opacity:.7;margin-top:1px;}
-.zon-body{display:flex;gap:26px;align-items:flex-start;}
-.zon-wire{flex:0 0 400px;background:#fff;border:1px solid #DCEAE7;border-radius:14px;padding:16px;
-  position:sticky;top:20px;}
-.zon-wire-h{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#0E8F89;
-  font-weight:800;margin-bottom:4px;}
-.zon-wire-u{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#8A9BA0;margin-bottom:12px;
-  word-break:break-all;}
-.zon-blk{border:1.5px solid #E4EDEB;border-radius:8px;padding:9px 11px;margin-bottom:7px;cursor:pointer;
-  background:#FCFDFD;transition:.14s;position:relative;}
-.zon-blk:hover{border-color:#8A4A3C;background:#FDF9F1;}
-.zon-blk.on{border-color:#123E46;background:#123E46;color:#fff;}
-.zon-blk-n{font-size:12.5px;font-weight:600;color:#2F2722;display:flex;align-items:center;gap:7px;}
-.zon-blk.on .zon-blk-n{color:#fff;}
-.zon-blk-t{font-size:10px;color:#8A9BA0;margin-top:2px;}
-.zon-blk.on .zon-blk-t{color:#9FC5C1;}
-.zon-blk-i{flex:0 0 auto;font-size:9px;font-weight:800;letter-spacing:.06em;padding:2px 6px;
-  border-radius:4px;background:#EAF6F3;color:#0E8F89;}
-.zon-blk.on .zon-blk-i{background:rgba(255,255,255,.18);color:#fff;}
-.zon-blk-i.red{background:#FDECE9;color:#B5493C;}
-.zon-blk.on .zon-blk-i.red{background:rgba(255,160,140,.28);color:#FFD4CB;}
-.zon-brief{flex:1;min-width:0;background:#fff;border:1px solid #DCEAE7;border-radius:14px;padding:26px 28px;}
-.zon-brief h3{margin:0 0 4px;font-size:19px;color:#123E46;}
-.zon-brief .role{font-size:13.5px;line-height:1.6;color:#5E767C;margin:0 0 18px;}
-.zon-sec2{margin-top:20px;}
-.zon-sec2 h4{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#0E8F89;
-  font-weight:800;margin:0 0 9px;}
-.zon-li{display:flex;gap:9px;font-size:13.5px;line-height:1.6;color:#2F2722;margin-bottom:7px;}
-.zon-li:before{content:"";flex:0 0 5px;height:5px;border-radius:50%;background:#8A4A3C;margin-top:8px;}
-.zon-ex{background:#FDF9F1;border-left:3px solid #8A4A3C;border-radius:0 8px 8px 0;padding:12px 15px;
-  font-size:13px;line-height:1.6;color:#2F2722;font-style:italic;}
-.zon-ex b{font-style:normal;color:#8A4A3C;}
-.zon-warn{background:#FDECE9;border-left:3px solid #B5493C;border-radius:0 8px 8px 0;padding:12px 15px;
-  font-size:12.5px;line-height:1.55;color:#7A3228;margin-top:16px;}
-.zon-warn b{color:#B5493C;}
-.zon-empty{color:#8A9BA0;font-size:13.5px;}
-@media (max-width:1000px){ .zon-body{flex-direction:column;} .zon-wire{flex:1 1 auto;width:100%;position:static;} }
+.zon-in{max-width:1480px;margin:0 auto;padding:28px 32px 90px;}
+.zon-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:18px;}
+.zon-h{font-size:24px;font-weight:800;margin:0 0 6px;letter-spacing:-.01em;color:#2F2722;}
+.zon-sub{font-size:14px;color:#5E767C;margin:0;max-width:70ch;line-height:1.55;}
+.zon-close{flex:0 0 auto;display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #DCEAE7;
+  border-radius:8px;padding:9px 14px;font-size:13px;font-weight:700;color:#123E46;cursor:pointer;font-family:inherit;}
+.zon-close:hover{background:#F7FAF9;}
+.zon-legend{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;}
+.zt{font-size:11px;font-weight:700;padding:5px 11px;border-radius:999px;letter-spacing:.02em;}
+.zt-nav{background:#EEF2F1;color:#5E767C;} .zt-seo{background:#EAF6F3;color:#0E8F89;}
+.zt-ui{background:#F0EDF7;color:#6E4FA8;} .zt-txt{background:#FFF6DA;color:#6b4e00;}
+.zt-red{background:#FDECE9;color:#B5493C;}
+.zt.sm{font-size:9.5px;padding:2px 7px;}
+.zon-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 24px;}
+.zon-tab{background:#fff;border:1px solid #DCEAE7;border-radius:10px;padding:10px 14px;font:inherit;
+  font-size:13px;font-weight:700;color:#123E46;cursor:pointer;text-align:left;transition:.14s;letter-spacing:.02em;}
+.zon-tab small{display:block;font-weight:500;font-size:11px;color:#5E767C;margin-top:2px;}
+.zon-tab:hover{border-color:#9FD9D4;background:#F7FAF9;}
+.zon-tab.on{background:#123E46;border-color:#123E46;color:#fff;} .zon-tab.on small{color:#9FC5C1;}
+.zon-body{display:grid;grid-template-columns:440px minmax(0,1fr);gap:26px;align-items:start;}
+.zon-wcol{position:sticky;top:24px;}
+.zon-wh{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 2px 8px;}
+.zon-wh b{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#52B9B9;}
+.zon-wh span{font-size:11px;color:#8A9BA0;}
+.zon-wu{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:#0E8F89;margin:0 2px 12px;word-break:break-all;}
+/* --- le wireframe --- */
+.wf{background:#fff;border:1px solid #DCEAE7;border-radius:12px;overflow:auto;max-height:calc(100vh - 150px);box-shadow:0 18px 40px -30px rgba(18,62,70,.35);scrollbar-width:thin;}
+.wf-chrome{height:24px;background:#F1F4F3;border-bottom:1px solid #E4EDEB;display:flex;align-items:center;gap:5px;padding:0 10px;}
+.wf-chrome i{width:7px;height:7px;border-radius:50%;background:#D5DEDC;display:block;}
+.wf-chrome em{margin-left:8px;height:9px;flex:1;background:#E4EDEB;border-radius:4px;display:block;}
+.wf-site{display:flex;align-items:center;gap:8px;padding:9px 12px;border-bottom:1px solid #EEF2F1;}
+.wf-logo{width:44px;height:12px;border-radius:3px;background:#16B3AB;opacity:.85;}
+.wf-site u{height:5px;width:26px;background:#DCE3E1;border-radius:3px;display:block;text-decoration:none;}
+.wf-site u.r{margin-left:auto;width:10px;height:10px;border-radius:50%;}
+.wf-page{padding:12px 14px 10px;}
+.wf-foot{height:26px;background:#123E46;opacity:.85;}
+.wf-z{position:relative;border:1.5px solid transparent;border-radius:7px;padding:9px 9px 8px;margin:0 -9px 3px;cursor:pointer;transition:.14s;}
+.wf-z:hover{border-color:#9FD9D4;background:#F7FAF9;}
+.wf-z.on{border-color:#8A4A3C;background:#FDF9F1;}
+.wf-n{position:absolute;top:-8px;left:8px;font-size:9px;font-weight:800;letter-spacing:.05em;
+  background:#123E46;color:#fff;border-radius:999px;padding:1px 6px;line-height:13px;}
+.wf-z.on .wf-n{background:#8A4A3C;} .wf-z.red .wf-n{background:#B5493C;}
+.wf-z.red{border-style:dashed;border-color:#F0B9B0;} .wf-z.red.on{border-style:solid;border-color:#B5493C;background:#FDF3F1;}
+.wf-l{height:5px;background:#DCE3E1;border-radius:3px;margin:4px 0;}
+.w30{width:30%}.w40{width:40%}.w50{width:50%}.w60{width:60%}.w70{width:70%}.w80{width:80%}.w90{width:90%}
+.wf-h1{height:11px;width:68%;background:#8FA9A6;border-radius:3px;margin:2px 0 7px;}
+.wf-h2{height:8px;width:46%;background:#AFC3C0;border-radius:3px;margin:1px 0 7px;}
+.wf-h3{height:6px;width:52%;background:#C3D2CF;border-radius:3px;margin:1px 0 4px;}
+.wf-img{background:repeating-linear-gradient(135deg,#E6EDEC 0 6px,#F2F5F4 6px 12px);border:1px solid #DCE3E1;border-radius:4px;}
+.wf-crumb{display:flex;align-items:center;gap:5px;} .wf-crumb i{height:5px;width:22px;background:#DCE3E1;border-radius:3px;display:block;}
+.wf-crumb i:last-child{width:40px;background:#C3D2CF;}
+.wf-chips{display:flex;gap:5px;flex-wrap:wrap;margin:2px 0;} .wf-chips b{height:12px;width:44px;border:1px solid #CFDBD8;border-radius:999px;background:#fff;display:block;}
+.wf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:4px;}
+.wf-grid3{grid-template-columns:repeat(3,1fr);} .wf-grid5{grid-template-columns:repeat(5,1fr);}
+.wf-card .wf-img{aspect-ratio:1;} .wf-card .wf-43{aspect-ratio:4/3;} .wf-card .wf-l{margin:3px 0;}
+.wf-split{display:grid;grid-template-columns:1fr 84px;gap:8px;align-items:start;}
+.wf-side{height:52px;}
+.wf-banner{height:70px;margin:2px 0;}
+.wf-tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:4px;} .wf-tiles3{grid-template-columns:repeat(3,1fr);}
+.wf-tile .wf-img{aspect-ratio:1;} .wf-tile .wf-wide{aspect-ratio:3/2;} .wf-tile .wf-43{aspect-ratio:4/3;}
+.wf-acc{height:15px;border:1px solid #DCE3E1;border-radius:4px;margin:3px 0;display:flex;align-items:center;justify-content:space-between;padding:0 6px;}
+.wf-acc .wf-l{margin:0;} .wf-acc span{font-size:10px;color:#8A9BA0;line-height:1;}
+.wf-video{aspect-ratio:16/9;background:#123E46;border-radius:6px;position:relative;margin:2px 0;}
+.wf-video:after{content:"";position:absolute;left:50%;top:50%;transform:translate(-40%,-50%);border-left:12px solid #fff;border-top:8px solid transparent;border-bottom:8px solid transparent;opacity:.9;}
+.wf-badges{display:flex;gap:4px;margin:3px 0;} .wf-badges b{height:10px;width:34px;border-radius:999px;background:#EAF6F3;border:1px solid #CFE3DF;display:block;}
+.wf-step{display:flex;gap:7px;align-items:flex-start;margin:5px 0;} .wf-step .wf-img{width:36px;height:27px;flex:0 0 auto;}
+.wf-step>div:last-child{flex:1;}
+.wf-cta{height:13px;width:64px;border-radius:999px;background:#F2867C;margin-top:5px;}
+/* --- le brief --- */
+.zon-brief{background:#fff;border:1px solid #DCEAE7;border-radius:12px;padding:24px 26px 26px;}
+.zon-b-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+.zon-b-num{font-size:11px;font-weight:800;letter-spacing:.05em;background:#123E46;color:#fff;border-radius:999px;padding:3px 9px;}
+.zon-brief h3{font-size:20px;font-weight:800;margin:0;letter-spacing:-.01em;color:#123E46;flex-basis:100%;}
+.zon-role{font-size:14px;line-height:1.6;color:#5E767C;margin:4px 0 20px;}
+.zon-role b{color:#2F2722;}
+.zon-sec{margin-top:18px;}
+.zon-sec h4{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#52B9B9;margin:0 0 9px;}
+.zon-li{display:flex;gap:10px;font-size:14px;line-height:1.55;color:#2F2722;margin-bottom:7px;}
+.zon-li:before{content:"";flex:0 0 6px;height:6px;border-radius:50%;background:#16B3AB;margin-top:8px;}
+.zon-ex{background:#F7FAF9;border:1px solid #E4EDEB;border-left:3px solid #16B3AB;border-radius:0 8px 8px 0;
+  padding:13px 16px;font-size:13.5px;line-height:1.65;color:#2F2722;}
+.zon-ex b{color:#0E8F89;font-weight:700;}
+.zon-warn{background:#FDF0E4;border:1px solid #F5DEC3;border-left:3px solid #B5651D;border-radius:0 8px 8px 0;
+  padding:12px 16px;font-size:13px;line-height:1.55;color:#6B3E0F;margin-top:18px;}
+.zon-warn b{color:#B5651D;}
+.zon-nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px;padding-top:16px;border-top:1px solid #EEF2F1;}
+.zon-nav button{background:#fff;border:1px solid #DCEAE7;border-radius:8px;padding:8px 13px;font:inherit;font-size:12.5px;
+  font-weight:700;color:#123E46;cursor:pointer;} .zon-nav button:disabled{opacity:.35;cursor:default;}
+.zon-nav button:not(:disabled):hover{background:#F7FAF9;}
+@media (max-width:1040px){ .zon-body{grid-template-columns:1fr;} .zon-wcol{position:static;} }
 
 .arbo-alerts{background:#fff;border:1px solid #DCEAE7;border-radius:12px;padding:18px 20px;margin-bottom:30px;}
 .arbo-alerts h3{margin:0 0 12px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#0E8F89;}
@@ -1307,20 +1351,36 @@
   </div>
 </div>
 
+
 <div class="zon" id="zon"><div class="zon-in">
   <div class="zon-top">
     <div>
       <h2 class="zon-h">Zoning des gabarits de page</h2>
-      <p class="zon-sub">Un gabarit par type de page. Cliquez sur un bloc du zoning pour voir ce qu'il
-      faut y écrire, la longueur attendue et un exemple rédigé. Les gabarits Occasion, Catégorie
-      tutoriels et Tutoriel sont relevés sur la préproduction ; les corrections SEO sont signalées en rouge.</p>
+      <p class="zon-sub">Un gabarit par type de page. Chaque zone du wireframe est numérotée : cliquez-la pour
+      lire ce qu'il faut y écrire, la longueur attendue et un exemple rédigé. Occasion, Catégorie tutoriels et
+      Tutoriel sont relevés sur la préproduction ; les blocs à créer sont signalés en rouge.</p>
     </div>
     <button type="button" class="zon-close" id="zonClose">✕ Fermer</button>
   </div>
+  <div class="zon-legend">
+    <span class="zt zt-nav">NAV · navigation, pas de rédaction</span>
+    <span class="zt zt-seo">SEO · bloc qui porte une requête</span>
+    <span class="zt zt-txt">TEXTE · rédaction de marque</span>
+    <span class="zt zt-ui">UI · interface, pas de rédaction</span>
+    <span class="zt zt-red">À CRÉER · absent aujourd'hui</span>
+  </div>
   <div class="zon-tabs" id="zonTabs"></div>
   <div class="zon-body">
-    <div class="zon-wire"><div class="zon-wire-h" id="zonWn"></div><div class="zon-wire-u" id="zonWu"></div>
-      <div id="zonBlocks"></div></div>
+    <div class="zon-wcol">
+      <div class="zon-wh"><b id="zonWn"></b><span id="zonWs"></span></div>
+      <div class="zon-wu" id="zonWu"></div>
+      <div class="wf">
+        <div class="wf-chrome"><i></i><i></i><i></i><em></em></div>
+        <div class="wf-site"><span class="wf-logo"></span><u></u><u></u><u></u><u></u><u class="r"></u><u class="r"></u></div>
+        <div class="wf-page" id="zonBlocks"></div>
+        <div class="wf-foot"></div>
+      </div>
+    </div>
     <div class="zon-brief" id="zonBrief"></div>
   </div>
 </div></div>
@@ -1890,149 +1950,174 @@
 </script>
 
 
+
+
 <script>
-/* ============ ZONING : gabarits et briefs de rédaction ============ */
+/* ============ ZONING : gabarits, wireframes et briefs de rédaction ============ */
 (function(){
+  /* rendu des zones du wireframe */
+  function rep(h,n){var o='';for(var i=0;i<n;i++)o+=h;return o;}
+  var CARD='<div class="wf-card"><div class="wf-img"></div><div class="wf-l w80"></div><div class="wf-l w40"></div></div>';
+  var R={
+    crumb:function(){return '<div class="wf-crumb"><i></i><i></i><i></i></div>';},
+    hero:function(){return '<div class="wf-h1"></div><div class="wf-l w90"></div><div class="wf-l w80"></div><div class="wf-l w60"></div>';},
+    herometa:function(){return '<div class="wf-h1"></div><div class="wf-badges"><b></b><b></b><b></b></div><div class="wf-l w70"></div>';},
+    filters:function(){return '<div class="wf-chips">'+rep('<b></b>',4)+'</div>';},
+    grid:function(){return '<div class="wf-grid">'+rep(CARD,8)+'</div>';},
+    filtersgrid:function(){return R.filters()+'<div class="wf-grid">'+rep(CARD,8)+'</div>';},
+    edit:function(){return '<div class="wf-h2"></div><div class="wf-l w90"></div><div class="wf-l w90"></div><div class="wf-l w80"></div><div class="wf-l w60"></div>';},
+    edit2:function(){return '<div class="wf-h2"></div><div class="wf-split"><div><div class="wf-l w90"></div><div class="wf-l w90"></div><div class="wf-l w80"></div><div class="wf-l w50"></div></div><div class="wf-img wf-side"></div></div>';},
+    looks:function(){return '<div class="wf-h2"></div><div class="wf-l w60"></div><div class="wf-tiles">'+rep('<div class="wf-tile"><div class="wf-img"></div><div class="wf-l w70"></div></div>',5)+'</div>';},
+    faq:function(){return '<div class="wf-h2"></div>'+rep('<div class="wf-acc"><div class="wf-l w60"></div><span>+</span></div>',4);},
+    collections:function(){return '<div class="wf-h2"></div><div class="wf-tiles wf-tiles3">'+rep('<div class="wf-tile"><div class="wf-img wf-wide"></div><div class="wf-l w60"></div></div>',3)+'</div>';},
+    img:function(){return '<div class="wf-img wf-banner"></div>';},
+    video:function(){return '<div class="wf-video"></div>';},
+    products:function(){return '<div class="wf-h2"></div><div class="wf-grid wf-grid5">'+rep('<div class="wf-card"><div class="wf-img"></div><div class="wf-l w80"></div></div>',5)+'</div>';},
+    steps:function(){return '<div class="wf-h2"></div>'+rep('<div class="wf-step"><div class="wf-img"></div><div><div class="wf-h3"></div><div class="wf-l w90"></div><div class="wf-l w70"></div></div></div>',4);},
+    tutos:function(){return '<div class="wf-grid wf-grid3">'+rep('<div class="wf-card"><div class="wf-img wf-43"></div><div class="wf-l w80"></div><div class="wf-badges"><b></b><b></b></div></div>',6)+'</div>';},
+    tips:function(){return '<div class="wf-h3"></div><div class="wf-l w90"></div><div class="wf-l w80"></div><div class="wf-l w50"></div>';},
+    related:function(){return '<div class="wf-h2"></div><div class="wf-tiles wf-tiles3">'+rep('<div class="wf-tile"><div class="wf-img wf-43"></div><div class="wf-l w70"></div></div>',3)+'</div>';},
+    link:function(){return '<div class="wf-h2"></div><div class="wf-split"><div><div class="wf-l w90"></div><div class="wf-l w70"></div><div class="wf-cta"></div></div><div class="wf-img wf-side"></div></div>';}
+  };
+  /* [ nom, sous-titre, type, zone, brief ] */
   var T=[
   {id:'occ', n:'Occasion', s:'Halloween, Carnaval, Noël…', u:'/occasions/maquillage-halloween',
-   src:'Relevé sur la préproduction (page Halloween)', b:[
-   ['Fil d’Ariane','Navigation','nav',{r:'Situe la page dans le silo et distribue du maillage vers la catégorie mère.',
-     e:['Accueil › Occasions › Maquillage Halloween'],
-     x:'Pas de rédaction. Vérifier que le dernier niveau reprend exactement le H1.'}],
-   ['H1 + chapô','Le bloc le plus important','seo',{r:'Le H1 porte la requête cible. Le chapô répond immédiatement à la question posée, sans introduction de marque.',
+   src:'Relevé sur la préproduction · page Halloween', b:[
+   ['Fil d’Ariane','Navigation','nav','crumb',{r:'Situe la page dans le silo et distribue du maillage vers la catégorie mère.',
+     e:['Accueil › Occasions › Maquillage Halloween','Le dernier niveau reprend exactement le H1'],x:'Pas de rédaction.'}],
+   ['H1 + chapô','Le bloc le plus important','seo','hero',{r:'Le H1 porte la requête cible. Le chapô répond immédiatement à la question posée, sans introduction de marque.',
      e:['H1 : reprend la requête cible mot pour mot, 55 à 65 signes','Chapô : 2 à 3 phrases, 250 à 350 signes','Dire ce qu’on trouve sur la page, pas ce qu’est la marque','Placer la requête dans les 100 premiers signes'],
      x:'<b>H1 :</b> Maquillage Halloween pour enfants : idées faciles et produits bio<br><br><b>Chapô :</b> Squelette, sorcière, citrouille : voici de quoi transformer votre enfant sans y passer la soirée. Tous nos maquillages sont certifiés bio, se retirent à l’eau et conviennent dès 3 ans.',
      w:'Le H1 actuel en préproduction est « Maquillage Halloween pour petits monstres ». Joli, mais il ne contient pas « enfant », qui est dans la requête à 9 700. Garder la formule de marque en sous-titre.'}],
-   ['Filtres','Prix, format, certifications','ui',{r:'Aide au tri. Aucun contenu rédigé.',
-     e:['Vérifier que les filtres génèrent des paramètres ?prix= et non des URL indexables'],x:'Pas de rédaction.'}],
-   ['Grille produits','Sélection curée','ui',{r:'Les produits pertinents pour cette occasion, pas tout le catalogue.',
-     e:['15 à 25 produits maximum','Ordonner par pertinence pour l’occasion, pas par date'],x:'Pas de rédaction, mais la sélection est un acte éditorial : un parent qui cherche Halloween ne doit pas voir de baume à lèvres en premier.'}],
-   ['Bloc éditorial 1 (H2)','Comment choisir','seo',{r:'Répond à l’objection principale du parent : est-ce sans danger, est-ce que ça part.',
-     e:['H2 contenant la requête + un verbe d’action','400 à 600 signes','Traiter : composition, âge, retrait, tenue'],
+   ['Filtres','Prix, format, certifications','ui','filters',{r:'Aide au tri. Aucun contenu rédigé.',
+     e:['Les filtres génèrent des paramètres ?prix= et non des URL indexables'],x:'Pas de rédaction.'}],
+   ['Grille produits','Sélection curée','ui','grid',{r:'Les produits pertinents pour cette occasion, pas tout le catalogue.',
+     e:['15 à 25 produits maximum','Ordonner par pertinence pour l’occasion, pas par date'],
+     x:'Pas de rédaction, mais la sélection est un acte éditorial : un parent qui cherche Halloween ne doit pas voir de baume à lèvres en premier.'}],
+   ['Bloc éditorial 1 (H2)','Comment choisir','seo','edit',{r:'Répond à l’objection principale du parent : est-ce sans danger, est-ce que ça part.',
+     e:['H2 contenant la requête et un verbe d’action','400 à 600 signes','Traiter : composition, âge, retrait, tenue'],
      x:'<b>H2 :</b> Choisir un maquillage Halloween sans danger pour la peau des enfants<br><br>Un maquillage qui fait peur ne doit pas faire mal. Nos fards sont certifiés Cosmos Organic, sans parfum ni conservateur de synthèse, et se retirent à l’eau tiède avec un gant.'}],
-   ['Bloc éditorial 2 (H2)','Le récit','txt',{r:'Le plaisir, l’imaginaire. C’est le bloc de marque.',
-     e:['300 à 500 signes','Ton Namaki : joyeux, jamais infantilisant'],
+   ['Bloc éditorial 2 (H2)','Le récit','txt','edit2',{r:'Le plaisir, l’imaginaire. C’est le bloc de marque.',
+     e:['300 à 500 signes','Ton Namaki : joyeux, jamais infantilisant','Une image d’ambiance à côté du texte'],
      x:'<b>H2 :</b> Devenir le héros d’histoires à faire froid dans le dos'}],
-   ['Les looks de cette occasion (H2)','Maillage','seo',{r:'<b>Bloc à ajouter.</b> C’est lui qui distribue le jus vers les Thématiques et les Tutoriels. Sept des dix premières thématiques du site relèvent d’Halloween.',
-     e:['6 à 10 vignettes : squelette, sorcière, vampire, araignée, citrouille, zombie','Chaque vignette pointe vers la page Thématique, et un lien secondaire vers le tuto','Une phrase d’introduction de 150 signes'],
+   ['Les looks de cette occasion (H2)','Maillage','red','looks',{r:'<b>Bloc à ajouter.</b> C’est lui qui distribue le jus vers les Thématiques et les Tutoriels. Sept des dix premières thématiques du site relèvent d’Halloween.',
+     e:['6 à 10 vignettes : squelette, sorcière, vampire, araignée, citrouille, zombie','Chaque vignette pointe vers la page Thématique, avec un lien secondaire vers le tuto','Une phrase d’introduction de 150 signes'],
      x:'<b>H2 :</b> Les maquillages Halloween les plus demandés<br><br>Squelette, sorcière, vampire : voici les looks que les enfants réclament le plus, avec le pas à pas pour chacun.',
      w:'Ce bloc n’existe pas aujourd’hui. C’est le principal manque de la page : sans lui, les pages Thématiques n’ont aucune source de maillage.'}],
-   ['FAQ (H2)','Données structurées','seo',{r:'Vise les résultats enrichis et traite les questions parentales.',
+   ['FAQ (H2)','Données structurées','seo','faq',{r:'Vise les résultats enrichis et traite les questions parentales.',
      e:['4 à 6 questions','Réponses de 200 à 300 signes','Balisage FAQPage obligatoire'],
      x:'À quel âge peut-on maquiller un enfant ?<br>Comment enlever un maquillage Halloween ?<br>Le maquillage tient-il toute la soirée ?<br>Est-ce adapté aux peaux sensibles ?'}],
-   ['Autres collections (H2)','Maillage','nav',{r:'Renvoie vers les autres Occasions.',e:['3 à 5 collections'],x:'Pas de rédaction longue : les intitulés suffisent.'}]
+   ['Autres collections (H2)','Maillage','nav','collections',{r:'Renvoie vers les autres Occasions.',e:['3 à 5 collections'],x:'Pas de rédaction longue : les intitulés suffisent.'}]
   ]},
   {id:'them', n:'Thématique', s:'Squelette, Licorne, Pirate…', u:'/themes-maquillage/maquillage-squelette',
    src:'Même gabarit que l’Occasion, recentré sur le look', b:[
-   ['Fil d’Ariane','Navigation','nav',{r:'Accueil › Thématiques › Maquillage squelette',e:[],x:'Pas de rédaction.'}],
-   ['H1 + chapô','Le look','seo',{r:'La requête est le personnage. Ne pas y mettre l’occasion.',
+   ['Fil d’Ariane','Navigation','nav','crumb',{r:'Accueil › Thématiques › Maquillage squelette',e:[],x:'Pas de rédaction.'}],
+   ['H1 + chapô','Le look','seo','hero',{r:'La requête est le personnage. Ne pas y mettre l’occasion.',
      e:['H1 : « Maquillage squelette enfant » et non « squelette Halloween »','Chapô de 250 signes qui décrit le rendu'],
      x:'<b>H1 :</b> Maquillage squelette enfant : le look qui fait toujours son effet<br><br>Un visage d’os blanc, des orbites creusées, un sourire cousu : le squelette reste le maquillage le plus demandé, et l’un des plus simples à réussir.',
      w:'98,6 % des recherches « squelette » ne contiennent pas le mot Halloween. Ne pas le mettre dans le H1.'}],
-   ['Le rendu en image','Visuel','ui',{r:'Photo pleine largeur du look fini sur un enfant.',e:['Alt descriptif contenant la requête'],x:'Pas de rédaction, hors texte alternatif.'}],
-   ['Les produits pour ce look (H2)','Conversion','seo',{r:'La liste exacte de ce qu’il faut acheter. C’est le bloc qui convertit.',
-     e:['4 à 8 produits','Préciser les couleurs employées'],
-     x:'<b>H2 :</b> Les produits pour réussir un maquillage squelette'}],
-   ['Le pas à pas (H2)','Lien vers le tuto','seo',{r:'Un résumé en 3 ou 4 étapes, puis le lien vers le tutoriel complet.',
+   ['Le rendu en image','Visuel','ui','img',{r:'Photo pleine largeur du look fini sur un enfant.',e:['Texte alternatif contenant la requête'],x:'Pas de rédaction, hors texte alternatif.'}],
+   ['Les produits pour ce look (H2)','Conversion','seo','products',{r:'La liste exacte de ce qu’il faut acheter. C’est le bloc qui convertit.',
+     e:['4 à 8 produits','Préciser les couleurs employées'],x:'<b>H2 :</b> Les produits pour réussir un maquillage squelette'}],
+   ['Le pas à pas (H2)','Lien vers le tuto','seo','steps',{r:'Un résumé en 3 ou 4 étapes, puis le lien vers le tutoriel complet.',
      e:['150 signes par étape','Lien explicite vers /tuto-maquillage/halloween/squelette'],
      x:'<b>H2 :</b> Comment faire un maquillage squelette, étape par étape'}],
-   ['Occasions associées (H2)','Maillage','nav',{r:'Remonte vers les Occasions où ce look sert.',
+   ['Occasions associées (H2)','Maillage','nav','collections',{r:'Remonte vers les Occasions où ce look sert.',
      e:['Halloween, Dia de los Muertos, Carnaval'],x:'Les intitulés suffisent.'}],
-   ['FAQ (H2)','Données structurées','seo',{r:'3 à 5 questions propres au look.',e:[],
-     x:'Combien de temps faut-il pour un maquillage squelette ?'}]
+   ['FAQ (H2)','Données structurées','seo','faq',{r:'3 à 5 questions propres au look.',e:[],x:'Combien de temps faut-il pour un maquillage squelette ?'}]
   ]},
   {id:'cattuto', n:'Catégorie tutoriels', s:'/tuto-maquillage/halloween', u:'/tuto-maquillage/halloween',
-   src:'Relevé sur la préproduction, avec les corrections SEO', b:[
-   ['Fil d’Ariane','Navigation','nav',{r:'Accueil › Tutos maquillage › Halloween',e:[],x:'Pas de rédaction.'}],
-   ['H1 + chapô','À CRÉER','red',{r:'La page n’a aujourd’hui <b>ni H1, ni meta description</b>, et son title est « Halloween - Namaki Cosmetics ». Elle ne peut se positionner sur rien.',
+   src:'Relevé sur la préproduction · corrections SEO', b:[
+   ['Fil d’Ariane','Navigation','nav','crumb',{r:'Accueil › Tutos maquillage › Halloween',e:[],x:'Pas de rédaction.'}],
+   ['H1 + chapô','Absent aujourd’hui','red','hero',{r:'La page n’a aujourd’hui <b>ni H1, ni meta description</b>, et son title est « Halloween - Namaki Cosmetics ». Elle ne peut se positionner sur rien.',
      e:['H1 portant « facile », qui pèse plus que « tuto »','Chapô de 250 à 350 signes','Annoncer le nombre de tutos et le niveau'],
      x:'<b>Title :</b> Tutos maquillage Halloween enfant faciles : le pas à pas<br><b>H1 :</b> Tutos de maquillage Halloween pour enfants, faciles à réussir<br><br><b>Chapô :</b> Douze pas à pas filmés pour transformer votre enfant en squelette, sorcière ou citrouille. Chaque tuto indique son niveau et les produits nécessaires.',
      w:'Le title actuel ne contient aucun mot-clé et la meta description est absente. C’est la correction la plus urgente de ce gabarit.'}],
-   ['Grille de tutos','Le cœur de page','ui',{r:'Les vignettes de tutoriels, avec niveau et durée.',
+   ['Grille de tutos','Le cœur de page','ui','tutos',{r:'Les vignettes de tutoriels, avec niveau et durée.',
      e:['Titre de vignette en H3','Afficher le niveau : facile, intermédiaire, avancé','Afficher la durée'],
      x:'Les H3 actuels sont bons : « Tuto maquillage citrouille », « Tuto maquillage sorcière ».'}],
-   ['Bloc éditorial (H2)','À CRÉER','red',{r:'Sans texte, la page n’a aucune matière à indexer.',
+   ['Bloc éditorial (H2)','Absent aujourd’hui','red','edit',{r:'Sans texte, la page n’a aucune matière à indexer.',
      e:['400 à 600 signes','Traiter : par où commencer, quel niveau pour quel âge, le matériel de base'],
      x:'<b>H2 :</b> Par quel maquillage d’Halloween commencer ?<br><br>Si c’est votre premier essai, la citrouille demande trois couleurs et dix minutes. Le squelette impose plus de précision autour des yeux.'}],
-   ['Lien vers la page Occasion (H2)','Maillage','seo',{r:'<b>Obligatoire.</b> Cette page et /occasions/maquillage-halloween sont proches : le lien réciproque dit au moteur laquelle traite quoi.',
+   ['Lien vers la page Occasion (H2)','Maillage','seo','link',{r:'<b>Obligatoire.</b> Cette page et /occasions/maquillage-halloween sont proches : le lien réciproque dit au moteur laquelle traite quoi.',
      e:['Un bloc explicite vers la page Occasion','Ancre : « tous nos produits Halloween »'],
      x:'<b>H2 :</b> Le matériel pour ces maquillages',
      w:'Différenciation à tenir : ici le pas à pas, là-bas les produits et l’inspiration. Sans lien réciproque, les deux pages se cannibalisent.'}]
   ]},
   {id:'tuto', n:'Tutoriel', s:'Un pas à pas', u:'/tuto-maquillage/halloween/squelette',
-   src:'Relevé sur la préproduction (tuto citrouille)', b:[
-   ['Fil d’Ariane','Navigation','nav',{r:'Accueil › Tutos › Halloween › Squelette',e:[],x:'Pas de rédaction.'}],
-   ['H1 + niveau + durée','En-tête','seo',{r:'Le H1 vise le look, pas le format. La requête « maquillage squelette enfant » pèse 3 800, « tuto maquillage squelette » seulement 60.',
+   src:'Relevé sur la préproduction · tuto citrouille', b:[
+   ['Fil d’Ariane','Navigation','nav','crumb',{r:'Accueil › Tutos › Halloween › Squelette',e:[],x:'Pas de rédaction.'}],
+   ['H1 + niveau + durée','En-tête','seo','herometa',{r:'Le H1 vise le look, pas le format. La requête « maquillage squelette enfant » pèse 3 800, « tuto maquillage squelette » seulement 60.',
      e:['H1 contenant « facile » et « enfant »','Afficher niveau et durée dès l’en-tête'],
-     x:'<b>Title :</b> Maquillage squelette enfant facile : le tuto pas à pas<br><b>H1 :</b> Maquillage squelette enfant, facile et rapide<br><br>Niveau : facile ⭐ · Durée : 15 minutes · Dès 4 ans',
+     x:'<b>Title :</b> Maquillage squelette enfant facile : le tuto pas à pas<br><b>H1 :</b> Maquillage squelette enfant, facile et rapide<br><br>Niveau : facile · Durée : 15 minutes · Dès 4 ans',
      w:'Le title actuel du tuto citrouille, « Tuto maquillage citrouille | Facile | Namaki », est déjà bon : il contient « Facile ». À généraliser, en ajoutant « enfant ».'}],
-   ['Vidéo','Le format attendu','ui',{r:'YouTube pèse davantage que Google sur cette intention. La vidéo n’est pas un bonus.',
+   ['Vidéo','Le format attendu','ui','video',{r:'YouTube pèse davantage que Google sur cette intention. La vidéo n’est pas un bonus.',
      e:['Vidéo verticale de 30 à 60 secondes','Publier aussi sur YouTube avec le même titre'],x:'Pas de rédaction.'}],
-   ['Les produits utilisés (H2)','Conversion','seo',{r:'Ce qu’il faut acheter, avec les couleurs exactes.',
-     e:['Liste courte, 3 à 6 produits','Nommer les couleurs'],
-     x:'<b>H2 :</b> Les produits utilisés pour ce maquillage squelette'}],
-   ['Le pas à pas (H2 + H3)','Le cœur de page','seo',{r:'Une étape = un H3 = une photo. C’est ce que le balisage HowTo attend.',
+   ['Les produits utilisés (H2)','Conversion','seo','products',{r:'Ce qu’il faut acheter, avec les couleurs exactes.',
+     e:['Liste courte, 3 à 6 produits','Nommer les couleurs'],x:'<b>H2 :</b> Les produits utilisés pour ce maquillage squelette'}],
+   ['Le pas à pas (H2 + H3)','Le cœur de page','seo','steps',{r:'Une étape = un H3 = une photo. C’est ce que le balisage HowTo attend.',
      e:['4 à 6 étapes','100 à 200 signes par étape','Une photo par étape','Verbe à l’infinitif en H3'],
      x:'<b>H2 :</b> Le maquillage squelette étape par étape<br><br><b>H3 :</b> Appliquer le fond blanc<br><b>H3 :</b> Creuser les orbites<br><b>H3 :</b> Dessiner le nez<br><b>H3 :</b> Tracer le sourire cousu'}],
-   ['Conseils et variantes','Longue traîne','txt',{r:'Capte les requêtes secondaires sans créer de page.',
+   ['Conseils et variantes','Longue traîne','txt','tips',{r:'Capte les requêtes secondaires sans créer de page.',
      e:['200 à 300 signes','Variante plus simple pour les petits, variante avancée'],
      x:'Pour un enfant de 3 ans, s’arrêter aux orbites et au sourire : l’effet fonctionne déjà.'}],
-   ['Tutos similaires + remontée','Maillage','nav',{r:'Remonte vers la catégorie et la thématique.',
+   ['Tutos similaires + remontée','Maillage','nav','related',{r:'Remonte vers la catégorie et la thématique.',
      e:['3 ou 4 tutos du même univers','Lien vers la page Thématique du look'],x:'Les intitulés suffisent.'}]
   ]},
   {id:'prod', n:'Catégorie produit', s:'Crayons, Fards, Vernis…', u:'/maquillage-enfant/crayons-maquillage-enfant',
    src:'Gabarit boutique standard', b:[
-   ['Fil d’Ariane','Navigation','nav',{r:'Accueil › Maquillage › Crayons de maquillage',e:[],x:'Pas de rédaction.'}],
-   ['H1 + chapô','En-tête','seo',{r:'Requête produit. Ajouter systématiquement « enfant » : sans lui, la requête devient adulte et inatteignable.',
+   ['Fil d’Ariane','Navigation','nav','crumb',{r:'Accueil › Maquillage › Crayons de maquillage',e:[],x:'Pas de rédaction.'}],
+   ['H1 + chapô','En-tête','seo','hero',{r:'Requête produit. Ajouter systématiquement « enfant » : sans lui, la requête devient adulte et inatteignable.',
      e:['H1 de 55 à 65 signes','Chapô de 250 signes : à quoi ça sert, pour quel âge'],
      x:'<b>H1 :</b> Crayons de maquillage enfant bio : tracés fins et couleurs vives'}],
-   ['Filtres + grille','Boutique','ui',{r:'Le catalogue.',e:['Filtres en paramètres, non indexables'],x:'Pas de rédaction.'}],
-   ['Comment choisir (H2)','Réassurance','seo',{r:'Le bloc qui lève les objections : composition, âge, retrait.',
+   ['Filtres + grille','Boutique','ui','filtersgrid',{r:'Le catalogue.',e:['Filtres en paramètres, non indexables'],x:'Pas de rédaction.'}],
+   ['Comment choisir (H2)','Réassurance','seo','edit',{r:'Le bloc qui lève les objections : composition, âge, retrait.',
      e:['400 à 600 signes'],x:'<b>H2 :</b> Bien choisir ses crayons de maquillage pour enfant'}],
-   ['Les looks à faire avec (H2)','Maillage','seo',{r:'Renvoie vers les Thématiques et Tutoriels réalisables avec ce produit.',
+   ['Les looks à faire avec (H2)','Maillage','seo','looks',{r:'Renvoie vers les Thématiques et Tutoriels réalisables avec ce produit.',
      e:['4 à 6 liens'],x:'<b>H2 :</b> Les maquillages à réaliser avec des crayons'}],
-   ['FAQ (H2)','Données structurées','seo',{r:'3 à 5 questions produit.',e:[],x:'Les crayons conviennent-ils aux peaux sensibles ?'}]
+   ['FAQ (H2)','Données structurées','seo','faq',{r:'3 à 5 questions produit.',e:[],x:'Les crayons conviennent-ils aux peaux sensibles ?'}]
   ]}];
 
-  var IL={nav:['NAV','zon-blk-i'],seo:['SEO','zon-blk-i'],ui:['UI','zon-blk-i'],
-          txt:['TEXTE','zon-blk-i'],red:['À CRÉER','zon-blk-i red']};
+  var KIND={nav:['NAV','zt-nav'],seo:['SEO','zt-seo'],ui:['UI','zt-ui'],txt:['TEXTE','zt-txt'],red:['À CRÉER','zt-red']};
   var cur=0, curB=0;
-  var tabs=document.getElementById('zonTabs'), blocks=document.getElementById('zonBlocks'),
-      brief=document.getElementById('zonBrief'), wn=document.getElementById('zonWn'),
-      wu=document.getElementById('zonWu'), zon=document.getElementById('zon');
+  var $=function(id){return document.getElementById(id);};
+  var tabs=$('zonTabs'), blocks=$('zonBlocks'), brief=$('zonBrief'), zon=$('zon');
   function esc2(x){return String(x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   function drawTabs(){
     tabs.innerHTML=T.map(function(t,i){
-      return '<button type="button" class="zon-tab'+(i===cur?' on':'')+'" data-i="'+i+'">'
-        +esc2(t.n)+'<small>'+esc2(t.s)+'</small></button>';}).join('');
+      return '<button type="button" class="zon-tab'+(i===cur?' on':'')+'" data-i="'+i+'">'+esc2(t.n)+'<small>'+esc2(t.s)+'</small></button>';}).join('');
   }
-  function drawBlocks(){
+  function drawWire(){
     var t=T[cur];
-    wn.textContent='Gabarit : '+t.n; wu.textContent=t.u+'   ·   '+t.src;
+    $('zonWn').textContent='Gabarit · '+t.n; $('zonWs').textContent=t.src; $('zonWu').textContent=t.u;
     blocks.innerHTML=t.b.map(function(b,i){
-      var m=IL[b[2]]||IL.txt;
-      return '<div class="zon-blk'+(i===curB?' on':'')+'" data-i="'+i+'">'
-        +'<div class="zon-blk-n"><span class="'+m[1]+'">'+m[0]+'</span>'+esc2(b[0])+'</div>'
-        +'<div class="zon-blk-t">'+esc2(b[1])+'</div></div>';}).join('');
+      var red=b[2]==='red', on=i===curB;
+      return '<div class="wf-z'+(on?' on':'')+(red?' red':'')+'" data-i="'+i+'" title="'+esc2(b[0])+'">'
+        +'<span class="wf-n">'+(i+1)+'</span>'+(R[b[3]]||R.edit)()+'</div>';}).join('');
+    var on=blocks.querySelector('.wf-z.on'); if(on&&on.scrollIntoView) on.scrollIntoView({block:'nearest'});
   }
   function drawBrief(){
-    var b=T[cur].b[curB], d=b[3];
-    var h='<h3>'+esc2(b[0])+'</h3><p class="role">'+d.r+'</p>';
-    if(d.e&&d.e.length){ h+='<div class="zon-sec2"><h4>Ce qu’il faut écrire</h4>'
-      +d.e.map(function(x){return '<div class="zon-li">'+x+'</div>';}).join('')+'</div>'; }
-    if(d.x){ h+='<div class="zon-sec2"><h4>Exemple rédigé</h4><div class="zon-ex">'+d.x+'</div></div>'; }
+    var t=T[cur], b=t.b[curB], d=b[4], k=KIND[b[2]]||KIND.txt;
+    var h='<div class="zon-b-top"><span class="zon-b-num">ZONE '+(curB+1)+'</span><span class="zt sm '+k[1]+'">'+k[0]+'</span>'
+      +'<span class="zt sm zt-nav" style="background:#F7FAF9;color:#8A9BA0">'+esc2(b[1])+'</span><h3>'+esc2(b[0])+'</h3></div>'
+      +'<p class="zon-role">'+d.r+'</p>';
+    if(d.e&&d.e.length){ h+='<div class="zon-sec"><h4>Ce qu’il faut écrire</h4>'+d.e.map(function(x){return '<div class="zon-li">'+x+'</div>';}).join('')+'</div>'; }
+    if(d.x){ h+='<div class="zon-sec"><h4>Exemple rédigé</h4><div class="zon-ex">'+d.x+'</div></div>'; }
     if(d.w){ h+='<div class="zon-warn"><b>Point de vigilance.</b> '+d.w+'</div>'; }
+    h+='<div class="zon-nav"><button type="button" id="zonPrev"'+(curB===0?' disabled':'')+'>← Zone précédente</button>'
+      +'<button type="button" id="zonNext"'+(curB===t.b.length-1?' disabled':'')+'>Zone suivante →</button></div>';
     brief.innerHTML=h;
+    var p=$('zonPrev'), n=$('zonNext');
+    if(p) p.addEventListener('click',function(){ if(curB>0){curB--; drawWire(); drawBrief();} });
+    if(n) n.addEventListener('click',function(){ if(curB<t.b.length-1){curB++; drawWire(); drawBrief();} });
   }
-  function render(){ drawTabs(); drawBlocks(); drawBrief(); }
-  tabs.addEventListener('click',function(e){var b=e.target.closest('.zon-tab');if(!b)return;
-    cur=+b.dataset.i; curB=0; render();});
-  blocks.addEventListener('click',function(e){var b=e.target.closest('.zon-blk');if(!b)return;
-    curB=+b.dataset.i; drawBlocks(); drawBrief();});
+  function render(){ drawTabs(); drawWire(); drawBrief(); }
+  tabs.addEventListener('click',function(e){var b=e.target.closest('.zon-tab');if(!b)return; cur=+b.dataset.i; curB=0; render();});
+  blocks.addEventListener('click',function(e){var b=e.target.closest('.wf-z');if(!b)return; curB=+b.dataset.i; drawWire(); drawBrief();});
   function openZon(){ zon.classList.add('open'); document.body.style.overflow='hidden'; render(); }
   function closeZon(){ zon.classList.remove('open'); document.body.style.overflow=''; }
-  var zb=document.getElementById('zonBtn'); if(zb) zb.addEventListener('click',openZon);
-  var zc=document.getElementById('zonClose'); if(zc) zc.addEventListener('click',closeZon);
+  var zb=$('zonBtn'); if(zb) zb.addEventListener('click',openZon);
+  var zc=$('zonClose'); if(zc) zc.addEventListener('click',closeZon);
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&zon.classList.contains('open')) closeZon(); });
   if(/[?&]vue=zoning/i.test(location.search)||/^#zoning/i.test(location.hash)) openZon();
 })();
