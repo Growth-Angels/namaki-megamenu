@@ -1408,12 +1408,17 @@
     {label:'Tutoriels', page:{fr:'/tuto-maquillage',en:'/en/make-up-tutorial',de:'/de/make-up-tutorial'}, t:'ok',
      note:'URLs existantes en FR et EN : à conserver. Chaque tuto doit pointer vers la thématique correspondante (maillage interne).',
      groups:[
-      {label:'Par genre', items:[
-        {label:'Animaux', page:{fr:'/tuto-maquillage/animaux',en:'/en/make-up-tutorial/animals',de:'/de/make-up-tutorial/tiere'}, t:'new'},
-        {label:'Clowns & magie', page:{fr:'/tuto-maquillage/clown-magie',en:'/en/make-up-tutorial/clown-magic',de:'/de/make-up-tutorial/clown-magie'}, t:'new'},
-        {label:'Féérie', page:{fr:'/tuto-maquillage/feerie',en:'/en/make-up-tutorial/fairy-tale',de:'/de/make-up-tutorial/maerchen'}, t:'new'},
-        {label:'Halloween', page:{fr:'/tuto-maquillage/halloween',en:'/en/make-up-tutorial/halloween',de:'/de/make-up-tutorial/halloween'}, t:'new'},
-        {label:'Super-héros', page:{fr:'/tuto-maquillage/super-heros',en:'/en/make-up-tutorial/superheroes',de:'/de/make-up-tutorial/superhelden'}, t:'new'}
+      {label:'Par genre (filtre)', items:[
+        {label:'Animaux', filter:'?genre=animaux', t:'flt',
+         note:'Aucune demande de page de regroupement : <b>40 recherches</b> pour « maquillage enfant animaux facile ». Filtre de navigation, pas une URL à indexer.'},
+        {label:'Clowns & magie', filter:'?genre=clowns-magie', t:'flt',
+         note:'<b>160 recherches</b> cumulées. Trop faible pour une page dédiée : filtre de navigation.'},
+        {label:'Féérie', filter:'?genre=feerie', t:'flt',
+         note:'<b>Aucune</b> requête « comment » dans le corpus 2026. Filtre de navigation.'},
+        {label:'Halloween', filter:'?genre=halloween', t:'flt',
+         note:'La demande existe (<b>3 950 recherches</b>, dont « maquillage halloween facile enfant » à 2 100) mais elle est <b>captée par la page Occasions Halloween</b> (9 700), qui doit porter une section « pas à pas ». Une page tuto séparée la cannibaliserait.'},
+        {label:'Super-héros', filter:'?genre=super-heros', t:'flt',
+         note:'<b>Aucune</b> requête « comment » dans le corpus 2026. Filtre de navigation. Attention aux licences (Spiderman).'}
       ]},
       {label:'Nos incontournables', items:[
         {label:'Licorne magique', page:{fr:'/tuto-maquillage/licorne',en:'/en/make-up-tutorial/unicorn',de:'/de/make-up-tutorial/einhorn'}, t:'new'},
@@ -1595,7 +1600,7 @@
    'Thématiques':['qui','maquillage squelette enfant',3800,'Silo permanent, non saisonnier : 23,9 % de la demande de la grappe « maquillage enfant ».'],
    'Tutoriels':['comment','maquillage enfant facile',4300,'<b>« facile » pèse 15 880 contre 13 230 pour « tuto »</b>, sur deux fois moins de requêtes. Titrer sur la simplicité, pas sur le format.'],
    'Coffrets & idées cadeaux':['produit','cadeau enfant',6900,'Grappe « cadeau enfant » : 78 080 recherches mensuelles.'],
-   'Halloween':['quand','maquillage halloween enfant',9700,'99 % de la grappe porte une intention maquillage. <b>Hub de 7 des 10 premières thématiques</b> : c\'est elle qui les distribue.'],
+   'Halloween':['quand','maquillage halloween enfant',9700,'99 % de la grappe porte une intention maquillage. <b>Hub de 7 des 10 premières thématiques</b> : c\'est elle qui les distribue. Doit aussi porter une section « pas à pas » pour capter « maquillage halloween facile enfant » (2 100) : c\'est la même intention, une seule page doit la servir.'],
    'Carnaval':['quand','maquillage carnaval',3000,'Grappe de 14 090 étalée sur 247 requêtes : longue traîne. Exige une page mère <b>et</b> des thématiques enfants.'],
    'Día de los Muertos':['quand','maquillage dia de los muertos',1400,'Grappe culturelle de 30 790, peu travaillée par la concurrence. Forte affinité graphique avec la marque.'],
    'Noël':['quand','maquillage de noël',1000,'Grappe de 10 310, dont 6 310 en intention maquillage.'],
