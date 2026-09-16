@@ -1182,6 +1182,14 @@
 .mm-tip-kw b{display:block;font-style:normal;font-size:11px;color:#7FD4CE;margin-top:2px;letter-spacing:.02em;}
 .mm-tip-why{margin-top:8px;font-size:11.5px;line-height:1.5;color:#CFE3E0;}
 .mm-tip-why b{color:#FFD98A;}
+.mm-tip-sec{margin-top:11px;padding-top:9px;border-top:1px dashed rgba(255,255,255,.16);}
+.mm-tip-sect{display:block;font-size:9.5px;font-weight:800;letter-spacing:.09em;
+  text-transform:uppercase;color:#7FD4CE;margin-bottom:6px;}
+.mm-tip-sr{display:flex;justify-content:space-between;gap:12px;font-size:11.5px;
+  color:#E7F0EE;line-height:1.75;}
+.mm-tip-sr b{color:#9FB6B3;font-weight:500;flex:0 0 auto;}
+.mm-tip-h1{font-size:12px;line-height:1.45;color:#fff;background:rgba(255,255,255,.08);
+  border-radius:6px;padding:7px 9px;}
 
 @media (max-width:820px){
   .arbo-in{padding:20px 16px 80px;}
@@ -1625,12 +1633,50 @@
    'Jungle':['na','',0,'Absent du corpus 2026.'],
    'Tutti frutti':['na','',0,'Absent du corpus 2026.']
   };
+
+  /* Requêtes secondaires à couvrir dans le corps de page, et title/H1 recommandé.
+     [ [requête, volume], … ] puis la proposition de title. */
+  var KW={
+   'Maquillage':[[['maquillage pour enfant',1700],['maquillage enfant fille',1300],['maquillage enfant bio',1200],['palette maquillage enfant',1100],['malette maquillage enfant',1400],['modele maquillage enfant',800]],
+     'Maquillage enfant bio, fabriqué en France — palettes, crayons et coffrets'],
+   'Halloween':[[['maquillage enfant halloween',3000],['maquillage halloween facile enfant',2100],['idee maquillage enfant halloween',80],['maquillage enfant halloween garcon',40]],
+     'Maquillage Halloween enfant : 20 idées faciles, pas à pas'],
+   'Carnaval':[[['maquillage carnaval enfant',700],['maquillage enfant carnaval',500],['maquillage carnaval facile',300]],
+     'Maquillage carnaval enfant : idées faciles et rapides'],
+   'Noël':[[['maquillage noël enfant',600],['maquillage enfant noel',500],['maquillage noël facile',500]],
+     'Maquillage de Noël enfant : idées faciles pour les fêtes'],
+   'Día de los Muertos':[[['maquillage dia de los muertos facile',500],['dia de los muertos maquillage',450],['maquillage dia de los muertos enfant',200],['maquillage dia de los muertos simple',150]],
+     'Maquillage Dia de los Muertos enfant : le pas à pas facile'],
+   'Squelette':[[['maquillage enfant squelette',400],['tuto maquillage squelette',60],['maquillage enfant halloween squelette',40]],
+     'Maquillage squelette enfant facile : le tuto pas à pas'],
+   'Papillon':[[['maquillage enfant papillon',800],['maquillage enfant papillon facile',150],['maquillage enfant facile papillon',150]],
+     'Maquillage papillon enfant facile : le tuto pas à pas'],
+   'Citrouille':[[['tuto maquillage citrouille',10]],
+     'Maquillage citrouille enfant facile : le tuto pas à pas'],
+   'Sorcier & magie':[[['maquillage enfant sorciere',350],['maquillage enfant halloween sorciere',50]],
+     'Maquillage sorcière enfant facile : le tuto pas à pas'],
+   'Licorne':[[['maquillage enfant licorne facile',200],['maquillage enfant facile licorne',80]],
+     'Maquillage licorne enfant facile : le tuto pas à pas'],
+   'Pirate':[[['maquillage enfant pirate',250],['maquillage enfant pirate fille',40]],
+     'Maquillage pirate enfant facile : le tuto pas à pas'],
+   'Tutoriels':[[['maquillage enfant simple',1400],['tuto maquillage',1400],['tuto maquillage enfant',300],['maquillage enfant facile et rapide',300],['maquillage enfant facile fille',300]],
+     'Tutos maquillage enfant faciles : le pas à pas en vidéo'],
+   'Coffrets & idées cadeaux':[[['cadeau enfant 3 ans',5900],['cadeau enfant 4 ans',4200],['idee cadeau enfant 3 ans',2900],['cadeau enfant 5 ans',2400],['cadeau enfant 6 ans',2100]],
+     'Coffrets et idées cadeaux maquillage enfant, dès 3 ans']
+  };
   function seoHtml(label){
     var d=SEO[label]; if(!d) return '';
     var m=INTENT[d[0]], h='<div class="mm-tip-seo">'
       +'<span class="mm-tip-int i-'+d[0]+'">'+m[0]+'</span><span class="mm-tip-intl">'+m[1]+'</span>';
     if(d[1]) h+='<div class="mm-tip-kw">'+esc(d[1])+'<b>'+(d[2]?d[2].toLocaleString('fr-FR')+' rech./mois':'volume à relever')+'</b></div>';
     if(d[3]) h+='<div class="mm-tip-why">'+d[3]+'</div>';
+    var k=KW[label];
+    if(k){
+      h+='<div class="mm-tip-sec"><span class="mm-tip-sect">Requêtes secondaires à couvrir</span>';
+      k[0].forEach(function(x){ h+='<div class="mm-tip-sr">'+esc(x[0])+'<b>'+x[1].toLocaleString('fr-FR')+'</b></div>'; });
+      h+='</div><div class="mm-tip-sec"><span class="mm-tip-sect">Title &amp; H1 proposés</span>'
+       +'<div class="mm-tip-h1">'+esc(k[1])+'</div></div>';
+    }
     return h+'</div>';
   }
   function showTip(node,parent,el){
