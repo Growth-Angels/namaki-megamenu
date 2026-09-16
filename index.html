@@ -1171,6 +1171,17 @@
 .mm-tip-note{margin-top:10px;padding-top:9px;border-top:1px solid rgba(255,255,255,.18);
   font-size:12px;line-height:1.5;color:#CFE3E0;}
 .mm-tip-note b{color:#FFD98A;}
+.mm-tip-seo{margin-top:11px;padding-top:10px;border-top:1px solid rgba(255,255,255,.18);}
+.mm-tip-int{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.09em;
+  padding:3px 8px;border-radius:999px;margin-right:8px;vertical-align:middle;}
+.i-quand{background:#F2867C;color:#3B1410;} .i-qui{background:#7FD4CE;color:#0B3A37;}
+.i-comment{background:#F7C24B;color:#4A3500;} .i-produit{background:#C9A9E6;color:#31164B;}
+.i-blog{background:#CFE3E0;color:#123E46;} .i-na{background:rgba(255,255,255,.16);color:#CFE3E0;}
+.mm-tip-intl{font-size:11px;color:#CFE3E0;}
+.mm-tip-kw{margin-top:9px;font-size:12.5px;color:#fff;font-style:italic;}
+.mm-tip-kw b{display:block;font-style:normal;font-size:11px;color:#7FD4CE;margin-top:2px;letter-spacing:.02em;}
+.mm-tip-why{margin-top:8px;font-size:11.5px;line-height:1.5;color:#CFE3E0;}
+.mm-tip-why b{color:#FFD98A;}
 
 @media (max-width:820px){
   .arbo-in{padding:20px 16px 80px;}
@@ -1187,7 +1198,7 @@
     <div class="arbo-top">
       <div>
         <h2 class="arbo-h">Arborescence & structure d'URL</h2>
-        <p class="arbo-sub">Survolez une entrée pour voir l'URL recommandée dans les trois langues.
+        <p class="arbo-sub">Survolez une entrée pour voir l'URL recommandée dans les trois langues, l'intention de recherche visée et son volume mensuel (relevé de juin 2026).
           Les recommandations partent de l'existant namaki.fr et corrigent ce qui freine le référencement.
           Cliquez sur une rubrique pour la déplier.</p>
       </div>
@@ -1320,17 +1331,17 @@
     {label:'Occasions', slug:{fr:'occasions',en:'occasions',de:'welten-und-anlaesse'}, t:'chg',
      note:'Remplace <b>/c/univers-occasions</b> : plus court et sans le préfixe /c/. Gisement SEO majeur.',
      groups:[{label:'Les occasions', items:[
-        {label:'Anniversaire', slug:{fr:'maquillage-anniversaire',en:'birthday-face-paint',de:'kinderschminken-geburtstag'}, t:'new'},
+        {label:'Anniversaire', page:{fr:'/anniversaire-enfant',en:'/en/kids-birthday-party',de:'/de/kindergeburtstag'}, t:'new'},
         {label:'Soirée pyjama', slug:{fr:'soiree-pyjama',en:'pyjama-party',de:'pyjamaparty'}, t:'new'},
         {label:'Carnaval', slug:{fr:'maquillage-carnaval',en:'carnival-face-paint',de:'faschingsschminke'}, t:'chg',
          note:'Existe déjà sous <b>/c/univers-occasions/maquillage-carnaval</b> : conserver le slug, retirer /c/.'},
         {label:'Halloween', slug:{fr:'maquillage-halloween',en:'halloween-face-paint',de:'halloween-schminke'}, t:'chg',
          note:'Page la plus stratégique de l’année : mériterait un contenu éditorial (idées, pas-à-pas) au-dessus de la grille produits.'},
-        {label:'Día de los Muertos', slug:{fr:'dia-de-los-muertos',en:'day-of-the-dead',de:'dia-de-los-muertos'}, t:'new'},
+        {label:'Día de los Muertos', slug:{fr:'maquillage-dia-de-los-muertos',en:'day-of-the-dead-face-paint',de:'dia-de-los-muertos-schminke'}, t:'new'},
         {label:'Noël', slug:{fr:'maquillage-noel',en:'christmas-face-paint',de:'weihnachts-sylvester-make-up'}, t:'chg',
          note:'Slug actuel <b>maquillage-noel-nouvel-an</b> : le raccourcir améliore la correspondance à la requête.'},
         {label:'Match & compétition', slug:{fr:'maquillage-supporter',en:'sports-face-paint',de:'sport-schminken'}, t:'new'},
-        {label:'Kermesse école', slug:{fr:'kermesse-ecole',en:'school-fair',de:'schulfest'}, t:'new'},
+        {label:'Kermesse école', slug:{fr:'maquillage-kermesse',en:'school-fair-face-paint',de:'schulfest-schminke'}, t:'new'},
         {label:'Gala danse', slug:{fr:'gala-danse',en:'dance-show',de:'tanzauffuehrung'}, t:'new'},
         {label:'Mariage & baptême', slug:{fr:'mariage-bapteme',en:'wedding-christening',de:'hochzeit-taufe'}, t:'new'}
       ]}]},
@@ -1567,6 +1578,56 @@
     wrap.appendChild(b);
   });
 
+
+  /* ===== Structure d'intention SEO =====
+     Relevé : « Namaki - Intentions de recherche 2026 » (11.06.2026), 2 380 requêtes.
+     [ intention, requête cible, volume mensuel, commentaire ]
+     Les entrées sans donnée sont marquées 'na' : rien n'est extrapolé. */
+  var INTENT={quand:['QUAND','Occasion — un moment du calendrier'],
+              qui:['QUI · QUOI','Thématique — un personnage, un motif'],
+              comment:['COMMENT','Tutoriel — un geste à reproduire'],
+              produit:['PRODUIT','Requête générique ou produit'],
+              blog:['BLOG','Audience réelle, mais sans intention maquillage'],
+              na:['À RELEVER','Absent du corpus 2026']};
+  var SEO={
+   'Maquillage':['produit','maquillage enfant',17000,'Catégorie mère, destinataire de tout le maillage interne.'],
+   'Occasions':['quand','maquillage halloween enfant',9700,'Silo calendaire. Sur 9 occasions du menu, 4 seulement portent une intention maquillage réelle.'],
+   'Thématiques':['qui','maquillage squelette enfant',3800,'Silo permanent, non saisonnier : 23,9 % de la demande de la grappe « maquillage enfant ».'],
+   'Tutoriels':['comment','maquillage enfant facile',4300,'<b>« facile » pèse 15 880 contre 13 230 pour « tuto »</b>, sur deux fois moins de requêtes. Titrer sur la simplicité, pas sur le format.'],
+   'Coffrets & idées cadeaux':['produit','cadeau enfant',6900,'Grappe « cadeau enfant » : 78 080 recherches mensuelles.'],
+   'Halloween':['quand','maquillage halloween enfant',9700,'99 % de la grappe porte une intention maquillage. <b>Hub de 7 des 10 premières thématiques</b> : c\'est elle qui les distribue.'],
+   'Carnaval':['quand','maquillage carnaval',3000,'Grappe de 14 090 étalée sur 247 requêtes : longue traîne. Exige une page mère <b>et</b> des thématiques enfants.'],
+   'Día de los Muertos':['quand','maquillage dia de los muertos',1400,'Grappe culturelle de 30 790, peu travaillée par la concurrence. Forte affinité graphique avec la marque.'],
+   'Noël':['quand','maquillage de noël',1000,'Grappe de 10 310, dont 6 310 en intention maquillage.'],
+   'Anniversaire':['blog','anniversaire enfant',7600,'Grappe de <b>127 360</b> mais <b>620 seulement</b> en maquillage (0,5 %). Article de blog, pas page catégorie. La 1re requête est « maquilleuse anniversaire » : ces parents recrutent un professionnel.'],
+   'Soirée pyjama':['blog','soirée pyjama',2500,'Grappe de 11 700 et <b>aucune</b> requête maquillage. Article de blog : trois existent déjà en ligne.'],
+   'Kermesse école':['quand','maquillage enfant kermesse',200,'Volume faible. À rattacher à une page plus large plutôt qu\'en page dédiée.'],
+   'Gala danse':['na','maquillage enfant danse',10,'Quasi inexistant dans le corpus. À écarter ou à rattacher.'],
+   'Mariage & baptême':['na','tuto maquillage mariage',250,'Grappe de 550, majoritairement adulte. Hors positionnement enfant.'],
+   'Match & compétition':['na','',0,'Absent du corpus 2026. Volume à relever avant toute production.'],
+   'Squelette':['qui','maquillage squelette enfant',3800,'Première thématique du site. Relève de l\'univers Halloween.'],
+   'Papillon':['qui','maquillage papillon enfant',1100,'Grappe de 2 310.'],
+   'Citrouille':['qui','maquillage citrouille enfant',900,'Relève de l\'univers Halloween.'],
+   'Sorcier & magie':['qui','maquillage sorciere enfant',450,'Grappe de 970. Relève de l\'univers Halloween.'],
+   'Licorne':['qui','maquillage enfant licorne',600,'Grappe de 960.'],
+   'Pirate':['qui','maquillage pirate enfant',400,'Grappe de 830.'],
+   'Princesse de l’hiver':['qui','maquillage enfant princesse',300,'Grappe de 860. Viser le motif générique : « reine des neiges » est une marque déposée.'],
+   'Safari':['qui','maquillage enfant lion',250,'Grappe de 490 (lion, girafe, léopard).'],
+   'Sirène':['qui','maquillage enfant sirene',100,'Volume faible sur le corpus 2026.'],
+   'Fée des fleurs':['qui','maquillage enfant fee',60,'Volume faible sur le corpus 2026.'],
+   'Squelette mexicain':['qui','tuto maquillage catrina',10,'<b>Fait doublon</b> avec l\'occasion Día de los Muertos (4 150). À fusionner.'],
+   'Ballerine':['na','',0,'Absent du corpus 2026.'],
+   'Jungle':['na','',0,'Absent du corpus 2026.'],
+   'Tutti frutti':['na','',0,'Absent du corpus 2026.']
+  };
+  function seoHtml(label){
+    var d=SEO[label]; if(!d) return '';
+    var m=INTENT[d[0]], h='<div class="mm-tip-seo">'
+      +'<span class="mm-tip-int i-'+d[0]+'">'+m[0]+'</span><span class="mm-tip-intl">'+m[1]+'</span>';
+    if(d[1]) h+='<div class="mm-tip-kw">'+esc(d[1])+'<b>'+(d[2]?d[2].toLocaleString('fr-FR')+' rech./mois':'volume à relever')+'</b></div>';
+    if(d[3]) h+='<div class="mm-tip-why">'+d[3]+'</div>';
+    return h+'</div>';
+  }
   function showTip(node,parent,el){
     var t=node.t||'ok';
     var h='<div class="mm-tip-h">'+esc(node.label)+'</div>';
@@ -1574,6 +1635,7 @@
       h+='<div class="mm-tip-row"><span class="mm-tip-lang">'+l.toUpperCase()+'</span>'
         +'<span class="mm-tip-url">'+esc(urlFor(node,parent,l))+'</span></div>';
     });
+    h+=seoHtml(node.label);
     h+='<div class="mm-tip-note"><b>'+LABEL[t]+'</b>'+(node.note? ' — '+node.note : '')+'</div>';
     tip.innerHTML=h; tip.classList.add('show');
     var r=el.getBoundingClientRect(), tr=tip.getBoundingClientRect();
