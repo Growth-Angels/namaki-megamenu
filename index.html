@@ -558,6 +558,7 @@
     </div>
     <button type="button" class="verswitch-arbo" id="arboBtn">⌗ Arborescence</button>
     <button type="button" class="verswitch-arbo" id="zonBtn">▤ Zoning</button>
+    <button type="button" class="verswitch-arbo" id="rmBtn">◷ Feuille de route</button>
   </div>
 
   <!-- ============ MENU MOBILE (drawer + drill-down) ============ -->
@@ -1185,6 +1186,19 @@
 .wf-step{display:flex;gap:7px;align-items:flex-start;margin:5px 0;} .wf-step .wf-img{width:36px;height:27px;flex:0 0 auto;}
 .wf-step>div:last-child{flex:1;}
 .wf-cta{height:13px;width:64px;border-radius:999px;background:#F2867C;margin-top:5px;}
+.wf-shop{display:grid;grid-template-columns:80px 1fr;gap:8px;align-items:start;margin-top:2px;}
+.wf-fbar{border:1px solid #DCE3E1;border-radius:5px;padding:6px 6px 2px;background:#FCFDFD;}
+.wf-fbar>.wf-h3{width:45%;margin-bottom:6px;}
+.wf-fg{margin:0 0 7px;} .wf-fg>.wf-l{margin:0 0 3px;background:#C3D2CF;}
+.wf-cb{display:flex;align-items:center;gap:4px;margin:3px 0;}
+.wf-cb i{width:7px;height:7px;border:1px solid #B7C9C6;border-radius:2px;display:block;flex:0 0 auto;background:#fff;}
+.wf-cb .wf-l{flex:1;margin:0;}
+.wf-sort{display:flex;justify-content:flex-end;margin-bottom:5px;}
+.wf-sort span{width:60px;height:11px;border:1px solid #CFDBD8;border-radius:4px;display:block;background:#fff;}
+.wf-genres{display:flex;gap:5px;flex-wrap:wrap;margin:2px 0 3px;}
+.wf-genres b{height:13px;width:44px;border:1px solid #CFDBD8;border-radius:999px;background:#fff;display:block;}
+.wf-genres b.on{background:#123E46;border-color:#123E46;}
+.wf-more{height:14px;width:92px;border-radius:999px;border:1.5px solid #16B3AB;margin:9px auto 2px;}
 /* --- le brief --- */
 .zon-brief{background:#fff;border:1px solid #DCEAE7;border-radius:12px;padding:24px 26px 26px;}
 .zon-b-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
@@ -1207,6 +1221,36 @@
   font-weight:700;color:#123E46;cursor:pointer;} .zon-nav button:disabled{opacity:.35;cursor:default;}
 .zon-nav button:not(:disabled):hover{background:#F7FAF9;}
 @media (max-width:1040px){ .zon-body{grid-template-columns:1fr;} .zon-wcol{position:static;} }
+
+
+/* ============ FEUILLE DE ROUTE ============ */
+.rm{position:fixed;inset:0;z-index:300;background:#FBF9F5;overflow:auto;display:none;
+  font-family:'Figtree',system-ui,-apple-system,sans-serif;letter-spacing:.02em;color:#2F2722;-webkit-font-smoothing:antialiased;}
+.rm.open{display:block;}
+.rm-in{max-width:1180px;margin:0 auto;padding:28px 32px 90px;}
+.rm-tl{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 30px;}
+.rm-tl>div{background:#fff;border:1px solid #DCEAE7;border-radius:12px;padding:14px 16px;position:relative;}
+.rm-tl>div:before{content:"";position:absolute;left:16px;top:-1px;width:34px;height:3px;border-radius:0 0 3px 3px;background:#16B3AB;}
+.rm-tl>div.now:before{background:#8A4A3C;} .rm-tl>div.late:before{background:#F2867C;}
+.rm-tl b{display:block;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:#52B9B9;margin-bottom:6px;}
+.rm-tl>div.now b{color:#8A4A3C;}
+.rm-tl p{margin:0;font-size:13.5px;line-height:1.5;}
+.rm-h2{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#52B9B9;margin:0 0 12px;}
+.rm-sec{margin-bottom:30px;}
+.rm-card{display:grid;grid-template-columns:34px 1fr auto;gap:14px;align-items:start;background:#fff;
+  border:1px solid #DCEAE7;border-radius:12px;padding:15px 18px;margin-bottom:8px;}
+.rm-n{width:26px;height:26px;border-radius:50%;background:#123E46;color:#fff;font-size:12px;font-weight:800;display:grid;place-items:center;margin-top:1px;}
+.rm-card.q .rm-n{background:#B5651D;} .rm-card.done .rm-n{background:#9FB6B3;}
+.rm-t{font-size:15px;font-weight:700;color:#123E46;margin:0 0 4px;}
+.rm-d{font-size:13.5px;line-height:1.55;color:#5E767C;margin:0;}
+.rm-d b{color:#2F2722;font-weight:600;}
+.rm-q{margin-top:8px;background:#FDF0E4;border-left:3px solid #B5651D;border-radius:0 8px 8px 0;padding:9px 12px;font-size:13px;line-height:1.5;color:#6B3E0F;}
+.rm-q b{color:#B5651D;}
+.rm-side{display:flex;flex-direction:column;align-items:flex-end;gap:6px;min-width:120px;}
+.rm-own{font-size:11px;font-weight:800;letter-spacing:.06em;padding:4px 10px;border-radius:999px;}
+.rm-own.o-nmk{background:#FDECE9;color:#B5493C;} .rm-own.o-ga{background:#EAF6F3;color:#0E8F89;} .rm-own.o-both{background:#F0EDF7;color:#6E4FA8;}
+.rm-due{font-size:12px;color:#5E767C;} .rm-due b{color:#8A4A3C;font-weight:700;}
+@media (max-width:900px){ .rm-tl{grid-template-columns:1fr 1fr;} .rm-card{grid-template-columns:34px 1fr;} .rm-side{grid-column:2;flex-direction:row;align-items:center;} }
 
 .arbo-alerts{background:#fff;border:1px solid #DCEAE7;border-radius:12px;padding:18px 20px;margin-bottom:30px;}
 .arbo-alerts h3{margin:0 0 12px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#0E8F89;}
@@ -1260,6 +1304,7 @@
 
 /* --- tooltip --- */
 .mm-tip{position:fixed;z-index:320;background:#123E46;color:#fff;border-radius:10px;padding:14px 16px;
+  font-family:'Figtree',system-ui,-apple-system,sans-serif;letter-spacing:.02em;-webkit-font-smoothing:antialiased;
   width:400px;max-width:calc(100vw - 32px);box-shadow:0 18px 40px -14px rgba(18,62,70,.55);
   opacity:0;visibility:hidden;transition:opacity .14s;pointer-events:none;}
 .mm-tip.show{opacity:1;visibility:visible;}
@@ -1270,6 +1315,7 @@
 .mm-tip-note{margin-top:10px;padding-top:9px;border-top:1px solid rgba(255,255,255,.18);
   font-size:12px;line-height:1.5;color:#CFE3E0;}
 .mm-tip-note b{color:#FFD98A;}
+.mm-tip-xref{margin-top:8px;font-size:11.5px;line-height:1.5;color:#9FD9D4;font-style:italic;}
 .mm-tip-seo{margin-top:11px;padding-top:10px;border-top:1px solid rgba(255,255,255,.18);}
 .mm-tip-int{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.09em;
   padding:3px 8px;border-radius:999px;margin-right:8px;vertical-align:middle;}
@@ -1384,6 +1430,59 @@
     <div class="zon-brief" id="zonBrief"></div>
   </div>
 </div></div>
+
+<div class="rm" id="rm"><div class="rm-in">
+  <div class="zon-top">
+    <div>
+      <h2 class="zon-h">Feuille de route</h2>
+      <p class="zon-sub">Ce qui conditionne la mise en ligne du nouveau menu, ce qui en est indépendant, et les
+      échéances posées au 16 septembre 2026. Les points en orange attendent une décision.</p>
+    </div>
+    <button type="button" class="zon-close" id="rmClose">✕ Fermer</button>
+  </div>
+  <div class="rm-tl">
+    <div class="now"><b>16 sept · aujourd'hui</b><p>Maquette V2, arborescence, slugs et zoning livrés dans ce document.</p></div>
+    <div><b>Mer. 23 sept</b><p>Prototypes finaux de la nouvelle homepage (GA). Zoning des pages thématiques (GA ou Namaki, à confirmer).</p></div>
+    <div><b>Dès que prêt</b><p>Mise en ligne du nouveau menu, une fois les quatre prérequis Namaki levés et la section « Nos gammes » retirée de la HP.</p></div>
+    <div><b>Mi-octobre</b><p>Premier lot de 10 pages thématiques prioritaires, et nouvelle entrée « Thématiques » dans le menu.</p></div>
+  </div>
+
+  <div class="rm-sec"><div class="rm-h2">Mise en ligne du nouveau menu · conditionnée par</div>
+    <div class="rm-card"><div class="rm-n">1</div><div><p class="rm-t">Remplir les nouvelles catégories produits</p>
+      <p class="rm-d">Sur la base de l'Airtable transmis à <b>Juliette</b>. Ce sont les catégories créées par la V2 : Fards à l'eau, Coffrets & trousses, Coffrets vernis, Coffrets thématiques, Packs collection, Packs thématiques.</p></div>
+      <div class="rm-side"><span class="rm-own o-nmk">NAMAKI</span></div></div>
+    <div class="rm-card"><div class="rm-n">2</div><div><p class="rm-t">Affecter les produits dans les bonnes catégories, avec le filtre « âge »</p>
+      <p class="rm-d">Chaque produit doit porter sa catégorie V2 et sa tranche d'âge (3 à 6 ans, 6 à 9 ans, 9 ans et +), sinon le filtre du menu tourne à vide.</p></div>
+      <div class="rm-side"><span class="rm-own o-nmk">NAMAKI</span></div></div>
+    <div class="rm-card"><div class="rm-n">3</div><div><p class="rm-t">Ajouter les visuels dans le menu</p>
+      <p class="rm-d">Une image par rubrique et par entrée survolée, au format du panneau plein cadre. Les aplats de couleur de la maquette sont des emplacements, pas des visuels.</p></div>
+      <div class="rm-side"><span class="rm-own o-nmk">NAMAKI</span></div></div>
+    <div class="rm-card q"><div class="rm-n">4</div><div><p class="rm-t">Contenus des nouvelles pages Occasions</p>
+      <p class="rm-d">Halloween, Carnaval, Noël, Día de los Muertos : le gabarit et les briefs sont dans l'onglet Zoning.</p>
+      <div class="rm-q"><b>À trancher.</b> Créer et optimiser les nouveaux contenus avant la mise en ligne, ou reprendre les pages actuelles dans le menu et basculer vers les nouvelles au fur et à mesure qu'elles sont prêtes ? La seconde option décorrèle le menu de la rédaction.</div></div>
+      <div class="rm-side"><span class="rm-own o-nmk">NAMAKI</span></div></div>
+    <div class="rm-card"><div class="rm-n">5</div><div><p class="rm-t">Homepage : retirer la section « Nos gammes de produits »</p>
+      <p class="rm-d">Proposition pour la mise en ligne : la section disparaît en attendant la refonte, le nouveau menu prenant le relais de la navigation par gamme.</p></div>
+      <div class="rm-side"><span class="rm-own o-ga">GROWTH ANGELS</span></div></div>
+    <div class="rm-card"><div class="rm-n">6</div><div><p class="rm-t">Nouvelle homepage UX/UI : prototypes finaux</p>
+      <p class="rm-d">Livraison des prototypes finaux, pour validation avant intégration.</p></div>
+      <div class="rm-side"><span class="rm-own o-ga">GROWTH ANGELS</span><span class="rm-due">échéance <b>23 sept. 2026</b></span></div></div>
+  </div>
+
+  <div class="rm-sec"><div class="rm-h2">Indépendant de la mise en ligne</div>
+    <div class="rm-card q"><div class="rm-n">7</div><div><p class="rm-t">Pages thématiques : zoning</p>
+      <p class="rm-d">Elles seront maquettées en lieu et place de la fiche produit. Le gabarit « Thématique » de l'onglet Zoning sert de base : hero sur le look, produits pour ce look, pas à pas, occasions associées, FAQ.</p>
+      <div class="rm-q"><b>À trancher.</b> Zoning livré pour mercredi 23 septembre ? Par Growth Angels ou par Namaki ? À confirmer selon la faisabilité côté Namaki.</div></div>
+      <div class="rm-side"><span class="rm-own o-both">GA OU NAMAKI</span><span class="rm-due">cible <b>23 sept. 2026</b></span></div></div>
+    <div class="rm-card q"><div class="rm-n">8</div><div><p class="rm-t">Pages thématiques : production décalée à octobre</p>
+      <p class="rm-d">Livraison mi-octobre, le temps de créer les contenus une fois le zoning validé. Un premier lot de <b>10 thématiques prioritaires</b> permettrait d'envisager la mise en ligne avec la nouvelle entrée de menu.</p>
+      <div class="rm-q"><b>Proposition de lot, issue des volumes :</b> squelette, vampire, papillon, araignée, clown, chat, licorne, citrouille, sorcière, pirate.</div></div>
+      <div class="rm-side"><span class="rm-own o-nmk">NAMAKI</span><span class="rm-due">cible <b>mi-octobre 2026</b></span></div></div>
+    <div class="rm-card done"><div class="rm-n">9</div><div><p class="rm-t">Page tutoriel (single) : conservée en l'état</p>
+      <p class="rm-d">Rien à produire. Seule évolution recommandée, hors chantier : ajouter « enfant » et « facile » dans les titles et H1.</p></div>
+      <div class="rm-side"><span class="rm-own o-both">RIEN À FAIRE</span></div></div>
+  </div>
+</div></div>
 <div class="mm-tip" id="mmTip"></div>
 
 <script>
@@ -1400,13 +1499,13 @@
          note:'Existe en double aujourd’hui (<b>nouveautes</b> et <b>nouveautes-maquillage</b>) : n’en garder qu’une.'},
         {label:'Best sellers', slug:{fr:'meilleures-ventes',en:'best-sellers',de:'bestseller'}, t:'chg',
          note:'Également en double aujourd’hui : fusionner en une seule URL.'},
-        {label:'Collaborations exclusives', page:{fr:'/collaborations',en:'/en/collaborations',de:'/de/kooperationen'}, t:'ok',
+        {label:'Collaborations exclusives', page:{fr:'/collaborations',en:'/en/collaborations',de:'/de/kooperationen'}, xref:'Page existante à la racine, appelée depuis ce menu. Une seule URL canonique.', t:'ok',
          note:'Page existante <b>/collaborations</b> : à conserver telle quelle.'},
-        {label:'Coffrets & Packs', page:{fr:'/coffrets-maquillage-enfant',en:'/en/kids-makeup-gift-sets',de:'/de/geschenksets-kinder'}, t:'new',
+        {label:'Coffrets & Packs', page:{fr:'/coffrets-maquillage-enfant',en:'/en/kids-makeup-gift-sets',de:'/de/geschenksets-kinder'}, xref:'Renvoie vers la page mère de la rubrique Coffrets & idées cadeaux. Pas de page propre : ce serait un doublon.', t:'new',
          note:'Renvoie vers la rubrique Coffrets, qui regroupe désormais coffrets et packs : un seul emplacement canonique.'},
 
-        {label:'Fin de série', page:{fr:'/promotions/fin-de-serie',en:'/en/promotions/last-chance',de:'/de/promotionen/restposten'}, t:'new'},
-        {label:'Concours', page:{fr:'/concours',en:'/en/contests',de:'/de/gewinnspiele'}, t:'new',
+        {label:'Fin de série', page:{fr:'/promotions/fin-de-serie',en:'/en/promotions/last-chance',de:'/de/promotionen/restposten'}, xref:'Renvoie vers la page Fin de série de la rubrique Bons plans. Une seule URL, appelée depuis deux menus.', t:'new'},
+        {label:'Concours', page:{fr:'/concours',en:'/en/contests',de:'/de/gewinnspiele'}, xref:'Page unique à la racine, appelée depuis Maquillage et Bons plans.', t:'new',
          note:'Page dédiée (concours en cours + archives) plutôt qu’un lien sortant direct vers Instagram : le trafic reste sur le site.'}
       ]},
       {label:'Tous les produits', items:[
@@ -1457,7 +1556,7 @@
          live:{fr:'/idees-cadeaux-de-noel',en:'/en/christmas-gift-ideas',de:'/de/geschenkideen-fuer-weihnachten'},
          note:'Page saisonnière déjà en ligne : la garder toute l’année, l’historique se capitalise. Pas de dépublication.'},
         {label:'Cadeaux d’anniversaire', slug:{fr:'cadeaux-anniversaire',en:'birthday-gifts',de:'geschenkideen-kindergeburtstag'}, t:'new'},
-        {label:'Cartes cadeaux', page:{fr:'/carte-cadeau',en:'/en/gift-card',de:'/de/geschenkgutschein'}, t:'new',
+        {label:'Cartes cadeaux', slug:{fr:'carte-cadeau',en:'gift-card',de:'geschenkgutschein'}, t:'new',
          note:'Absente des deux listes transmises : rattachée ici plutôt que retirée du menu. <b>À confirmer.</b>'},
         {label:'Pochettes surprises', slug:{fr:'pochettes-surprises',en:'party-favours',de:'mitgebsel'}, t:'new',
          note:'Absente des deux listes transmises : rattachée ici plutôt que retirée du menu. <b>À confirmer.</b>'}
@@ -1472,7 +1571,7 @@
     {label:'Occasions', slug:{fr:'occasions',en:'occasions',de:'welten-und-anlaesse'}, t:'chg',
      note:'Remplace <b>/c/univers-occasions</b> : plus court et sans le préfixe /c/. Gisement SEO majeur.',
      groups:[{label:'Les occasions', items:[
-        {label:'Anniversaire', page:{fr:'/anniversaire-enfant',en:'/en/kids-birthday-party',de:'/de/kindergeburtstag'}, t:'new'},
+        {label:'Anniversaire', slug:{fr:'anniversaire-enfant',en:'kids-birthday-party',de:'kindergeburtstag'}, t:'new'},
         {label:'Soirée pyjama', slug:{fr:'soiree-pyjama',en:'pyjama-party',de:'pyjamaparty'}, t:'new'},
         {label:'Carnaval', slug:{fr:'maquillage-carnaval',en:'carnival-face-paint',de:'faschingsschminke'}, t:'chg',
          note:'Existe déjà sous <b>/c/univers-occasions/maquillage-carnaval</b> : conserver le slug, retirer /c/.'},
@@ -1521,7 +1620,7 @@
          note:'URL sans millésime : réutilisable chaque année, l’historique SEO se capitalise.'},
         {label:'Offre du moment', slug:{fr:'offre-du-moment',en:'current-offer',de:'aktuelles-angebot'}, t:'new'},
         {label:'Fin de série', slug:{fr:'fin-de-serie',en:'last-chance',de:'restposten'}, t:'new'},
-        {label:'Concours', page:{fr:'/concours',en:'/en/contests',de:'/de/gewinnspiele'}, t:'new'}
+        {label:'Concours', page:{fr:'/concours',en:'/en/contests',de:'/de/gewinnspiele'}, xref:'Page unique à la racine, appelée depuis Maquillage et Bons plans.', t:'new'}
       ]},
       {label:'Petits prix (filtre)', items:[
         {label:'– de 10€', filter:'?prix=0-10', t:'flt'},
@@ -1533,17 +1632,17 @@
       ]}
     ]},
 
-    {label:'Namaki', page:{fr:'/la-marque',en:'/en/about-namaki',de:'/de/die-marke'}, t:'new',
-     note:'Pages corporate : elles restent à la racine (déjà indexées), la rubrique sert de point d’entrée.',
+    {label:'Namaki', slug:{fr:'la-marque',en:'about-namaki',de:'die-marke'}, t:'new',
+     note:'Pages de marque regroupées sous <b>/la-marque/</b>. Le manifeste existe déjà (FR <b>/manifest</b>, DE <b>/de/vision</b>) : prévoir les deux 301. Livraison et contact restent à la racine, ce sont des pages utilitaires.',
      groups:[{label:'La marque', items:[
-        {label:'Manifeste', page:{fr:'/manifeste',en:'/en/manifest',de:'/de/vision'}, t:'chg',
-         note:'L’URL FR actuelle est <b>/manifest</b> (anglais) : passer à <b>/manifeste</b> avec un 301.'},
-        {label:'Nos valeurs', page:{fr:'/nos-valeurs',en:'/en/our-values',de:'/de/unsere-werte'}, t:'new'},
-        {label:'Fabrication & sécurité', page:{fr:'/fabrication-securite',en:'/en/manufacturing-safety',de:'/de/herstellung-sicherheit'}, t:'new'},
-        {label:'Ingrédients & certifications', page:{fr:'/ingredients-certifications',en:'/en/ingredients-certifications',de:'/de/inhaltsstoffe-zertifizierungen'}, t:'new',
+        {label:'Manifeste', slug:{fr:'manifeste',en:'manifest',de:'vision'}, t:'chg',
+         note:'L’URL FR actuelle est <b>/manifest</b> (anglais) : passer à <b>/la-marque/manifeste</b> avec un 301, et <b>/de/vision</b> vers /de/die-marke/vision.'},
+        {label:'Nos valeurs', slug:{fr:'nos-valeurs',en:'our-values',de:'unsere-werte'}, t:'new'},
+        {label:'Fabrication & sécurité', slug:{fr:'fabrication-securite',en:'manufacturing-safety',de:'herstellung-sicherheit'}, t:'new'},
+        {label:'Ingrédients & certifications', slug:{fr:'ingredients-certifications',en:'ingredients-certifications',de:'inhaltsstoffe-zertifizierungen'}, t:'new',
          note:'Page à fort potentiel de confiance (« maquillage bio enfant ») : y placer les labels COSMOS et la liste INCI.'},
-        {label:'Livraison & retours', page:{fr:'/livraison-retours',en:'/en/shipping-returns',de:'/de/lieferung-ruecksendung'}, t:'ok'},
-        {label:'Nous contacter', page:{fr:'/contact',en:'/en/contact',de:'/de/kontakt'}, t:'ok'}
+        {label:'Livraison & retours', page:{fr:'/livraison-retours',en:'/en/shipping-returns',de:'/de/lieferung-ruecksendung'}, xref:'Page utilitaire conservée à la racine : URL existante et indexée. Reprise dans ce menu pour la navigation, pas rattachée à la rubrique.', t:'ok'},
+        {label:'Nous contacter', page:{fr:'/contact',en:'/en/contact',de:'/de/kontakt'}, xref:'Page utilitaire conservée à la racine : URL existante et indexée. Reprise dans ce menu pour la navigation, pas rattachée à la rubrique.', t:'ok'}
       ]}]},
 
     {label:'Tutoriels', page:{fr:'/tuto-maquillage',en:'/en/make-up-tutorial',de:'/de/make-up-tutorial'}, t:'ok',
@@ -1794,7 +1893,7 @@
    'Packs collection':['produit','',0,'Absent du corpus. Nommage interne à la marque : la demande est à créer, pas à capter.'],
    'Packs thématiques':['produit','',0,'Même cas. Bon candidat au maillage depuis les pages Occasions.'],
    'Namaki':['produit','namaki',800,'<i>Relevé 2023.</i> Requête de marque : la page doit être la destination naturelle.'],
-   'Manifeste':['produit','',0,'URL FR actuelle <b>/manifest</b> (anglais) : passer à /manifeste avec une 301. En DE, la page existe déjà sous <b>/de/vision</b>.'],
+   'Manifeste':['produit','',0,'URL FR actuelle <b>/manifest</b> (anglais) : passer à /la-marque/manifeste avec une 301. En DE, la page existe sous <b>/de/vision</b> : 301 vers /de/die-marke/vision.'],
    'Nos valeurs':['produit','',0,'Page de marque, sans requête propre.'],
    'Fabrication & sécurité':['produit','maquillage enfant bio',1200,'Répond à une vraie inquiétude parentale : forte valeur de réassurance.'],
    'Ingrédients & certifications':['produit','maquillage enfant bio',1200,'Même intention. Y placer les labels COSMOS et la liste INCI.'],
@@ -1917,6 +2016,7 @@
       h+='<div class="mm-tip-row"><span class="mm-tip-lang">'+l.toUpperCase()+'</span>'
         +'<span class="mm-tip-url">'+esc(urlFor(node,parent,l))+'</span></div>';
     });
+    if(node.xref) h+='<div class="mm-tip-xref">↗ Lien croisé — '+node.xref+'</div>';
     h+=seoHtml(node);
     h+='<div class="mm-tip-note"><b>'+LABEL[t]+'</b>'+(node.note? ' — '+node.note : '')+'</div>';
     tip.innerHTML=h; tip.classList.add('show');
@@ -1964,7 +2064,11 @@
     herometa:function(){return '<div class="wf-h1"></div><div class="wf-badges"><b></b><b></b><b></b></div><div class="wf-l w70"></div>';},
     filters:function(){return '<div class="wf-chips">'+rep('<b></b>',4)+'</div>';},
     grid:function(){return '<div class="wf-grid">'+rep(CARD,8)+'</div>';},
-    filtersgrid:function(){return R.filters()+'<div class="wf-grid">'+rep(CARD,8)+'</div>';},
+    shop:function(){
+      var fg='';['Prix','Format','Certifications','Points forts'].forEach(function(){fg+='<div class="wf-fg"><div class="wf-l w60"></div>'+rep('<div class="wf-cb"><i></i><div class="wf-l w80"></div></div>',3)+'</div>';});
+      return '<div class="wf-shop"><div class="wf-fbar"><div class="wf-h3"></div>'+fg+'</div>'
+        +'<div><div class="wf-sort"><span></span></div><div class="wf-grid wf-grid3" style="margin-top:0">'+rep(CARD,6)+'</div></div></div>';},
+    genres:function(){return '<div class="wf-genres"><b class="on"></b><b></b><b></b><b></b><b></b><b></b></div>';},
     edit:function(){return '<div class="wf-h2"></div><div class="wf-l w90"></div><div class="wf-l w90"></div><div class="wf-l w80"></div><div class="wf-l w60"></div>';},
     edit2:function(){return '<div class="wf-h2"></div><div class="wf-split"><div><div class="wf-l w90"></div><div class="wf-l w90"></div><div class="wf-l w80"></div><div class="wf-l w50"></div></div><div class="wf-img wf-side"></div></div>';},
     looks:function(){return '<div class="wf-h2"></div><div class="wf-l w60"></div><div class="wf-tiles">'+rep('<div class="wf-tile"><div class="wf-img"></div><div class="wf-l w70"></div></div>',5)+'</div>';},
@@ -1974,7 +2078,7 @@
     video:function(){return '<div class="wf-video"></div>';},
     products:function(){return '<div class="wf-h2"></div><div class="wf-grid wf-grid5">'+rep('<div class="wf-card"><div class="wf-img"></div><div class="wf-l w80"></div></div>',5)+'</div>';},
     steps:function(){return '<div class="wf-h2"></div>'+rep('<div class="wf-step"><div class="wf-img"></div><div><div class="wf-h3"></div><div class="wf-l w90"></div><div class="wf-l w70"></div></div></div>',4);},
-    tutos:function(){return '<div class="wf-grid wf-grid3">'+rep('<div class="wf-card"><div class="wf-img wf-43"></div><div class="wf-l w80"></div><div class="wf-badges"><b></b><b></b></div></div>',6)+'</div>';},
+    tutos:function(){return '<div class="wf-grid wf-grid3">'+rep('<div class="wf-card"><div class="wf-img wf-43"></div><div class="wf-l w80"></div><div class="wf-badges"><b></b><b></b></div></div>',6)+'</div><div class="wf-more"></div>';},
     tips:function(){return '<div class="wf-h3"></div><div class="wf-l w90"></div><div class="wf-l w80"></div><div class="wf-l w50"></div>';},
     related:function(){return '<div class="wf-h2"></div><div class="wf-tiles wf-tiles3">'+rep('<div class="wf-tile"><div class="wf-img wf-43"></div><div class="wf-l w70"></div></div>',3)+'</div>';},
     link:function(){return '<div class="wf-h2"></div><div class="wf-split"><div><div class="wf-l w90"></div><div class="wf-l w70"></div><div class="wf-cta"></div></div><div class="wf-img wf-side"></div></div>';}
@@ -1989,10 +2093,8 @@
      e:['H1 : reprend la requête cible mot pour mot, 55 à 65 signes','Chapô : 2 à 3 phrases, 250 à 350 signes','Dire ce qu’on trouve sur la page, pas ce qu’est la marque','Placer la requête dans les 100 premiers signes'],
      x:'<b>H1 :</b> Maquillage Halloween pour enfants : idées faciles et produits bio<br><br><b>Chapô :</b> Squelette, sorcière, citrouille : voici de quoi transformer votre enfant sans y passer la soirée. Tous nos maquillages sont certifiés bio, se retirent à l’eau et conviennent dès 3 ans.',
      w:'Le H1 actuel en préproduction est « Maquillage Halloween pour petits monstres ». Joli, mais il ne contient pas « enfant », qui est dans la requête à 9 700. Garder la formule de marque en sous-titre.'}],
-   ['Filtres','Prix, format, certifications','ui','filters',{r:'Aide au tri. Aucun contenu rédigé.',
-     e:['Les filtres génèrent des paramètres ?prix= et non des URL indexables'],x:'Pas de rédaction.'}],
-   ['Grille produits','Sélection curée','ui','grid',{r:'Les produits pertinents pour cette occasion, pas tout le catalogue.',
-     e:['15 à 25 produits maximum','Ordonner par pertinence pour l’occasion, pas par date'],
+   ['Filtres + grille produits','Filtres à gauche, tri à droite','ui','shop',{r:'Relevé tel quel sur la préproduction : le panneau de filtres à gauche (Prix, Format, Certifications, Points forts), le tri en haut à droite (Nouveautés, prix croissant, prix décroissant), la grille au centre.',
+     e:['Filtres et tri en paramètres d’URL, jamais en pages indexables','15 à 25 produits, ordonnés par pertinence pour l’occasion, pas par date','Libellés de filtres courts : un mot, deux au plus'],
      x:'Pas de rédaction, mais la sélection est un acte éditorial : un parent qui cherche Halloween ne doit pas voir de baume à lèvres en premier.'}],
    ['Bloc éditorial 1 (H2)','Comment choisir','seo','edit',{r:'Répond à l’objection principale du parent : est-ce sans danger, est-ce que ça part.',
      e:['H2 contenant la requête et un verbe d’action','400 à 600 signes','Traiter : composition, âge, retrait, tenue'],
@@ -2033,7 +2135,10 @@
      e:['H1 portant « facile », qui pèse plus que « tuto »','Chapô de 250 à 350 signes','Annoncer le nombre de tutos et le niveau'],
      x:'<b>Title :</b> Tutos maquillage Halloween enfant faciles : le pas à pas<br><b>H1 :</b> Tutos de maquillage Halloween pour enfants, faciles à réussir<br><br><b>Chapô :</b> Douze pas à pas filmés pour transformer votre enfant en squelette, sorcière ou citrouille. Chaque tuto indique son niveau et les produits nécessaires.',
      w:'Le title actuel ne contient aucun mot-clé et la meta description est absente. C’est la correction la plus urgente de ce gabarit.'}],
-   ['Grille de tutos','Le cœur de page','ui','tutos',{r:'Les vignettes de tutoriels, avec niveau et durée.',
+   ['Familles de tutos','Pour changer de tutoriel','ui','genres',{r:'La rangée au-dessus de la grille, relevée sur la préproduction : Tous les tutoriels, Animaux, Clowns & magie, Féérie, Halloween, Super-héros. C’est elle qui permet de passer d’une famille à l’autre sans repasser par le menu.',
+     e:['Une entrée par famille, la famille courante en surbrillance','Chaque entrée pointe vers la page catégorie de la famille (/tuto-maquillage/animaux…), pas vers un filtre ?genre=','Ancre = le nom de la famille, sans « tuto » devant'],
+     x:'Tous les tutoriels · Animaux · Clowns & magie · Féérie · <b>Halloween</b> · Super-héros'}],
+   ['Grille de tutos + « Voir plus »','Le cœur de page','ui','tutos',{r:'Les vignettes de tutoriels, avec niveau et durée, puis le bouton « Voir plus de tutoriels » relevé sur la préproduction.',
      e:['Titre de vignette en H3','Afficher le niveau : facile, intermédiaire, avancé','Afficher la durée'],
      x:'Les H3 actuels sont bons : « Tuto maquillage citrouille », « Tuto maquillage sorcière ».'}],
    ['Bloc éditorial (H2)','Absent aujourd’hui','red','edit',{r:'Sans texte, la page n’a aucune matière à indexer.',
@@ -2070,7 +2175,8 @@
    ['H1 + chapô','En-tête','seo','hero',{r:'Requête produit. Ajouter systématiquement « enfant » : sans lui, la requête devient adulte et inatteignable.',
      e:['H1 de 55 à 65 signes','Chapô de 250 signes : à quoi ça sert, pour quel âge'],
      x:'<b>H1 :</b> Crayons de maquillage enfant bio : tracés fins et couleurs vives'}],
-   ['Filtres + grille','Boutique','ui','filtersgrid',{r:'Le catalogue.',e:['Filtres en paramètres, non indexables'],x:'Pas de rédaction.'}],
+   ['Filtres + grille produits','Filtres à gauche, tri à droite','ui','shop',{r:'Le catalogue de la catégorie : panneau de filtres à gauche, tri à droite, grille au centre. Même disposition que les pages Occasion.',
+     e:['Filtres et tri en paramètres, non indexables','Tri par défaut : pertinence, pas nouveauté'],x:'Pas de rédaction.'}],
    ['Comment choisir (H2)','Réassurance','seo','edit',{r:'Le bloc qui lève les objections : composition, âge, retrait.',
      e:['400 à 600 signes'],x:'<b>H2 :</b> Bien choisir ses crayons de maquillage pour enfant'}],
    ['Les looks à faire avec (H2)','Maillage','seo','looks',{r:'Renvoie vers les Thématiques et Tutoriels réalisables avec ce produit.',
@@ -2120,6 +2226,18 @@
   var zc=$('zonClose'); if(zc) zc.addEventListener('click',closeZon);
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&zon.classList.contains('open')) closeZon(); });
   if(/[?&]vue=zoning/i.test(location.search)||/^#zoning/i.test(location.hash)) openZon();
+})();
+</script>
+
+<script>
+(function(){
+  var rm=document.getElementById('rm');
+  function o(){ rm.classList.add('open'); document.body.style.overflow='hidden'; }
+  function c(){ rm.classList.remove('open'); document.body.style.overflow=''; }
+  var b=document.getElementById('rmBtn'); if(b) b.addEventListener('click',o);
+  var x=document.getElementById('rmClose'); if(x) x.addEventListener('click',c);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&rm.classList.contains('open')) c(); });
+  if(/[?&]vue=roadmap/i.test(location.search)||/^#roadmap/i.test(location.hash)) o();
 })();
 </script>
 </body>
