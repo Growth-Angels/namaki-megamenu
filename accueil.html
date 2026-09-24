@@ -54,37 +54,22 @@
 .hp .ttl{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;align-items:flex-start;padding-bottom:32px;}
 .hp .ttl-l{flex:1 0 0;min-width:min(350px,100%);display:flex;flex-direction:column;gap:8px;}
 
-/* ---------- HERO ---------- */
-.hero{position:relative;z-index:2;min-height:764px;padding:32px 16px;display:flex;flex-direction:column;align-items:center;}
+/* ---------- HERO (maquette mise à jour 6262) : tient dans la ligne de flottaison ---------- */
+.hero{position:relative;z-index:2;height:calc(100svh - var(--hdr,103px));min-height:440px;max-height:900px;
+  padding:32px 16px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;}
 .hero-bg{position:absolute;inset:0;pointer-events:none;}
 .hero-bg img{width:100%;height:100%;object-fit:cover;}
-.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(47,39,34,.8),rgba(47,39,34,0));}
-.hero-main{position:relative;flex:1 0 0;width:100%;max-width:1512px;display:flex;flex-direction:column;justify-content:space-between;}
-.hero-top{flex:1 0 0;display:flex;flex-direction:column;gap:16px;padding-top:40px;}
-.hero-title{display:flex;flex-direction:column;white-space:nowrap;}
-.hero-row{display:flex;align-items:center;flex-wrap:wrap;column-gap:20px;}
-.hero-title .t{font-weight:500;font-size:24px;line-height:1.3;letter-spacing:1px;color:var(--light);}
-.hero-row .bio{font-size:48px;line-height:56px;letter-spacing:2.88px;color:var(--sunny);}
-.hero-row2{display:flex;align-items:center;flex-wrap:wrap;column-gap:20px;line-height:1.3;letter-spacing:1px;}
-/* mot animé : créatif / délicat */
-.hero-word{position:relative;height:64px;width:263px;overflow:hidden;font-size:48px;color:var(--sunny);}
-.hero-word .trk{position:absolute;left:0;top:0;width:243px;animation:hpWord 5s cubic-bezier(.65,0,.35,1) infinite;}
-.hero-word .trk span{display:block;height:83px;line-height:1.3;text-align:left;}
-@keyframes hpWord{0%,40%{transform:translateY(0)}50%,90%{transform:translateY(-83px)}100%{transform:translateY(-166px)}}
-.hero-desc{max-width:616px;font-weight:400;font-size:20px;line-height:24px;color:var(--light);}
-.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;}
-.hero-ts{width:81px;height:134px;border-radius:50px;overflow:hidden;position:relative;flex:0 0 auto;}
-.hero-ts img{position:absolute;max-width:none;height:781.48%;width:596.94%;left:-18.37%;top:-598.77%;}
-.hero-right{position:relative;width:218px;flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:8px;}
-.hero-visual{position:relative;width:176px;height:191.132px;}
-.hero-visual .blob{position:absolute;inset:0;width:176px;height:191.132px;object-fit:contain;}
-.hero-visual .hv-prod{position:absolute;left:13px;top:21px;width:150px;height:150px;overflow:hidden;}
-.hero-visual .hv-prod img{position:absolute;width:151.045px;height:151.692px;left:calc(50% + 7.29px);top:calc(50% - .2px);
-  transform:translate(-50%,-50%);object-fit:cover;max-width:none;}
-.hero-bio{position:absolute;left:145px;top:-20.46px;width:73px;height:73px;border-radius:613px;background:var(--light);
-  padding:12.269px;display:flex;align-items:center;justify-content:center;}
-.hero-bio img{height:100%;aspect-ratio:1;object-fit:cover;}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(47,39,34,0),rgba(47,39,34,.8));}
+.hero-txt{position:relative;display:flex;flex-direction:column;gap:16px;width:546px;max-width:100%;text-align:center;color:var(--light);}
+.hero-sub{font-weight:300;font-size:clamp(18px,3.74vw,26.156px);line-height:1.25;}
+.hero-h1{font-weight:300;font-size:clamp(34px,9.34vw,65.389px);line-height:1.1;}
+.hero-h1 .ch{color:#FDFBF9;letter-spacing:.06em;}
+.hero .btn{position:relative;}
 .hero-wave{position:absolute;left:-50px;bottom:-22px;width:806px;height:31px;max-width:none;z-index:1;}
+/* badge Trusted Shops : fixe en bas à gauche, taille réduite */
+.hp-ts{position:fixed;left:12px;bottom:12px;z-index:60;width:56px;height:93px;border-radius:35px;overflow:hidden;
+  box-shadow:0 4px 14px rgba(47,39,34,.18);}
+.hp-ts img{position:absolute;max-width:none;height:781.48%;width:596.94%;left:-18.37%;top:-598.77%;}
 
 /* ---------- BANDEAU RÉASSURANCE (défilant) ---------- */
 .ribbon{position:relative;height:60px;background:var(--bg);border-bottom:1px solid var(--bg);overflow:hidden;display:flex;align-items:center;}
@@ -263,13 +248,37 @@
 .hp .ft-copy{font-size:12px;line-height:16px;text-align:center;padding:0 16px;margin-top:-60px;}
 
 @media (prefers-reduced-motion:reduce){
-  .ribbon-track,.hero-word .trk{animation:none !important;}
+  .ribbon-track{animation:none !important;}
 }
 
 /* les rails débordent jusqu'au bord droit de l'écran, comme dans la maquette */
 .gam-rail,.prod-rail,.promo-rail{margin-right:-16px;padding-right:16px;}
 .tem-car{margin-right:-16px;width:auto;align-self:stretch;}
 .tem-car .nav-arrow{right:0;}
+
+/* ---------- Slider d'images dans les fiches produit ---------- */
+.pc-slides{position:absolute;inset:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+  overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;}
+.pc-slides::-webkit-scrollbar{display:none;}
+.pc-slide{position:relative;flex:0 0 100%;height:100%;scroll-snap-align:center;scroll-snap-stop:always;overflow:hidden;}
+.pc-slide>img.alt{position:absolute;inset:14px;width:calc(100% - 28px);height:calc(100% - 28px);object-fit:contain;}
+.pc-dots{position:absolute;left:0;right:0;bottom:6px;display:flex;justify-content:center;gap:6px;z-index:2;pointer-events:none;}
+.hp .pc-dots button{pointer-events:auto;width:6px;height:6px;border-radius:99px;background:#D6D1CC;transition:width .2s,background .2s;}
+.hp .pc-dots button.on{width:16px;background:var(--dark);}
+.pc-tag{z-index:2;}
+
+/* ---------- En-tête mobile : logo à gauche, puis recherche, panier, compte, menu ---------- */
+.nmk-hsearch{display:none !important;}
+@media (max-width:960px){
+  .v2{overflow-x:clip !important;}
+  .nmk-brandrow{position:sticky;top:0;z-index:45;box-shadow:0 1px 0 rgba(47,39,34,.06);}
+  .nmk-brandrow-in{display:flex !important;align-items:center;}
+  .nmk-brand{order:0;margin-right:auto;justify-self:auto;}
+  .nmk-actions{order:1;gap:22px !important;}
+  .nmk-burger{order:2;margin-left:10px;margin-right:-10px;}
+  .nmk-hsearch{display:grid !important;order:1;}
+  .nmk-actions .is-cart{order:2;} .nmk-actions .is-acc{order:3;} .nmk-actions .is-fav{display:none !important;}
+}
 
 </style>
 </head>
@@ -852,37 +861,20 @@
       <section class="mob-sub" id="mobSub" aria-live="polite"></section>
     </aside>
   </div>
-</div>
 <!-- ================= PAGE D'ACCUEIL (maquette Figma « Mobile ») ================= -->
 <main class="hp" id="hp">
 
   <!-- HERO -->
-  <section class="hero" aria-label="Le maquillage bio pour enfant">
+  <section class="hero" aria-label="Halloween">
     <div class="hero-bg" aria-hidden="true"><img src="accueil/85295.jpg" alt="" fetchpriority="high"></div>
-    <div class="hero-main">
-      <div class="hero-top">
-        <h1 class="hero-title">
-          <span class="hero-row"><span class="t">Le maquillage</span><span class="ch bio">bio</span></span>
-          <span class="hero-row2"><span class="t">pour enfant</span>
-            <span class="hero-word ch" aria-label="créatif, délicat"><span class="trk" aria-hidden="true"><span>créatif</span><span>délicat</span><span>créatif</span></span></span>
-          </span>
-        </h1>
-        <p class="hero-desc">Maquillage, vernis et tatouages naturels pour les enfants dès 3 ans. Des produits testés, faciles à retirer à l’eau</p>
-      </div>
-      <div class="hero-bottom">
-        <div class="hero-ts"><img src="accueil/5d89f.jpg" alt="Trusted Shops : 4,73 sur 5"></div>
-        <div class="hero-right">
-          <div class="hero-visual">
-            <img class="blob" src="accueil/4bfd0.png" alt="">
-            <div class="hv-prod"><img src="accueil/d9912.png" alt="Set 3 vernis à l'eau"></div>
-          </div>
-          <a class="btn" href="#">Collection Halloween</a>
-          <div class="hero-bio"><img src="accueil/3e4ad.png" alt="Certifié Cosmos Organic"></div>
-        </div>
-      </div>
+    <div class="hero-txt">
+      <p class="hero-sub">Maquillage bio pour enfant</p>
+      <h1 class="hero-h1">Fêtez <span class="ch">Halloween</span><br>comme il se doit</h1>
     </div>
+    <a class="btn" href="#">La collection d’Halloween</a>
     <img class="hero-wave" src="accueil/73883.svg" alt="" aria-hidden="true">
   </section>
+  <a class="hp-ts" href="#" aria-label="Avis Trusted Shops : 4,73 sur 5"><img src="accueil/5d89f.jpg" alt=""></a>
 
   <!-- BANDEAU RÉASSURANCE -->
   <div class="ribbon" aria-label="Nos engagements"><div class="ribbon-track" id="ribbon"></div></div>
@@ -1073,8 +1065,15 @@
     var im=c?'<img src="'+f+'" alt="" loading="lazy" style="height:'+c[0]+'%;left:'+c[1]+'%;top:'+c[2]+'%;width:'+c[3]+'%">':'<img class="cover" src="'+f+'" alt="" loading="lazy">';
     return '<div class="rot" style="width:'+o[0]+'px;height:'+o[1]+'px;left:calc(50% + '+o[2]+'px);top:calc(50% + '+o[3]+'px)"><div style="width:'+o[4]+'px;height:'+o[5]+'px">'+im+'</div></div>';
   }
+  var POOL=['d9912','47e86','5d949','dda9a','99831','c00e9'], PROD_I=0;
   function card(p){
-    return '<article class="pc"><div class="pc-top"><div class="pc-vis">'+vis(p.v)+'</div>'
+    var own=(V[p.v].f||p.v), alts=POOL.filter(function(x){return x!==own;});
+    var k=(PROD_I++)%alts.length, a1=alts[k], a2=alts[(k+2)%alts.length];
+    return '<article class="pc"><div class="pc-top"><div class="pc-slides">'
+      +'<div class="pc-slide"><div class="pc-vis">'+vis(p.v)+'</div></div>'
+      +'<div class="pc-slide"><img class="alt" src="'+A+a1+'.png" alt="" loading="lazy"></div>'
+      +'<div class="pc-slide"><img class="alt" src="'+A+a2+'.png" alt="" loading="lazy"></div></div>'
+      +'<div class="pc-dots"><button class="on" aria-label="Image 1"></button><button aria-label="Image 2"></button><button aria-label="Image 3"></button></div>'
       +(p.tag?'<span class="pc-tag'+(p.occ?' occ':'')+'">'+p.tag+'</span>':'')+'</div>'
       +'<div class="pc-bot"><div class="pc-ti"><h3 class="pc-name">'+(p.n||"Set 3 vernis à l'eau + lime")+'</h3>'
       +'<div class="pc-price">'+(p.old?'<span class="pc-old">'+p.old+'</span>':'')+'<span class="pc-now"><span>'+p.p+'</span><span>€</span></span></div></div>'
@@ -1101,6 +1100,32 @@
     +'<p class="rev-n">Sophie S.</p></div>';
   document.getElementById('temRail').innerHTML=rev+rev+rev+rev+rev;
 
+  /* slider des fiches : points synchronisés au défilement, clic sur un point */
+  document.querySelectorAll('.hp .pc-top').forEach(function(t){
+    var s=t.querySelector('.pc-slides'), d=t.querySelectorAll('.pc-dots button'), raf=0;
+    s.addEventListener('scroll',function(){ cancelAnimationFrame(raf); raf=requestAnimationFrame(function(){
+      var i=Math.round(s.scrollLeft/s.clientWidth); d.forEach(function(b,k){ b.classList.toggle('on',k===i); }); }); },{passive:true});
+    d.forEach(function(b,k){ b.addEventListener('click',function(e){ e.preventDefault(); s.scrollTo({left:k*s.clientWidth,behavior:'smooth'}); }); });
+  });
+
+  /* en-tête mobile : ordre logo, recherche, panier, compte, menu */
+  var acts=document.querySelector('.nmk-actions');
+  if(acts){
+    var ic=acts.querySelectorAll('.nmk-ico');
+    ic.forEach(function(a){ var l=a.getAttribute('aria-label')||'';
+      if(/compte/i.test(l)) a.classList.add('is-acc'); else if(/favoris/i.test(l)) a.classList.add('is-fav'); else if(/panier/i.test(l)) a.classList.add('is-cart'); });
+    var sb=document.createElement('button'); sb.type='button'; sb.className='nmk-ico nmk-hsearch'; sb.setAttribute('aria-label','Rechercher');
+    sb.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10.8" cy="10.8" r="6.6"/><path d="m15.6 15.6 4.7 4.7"/></svg>';
+    sb.addEventListener('click',function(){ var bg=document.getElementById('nmkBurger'); if(bg) bg.click();
+      setTimeout(function(){ var m=document.querySelector('.mob-searchbtn'); if(m) m.click(); },60); });
+    acts.insertBefore(sb,acts.firstChild);
+  }
+
+  /* hauteur de l'en-tête au chargement : le hero remplit le reste de l'écran */
+  function hdr(){ var h=document.querySelector('.hp').getBoundingClientRect().top+window.scrollY;
+    document.documentElement.style.setProperty('--hdr',Math.round(h)+'px'); }
+  hdr(); window.addEventListener('load',hdr); window.addEventListener('resize',hdr);
+
   /* flèches des rails : avance d'un écran, revient au début en fin de course */
   document.querySelectorAll('.hp .nav-arrow[data-rail]').forEach(function(b){
     b.addEventListener('click',function(){
@@ -1118,7 +1143,7 @@
 })();
 </script>
 
-
+</div>
 <script>
 (function(){
   // Sécurité : garantir le viewport mobile (sinon la media query ≤960px ne se déclenche pas
